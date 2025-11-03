@@ -1,0 +1,6018 @@
+# UI8Kit/Core - Complete Documentation for LLM Context
+# ================================================================================
+# Generated: 2025-11-03T19:25:50.727Z
+# Total Files: 23
+# ================================================================================
+
+## TABLE OF CONTENTS
+
+1. 01-overview\README.md
+2. 02-getting-started\README.md
+3. 03-architecture\build-system\README.md
+4. 03-architecture\component-registry\README.md
+5. 03-architecture\core-components\README.md
+6. 03-architecture\layouts\README.md
+7. 03-architecture\package-structure\README.md
+8. 03-architecture\README.md
+9. 03-architecture\typescript-configuration\README.md
+10. 03-architecture\ui-components\README.md
+11. 03-architecture\variant-system\README.md
+12. 04-api-reference\core-components\README.md
+13. 04-api-reference\layout-components\README.md
+14. 04-api-reference\README.md
+15. 04-api-reference\ui-components\README.md
+16. 05-development-guide\advanced-workflow\README.md
+17. 05-development-guide\basic-workflow\README.md
+18. 05-development-guide\best-practices\README.md
+19. 05-development-guide\dark-mode\README.md
+20. 05-development-guide\README.md
+21. 06-troubleshooting\README.md
+22. README.md
+23. SUMMARY.md
+
+# ================================================================================
+# DOCUMENTATION CONTENT
+# ================================================================================
+
+# FILE 1: 01-overview\README.md
+# ================================================================================
+# Overview
+
+## Introduction to UI8Kit/Core
+
+**UI8Kit/Core** is a three-layered React UI component library built with utility-first classes and clean HTML5 semantic tag approach. The architecture aligns with atomic design philosophy, providing a structured and scalable system for building modern web interfaces.
+
+## Core Philosophy: Minimalism
+
+The fundamental motivation behind UI8Kit/Core is **minimalism**. Complex interfaces can be built using just **15 composite components** and **12 reusable variants** that cover approximately 80% of design scenarios. This approach delivers:
+
+- **Minimal code footprint** - Only what you need, nothing more
+- **Eliminated redundant classes** - Centralized variant system prevents duplication
+- **Unlimited design flexibility** - Tailwind utility-first approach enables any layout
+
+## Architecture at a Glance
+
+UI8Kit/Core follows a three-layered architectural model:
+
+```
+┌─────────────────────────────────────────────┐
+│  Layouts (Templates)                        │
+│  DashLayout, SplitBlock, Grid, Flex         │
+└─────────────────────────────────────────────┘
+                     ↑
+┌─────────────────────────────────────────────┐
+│  UI Components (Composite)                  │
+│  Card, Button, Input, Select, etc.          │
+│  With prop forwarding and variants          │
+└─────────────────────────────────────────────┘
+                     ↑
+┌─────────────────────────────────────────────┐
+│  Core Components (Primitives)               │
+│  Box, Block, Grid, Stack, Button, etc.      │
+│  Basic building blocks                      │
+└─────────────────────────────────────────────┘
+```
+
+This structure mirrors atomic design:
+- **Atoms** → Core Components (basic primitives)
+- **Molecules** → UI Components (composite components)
+- **Organisms** → Layouts (complex page layouts)
+
+## Key Features
+
+### 1. CVA-Based Variant System
+The component styling logic is centralized using Class Variance Authority (CVA). All variants are composable and reusable across components:
+- Spacing (margin/padding)
+- Colors (backgrounds/text)
+- Layout (width/height)
+- Shadows, borders, rounded corners
+- Typography properties
+- Flexbox and grid properties
+
+### 2. Prop Forwarding API
+Extended components use a consistent prop forwarding pattern that allows composing base components with additional variant props from the core system. This enables unlimited customization without leaving the design system.
+
+### 3. Compound Components Pattern
+Components use the compound pattern (e.g., `Card.Header`, `Card.Content`, `Card.Footer`) for flexible composition while maintaining type safety.
+
+### 4. Data-Class Attributes
+All components use consistent `data-class` attributes for identification and DOM targeting, enabling:
+- Easy testing and debugging
+- Programmatic DOM manipulation
+- Component tracking and analytics
+
+### 5. TypeScript-First
+Full TypeScript support with strict type checking, path aliases, and generated type definitions.
+
+## Integration Formats
+
+UI8Kit/Core supports multiple integration scenarios:
+
+1. **NPM Installation** - Standard `npm install ui8kit-core`
+2. **Per-Component Installation** - Via `npx buildy-ui add [component]`
+3. **JSON Registry** - Programmatic access to component metadata
+4. **Git Submodule** - For monorepo architectures
+5. **Direct Source Integration** - For custom builds
+
+## What You'll Learn
+
+This documentation covers:
+- **Architecture** - Deep dive into the three-layer system
+- **API Reference** - Complete documentation for all components
+- **Development Guide** - Practical workflows and patterns
+- **Best Practices** - Recommendations for optimal usage
+- **Dark Mode** - Theme implementation and configuration
+
+## Next Steps
+
+- [Getting Started](../02-getting-started/README.md) - Set up the library in your project
+- [Architecture](../03-architecture/README.md) - Understand the system structure
+- [API Reference](../04-api-reference/README.md) - Explore available components
+
+
+# ================================================================================
+
+# FILE 2: 02-getting-started\README.md
+# ================================================================================
+# Getting Started
+
+## Installation
+
+### NPM Installation
+
+```bash
+npm install ui8kit-core
+```
+
+### Yarn Installation
+
+```bash
+yarn add ui8kit-core
+```
+
+### Bun Installation
+
+```bash
+bun add ui8kit-core
+```
+
+## Basic Setup
+
+### 1. Tailwind CSS Configuration
+
+UI8Kit/Core requires Tailwind CSS to be set up in your project. If you haven't already, follow the [Tailwind CSS installation guide](https://tailwindcss.com/docs/installation).
+
+Ensure your `tailwind.config.js` includes:
+
+```javascript
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/ui8kit-core/dist/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+### 2. Import Components
+
+In your React application:
+
+```typescript
+import { Button, Card } from 'ui8kit-core';
+
+export default function App() {
+  return (
+    <Card>
+      <Card.Header>Welcome</Card.Header>
+      <Card.Content>
+        <Button variant="primary">Click me</Button>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Setup for Different Project Types
+
+### Next.js
+
+Add to your `next.config.js`:
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Your existing config...
+};
+
+module.exports = nextConfig;
+```
+
+### Vite
+
+No additional configuration needed. Just ensure Tailwind CSS is installed and configured.
+
+### Create React App
+
+No additional configuration needed beyond standard CRA setup with Tailwind CSS.
+
+## Verification
+
+To verify the installation was successful:
+
+1. Import a component
+2. Use it in your JSX
+3. Check that styles are applied correctly
+
+If styles aren't showing up, ensure:
+- Tailwind CSS is properly configured
+- The content path in `tailwind.config.js` includes UI8Kit/Core
+- Your CSS file imports Tailwind directives
+
+## Next Steps
+
+- [Architecture](../03-architecture/README.md) - Understand how components are organized
+- [API Reference](../04-api-reference/README.md) - Explore available components
+- [Development Guide](../05-development-guide/README.md) - Learn usage patterns
+
+
+# ================================================================================
+
+# FILE 3: 03-architecture\build-system\README.md
+# ================================================================================
+# Build System
+
+## Overview
+
+The Build System handles TypeScript compilation, type definition generation, and output preparation for distribution. It ensures the library is properly compiled and ready for NPM publication.
+
+## Build Process
+
+### Stage 1: TypeScript Compilation
+
+TypeScript source files are compiled to JavaScript:
+
+```bash
+npm run build:ts
+```
+
+Process:
+1. Read TypeScript configuration from `tsconfig.json`
+2. Compile `.ts` and `.tsx` files to `.js`
+3. Output to `dist/` directory
+4. Generate source maps for debugging
+
+### Stage 2: Type Definition Generation
+
+TypeScript declarations are generated for type safety:
+
+```bash
+npm run build:types
+```
+
+Process:
+1. Extract type information from source files
+2. Generate `.d.ts` declaration files
+3. Create type maps for IDE support
+4. Output to `dist/` directory
+
+### Stage 3: Output Processing
+
+Final outputs are prepared:
+
+```bash
+npm run build
+```
+
+Complete process:
+1. Clean previous build artifacts
+2. Compile TypeScript to CommonJS
+3. Compile TypeScript to ES Modules
+4. Generate type definitions
+5. Copy asset files
+6. Verify output structure
+
+## Build Configuration
+
+### TypeScript Configuration
+
+Main compiler settings in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@core/*": ["./src/core/*"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"]
+    }
+  }
+}
+```
+
+Key settings:
+- **target** - Output JavaScript version (ES2020)
+- **module** - Module system (ESNext for flexibility)
+- **declaration** - Generate `.d.ts` files
+- **strict** - Strict type checking enabled
+- **paths** - Import path aliases
+
+### Build Scripts
+
+Standard build scripts in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "npm run build:clean && npm run build:ts && npm run build:types",
+    "build:clean": "rm -rf dist/",
+    "build:ts": "tsc --project tsconfig.json",
+    "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly",
+    "dev": "tsc --watch --project tsconfig.json",
+    "prepublishOnly": "npm run build && npm run test"
+  }
+}
+```
+
+## Output Structure
+
+After building, the `dist/` directory contains:
+
+```
+dist/
+├── index.js                    # CommonJS main export
+├── index.es.js                # ES module main export
+├── index.d.ts                 # TypeScript declarations
+├── core/
+│   ├── ui/
+│   │   ├── button/
+│   │   │   ├── index.js
+│   │   │   ├── index.es.js
+│   │   │   └── index.d.ts
+│   │   └── box/
+│   │       ├── index.js
+│   │       ├── index.es.js
+│   │       └── index.d.ts
+│   └── variants/
+│       ├── index.js
+│       ├── index.es.js
+│       └── index.d.ts
+├── components/
+│   └── ui/
+│       ├── card/
+│       │   ├── index.js
+│       │   ├── index.es.js
+│       │   └── index.d.ts
+│       └── ...
+└── layouts/
+    ├── index.js
+    ├── index.es.js
+    └── index.d.ts
+```
+
+## Build Commands
+
+### Development Build
+
+Continuous compilation while developing:
+
+```bash
+npm run dev
+```
+
+Features:
+- Watches source files for changes
+- Incremental compilation
+- Fast rebuild times
+- Useful for development workflow
+
+### Production Build
+
+Complete build for distribution:
+
+```bash
+npm run build
+```
+
+Process:
+1. Cleans previous build
+2. Compiles all TypeScript
+3. Generates type definitions
+4. Validates output
+5. Ready for NPM publication
+
+### Pre-publish Build
+
+Automatic build before NPM publish:
+
+```bash
+npm publish
+```
+
+This triggers `prepublishOnly` script:
+1. Runs build
+2. Runs tests
+3. Publishes to NPM
+
+## Distribution Formats
+
+### CommonJS Output
+
+For Node.js and older environments:
+
+```javascript
+// dist/index.js
+exports.Button = Button;
+exports.Card = Card;
+```
+
+### ES Module Output
+
+For modern JavaScript environments:
+
+```javascript
+// dist/index.es.js
+export { Button };
+export { Card };
+```
+
+### Type Definitions
+
+For TypeScript support:
+
+```typescript
+// dist/index.d.ts
+export declare const Button: React.ForwardRefExoticComponent<...>;
+export declare const Card: React.ForwardRefExoticComponent<...>;
+```
+
+## Optimization Strategies
+
+### 1. Tree-Shaking
+Enable dead code elimination:
+
+```json
+{
+  "sideEffects": false,
+  "type": "module"
+}
+```
+
+### 2. Code Splitting
+Organize by functionality:
+
+```
+dist/
+├── core/        # Core primitives
+├── components/  # UI components
+└── layouts/     # Layout systems
+```
+
+### 3. Type Definitions
+Include `.d.ts` maps for better IDE support:
+
+```typescript
+"declarationMap": true
+```
+
+## Best Practices
+
+### 1. Always Build Before Publishing
+```bash
+npm run build
+npm publish
+```
+
+### 2. Verify Build Output
+Check `dist/` directory:
+- All files present
+- Correct naming conventions
+- Type definitions generated
+
+### 3. Use Strict Mode
+```typescript
+"strict": true
+```
+
+### 4. Clean Before Building
+```bash
+rm -rf dist/
+npm run build
+```
+
+## Troubleshooting
+
+### Build Fails
+
+Check:
+1. TypeScript configuration
+2. Syntax errors in source
+3. Missing type definitions
+4. Path aliases configuration
+
+### Type Definition Issues
+
+Verify:
+1. `declaration: true` in tsconfig
+2. Export statements are correct
+3. Types are properly defined
+
+### Module Resolution Errors
+
+Check:
+1. Import paths are correct
+2. Path aliases in tsconfig match
+3. Files exist in expected locations
+
+## Next Steps
+
+- [Package Structure](../package-structure/README.md) - Understand distribution formats
+- [TypeScript Configuration](../typescript-configuration/README.md) - Deep dive into TypeScript setup
+- [Component Registry](../component-registry/README.md) - Learn about component metadata
+
+
+# ================================================================================
+
+# FILE 4: 03-architecture\component-registry\README.md
+# ================================================================================
+# Component Registry
+
+## Overview
+
+The Component Registry is a `registry.json` file that contains metadata about all components in UI8Kit/Core. This enables tooling support, component discovery, and programmatic access to component information.
+
+## Registry Purpose
+
+The registry serves multiple purposes:
+
+1. **Component Discovery** - List all available components
+2. **Tooling Support** - Enable CLI tools like `npx buildy-ui add`
+3. **Documentation Generation** - Auto-generate component docs
+4. **IDE Integration** - IntelliSense and autocomplete support
+5. **Component Metadata** - Props, types, and usage information
+
+## Registry Structure
+
+### Basic Format
+
+```json
+{
+  "version": "3.0.0",
+  "components": [
+    {
+      "name": "Button",
+      "type": "component",
+      "category": "inputs",
+      "path": "src/components/ui/button",
+      "exports": ["Button"],
+      "description": "Primary button component",
+      "props": {
+        "variant": {
+          "type": "string",
+          "values": ["primary", "secondary"],
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "values": ["sm", "md", "lg"],
+          "default": "md"
+        }
+      }
+    }
+  ]
+}
+```
+
+## Component Entry
+
+Each component in the registry includes:
+
+### Basic Information
+
+```json
+{
+  "name": "Button",
+  "type": "component",
+  "category": "inputs",
+  "path": "src/components/ui/button"
+}
+```
+
+- **name** - Component display name
+- **type** - Type (component, layout, primitive)
+- **category** - Category grouping (inputs, containers, layouts)
+- **path** - Source file path
+
+### Exports
+
+```json
+{
+  "exports": ["Button", "ButtonGroup", "ButtonIcon"],
+  "defaultExport": "Button"
+}
+```
+
+Lists all exports from the component module.
+
+### Description
+
+```json
+{
+  "description": "Primary button component with multiple variants",
+  "longDescription": "A versatile button component that supports various sizes, variants, and states. Includes prop forwarding for extended customization."
+}
+```
+
+Short and long descriptions for documentation.
+
+### Props
+
+```json
+{
+  "props": {
+    "variant": {
+      "type": "string",
+      "enum": ["primary", "secondary", "danger"],
+      "default": "primary",
+      "description": "Button visual variant"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Button size"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Disable the button"
+    }
+  }
+}
+```
+
+Detailed prop information for each component.
+
+### Installation
+
+```json
+{
+  "installation": {
+    "npm": "npm install ui8kit-core",
+    "cli": "npx buildy-ui add button",
+    "import": "import { Button } from 'ui8kit-core';"
+  }
+}
+```
+
+Installation methods and import statements.
+
+### Usage Example
+
+```json
+{
+  "examples": [
+    {
+      "title": "Basic Button",
+      "code": "<Button>Click me</Button>"
+    },
+    {
+      "title": "Primary Variant",
+      "code": "<Button variant=\"primary\">Submit</Button>"
+    }
+  ]
+}
+```
+
+Usage examples for developers.
+
+## Registry Organization
+
+### By Category
+
+Group components logically:
+
+```json
+{
+  "categories": {
+    "inputs": ["Button", "Input", "Select", "Checkbox"],
+    "containers": ["Card", "Box", "Block"],
+    "layouts": ["DashLayout", "SplitBlock", "Grid"],
+    "typography": ["Heading", "Text", "Code"]
+  }
+}
+```
+
+### By Layer
+
+Organize by architectural layer:
+
+```json
+{
+  "layers": {
+    "core": ["Box", "Block", "Grid", "Stack"],
+    "components": ["Card", "Button", "Input"],
+    "layouts": ["DashLayout", "SplitBlock"]
+  }
+}
+```
+
+### By Type
+
+Group by component type:
+
+```json
+{
+  "types": {
+    "primitive": ["Box", "Block", "Grid"],
+    "composite": ["Card", "Button", "Input"],
+    "layout": ["DashLayout", "SplitBlock"],
+    "compound": ["Card.Header", "Card.Content"]
+  }
+}
+```
+
+## Complete Registry Example
+
+```json
+{
+  "version": "3.0.0",
+  "title": "UI8Kit/Core",
+  "description": "Three-layered React UI component library",
+  "repository": "https://github.com/org/ui8kit-core",
+  "license": "MIT",
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "type": "component",
+      "layer": "components",
+      "category": "inputs",
+      "path": "src/components/ui/button",
+      "exports": ["Button"],
+      "description": "Versatile button component with multiple variants",
+      "props": {
+        "variant": {
+          "type": "string",
+          "enum": ["primary", "secondary"],
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "installation": {
+        "npm": "npm install ui8kit-core",
+        "cli": "npx buildy-ui add button",
+        "import": "import { Button } from 'ui8kit-core';"
+      },
+      "examples": [
+        {
+          "title": "Basic",
+          "code": "<Button>Click me</Button>"
+        },
+        {
+          "title": "Primary",
+          "code": "<Button variant=\"primary\">Submit</Button>"
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "type": "component",
+      "layer": "components",
+      "category": "containers",
+      "path": "src/components/ui/card",
+      "exports": ["Card"],
+      "compound": ["Card.Header", "Card.Content", "Card.Footer"],
+      "description": "Container component with header, content, and footer"
+    }
+  ]
+}
+```
+
+## Using the Registry
+
+### For Tooling
+
+CLI tools can query the registry:
+
+```javascript
+// buildy-ui install tool
+const registry = require('ui8kit-core/registry.json');
+const button = registry.components.find(c => c.id === 'button');
+console.log(button.installation.cli);
+```
+
+### For Documentation
+
+Auto-generate documentation:
+
+```javascript
+// Generate component page
+const component = registry.components[0];
+const docs = `
+# ${component.name}
+
+${component.description}
+
+## Props
+${Object.entries(component.props).map(([name, prop]) => 
+  `- **${name}** (${prop.type}): ${prop.description}`
+).join('\n')}
+`;
+```
+
+### For IDE Integration
+
+Provide autocomplete support:
+
+```typescript
+// TypeScript definitions from registry
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+}
+```
+
+## Registry Maintenance
+
+### Updating the Registry
+
+When adding new components:
+
+1. Create component source files
+2. Export from module
+3. Add entry to registry.json
+4. Update categories if needed
+5. Add usage examples
+6. Commit and publish
+
+### Validation
+
+Validate registry structure:
+
+```bash
+npm run validate:registry
+```
+
+Check for:
+- Valid JSON syntax
+- Required fields present
+- Unique component IDs
+- Correct paths
+- Valid prop types
+
+## Best Practices
+
+### 1. Keep Registry Synchronized
+```json
+{
+  "components": [
+    {
+      "name": "Button",
+      "path": "src/components/ui/button"
+    }
+  ]
+}
+```
+
+Update registry when components change.
+
+### 2. Include Complete Metadata
+```json
+{
+  "description": "Clear description",
+  "props": { /* comprehensive */ },
+  "examples": [ /* practical examples */ ]
+}
+```
+
+### 3. Use Consistent IDs
+```json
+{
+  "id": "button",
+  "name": "Button"
+}
+```
+
+IDs in kebab-case, names in PascalCase.
+
+### 4. Document All Props
+```json
+{
+  "props": {
+    "variant": {
+      "type": "string",
+      "enum": [...],
+      "description": "..."
+    }
+  }
+}
+```
+
+## Next Steps
+
+- [Package Structure](../package-structure/README.md) - Understand package configuration
+- [Build System](../build-system/README.md) - Learn about the build process
+- [TypeScript Configuration](../typescript-configuration/README.md) - Type support details
+
+
+# ================================================================================
+
+# FILE 5: 03-architecture\core-components\README.md
+# ================================================================================
+# Core Components
+
+## Overview
+
+Core Components are the foundational primitives of UI8Kit/Core, located in `src/core/ui/`. They represent the "atoms" in atomic design, providing basic building blocks with essential styling and TypeScript support.
+
+## Key Characteristics
+
+- **Minimal functionality** - Focus on single responsibilities
+- **forwardRef support** - Full ref forwarding for DOM access
+- **HTML attributes** - Native HTML prop support
+- **TypeScript types** - Full type safety
+- **No variant props** - Keep primitives lean
+
+## Fundamental Concepts
+
+### Props and Interfaces
+
+Core components accept standard React props plus HTML attributes:
+
+```typescript
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  // Component-specific props
+}
+```
+
+### ForwardRef Implementation
+
+All core components implement `forwardRef` for direct DOM access:
+
+```typescript
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    return <button ref={ref} {...props} />;
+  }
+);
+```
+
+### Element Naming
+
+Components are named after their primary HTML element:
+- `<Button>` renders `<button>`
+- `<Box>` renders `<div>` with semantic styling
+- `<Grid>` renders `<div>` with grid layout
+
+### Display Configurations
+
+Components handle various display scenarios:
+- Block-level vs. inline elements
+- Flexbox vs. grid layouts
+- Semantic HTML tags
+
+## Common Patterns
+
+### HTML Attribute Forwarding
+
+All HTML attributes are forwarded to the underlying element:
+
+```typescript
+<Button 
+  type="submit" 
+  disabled 
+  aria-label="Submit form"
+>
+  Submit
+</Button>
+```
+
+### Styling Approach
+
+Core components use Tailwind utility classes directly:
+
+```typescript
+className="px-4 py-2 bg-blue-600 text-white rounded-md"
+```
+
+## Next Steps
+
+- [Variant System](../variant-system/README.md) - Learn how to extend with styling variants
+- [UI Components](../ui-components/README.md) - See how core components are composed
+- [API Reference - Core Components](../../04-api-reference/core-components/README.md) - Complete component documentation
+
+
+# ================================================================================
+
+# FILE 6: 03-architecture\layouts\README.md
+# ================================================================================
+# Layouts
+
+## Overview
+
+Layouts are complex page template systems located in `src/layouts/`. They represent the "organisms" in atomic design, composing UI components to create complete page structures for common scenarios: landing pages, dashboards, websites, and admin panels.
+
+## Key Characteristics
+
+- **Composition of components** - Built from UI and core components
+- **Pre-built structures** - Common layout patterns ready to use
+- **Template flexibility** - Customizable through props and children
+- **Responsive design** - Mobile-friendly by default
+- **Semantic HTML** - Proper document structure
+
+## Common Layout Types
+
+### 1. DashLayout
+Vertical dashboard layout with sidebar navigation:
+
+```typescript
+<DashLayout
+  sidebar={<NavMenu />}
+  header={<TopBar />}
+>
+  <DashLayout.Content>
+    Page content
+  </DashLayout.Content>
+</DashLayout>
+```
+
+Use cases:
+- Admin dashboards
+- Application interfaces
+- Complex web applications
+
+### 2. SplitBlock
+Two-column split layout:
+
+```typescript
+<SplitBlock 
+  left={<Sidebar />}
+  right={<MainContent />}
+  ratio="1:2"
+/>
+```
+
+Use cases:
+- Content with sidebar
+- Two-panel interfaces
+- Master-detail views
+
+### 3. LayoutBlock
+Flexible container for general layouts:
+
+```typescript
+<LayoutBlock
+  padding="lg"
+  maxWidth="6xl"
+>
+  Flexible content
+</LayoutBlock>
+```
+
+Use cases:
+- General page containers
+- Responsive wrappers
+- Content sections
+
+### 4. Grid
+Advanced grid layout system:
+
+```typescript
+<Grid
+  cols={3}
+  gap="md"
+>
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+```
+
+Use cases:
+- Product grids
+- Card layouts
+- Dashboard widgets
+
+### 5. Flex
+Flexbox layout container:
+
+```typescript
+<Flex
+  direction="row"
+  justifyContent="between"
+  alignItems="center"
+  gap="md"
+>
+  Content items
+</Flex>
+```
+
+Use cases:
+- Navigation bars
+- Button groups
+- Flexible arrangements
+
+## Composition Patterns
+
+### Pattern 1: Simple Container
+```typescript
+export const MainLayout = ({ children }) => (
+  <LayoutBlock padding="lg" maxWidth="6xl">
+    <Header />
+    {children}
+    <Footer />
+  </LayoutBlock>
+);
+```
+
+### Pattern 2: Dashboard Layout
+```typescript
+export const AdminLayout = ({ children }) => (
+  <DashLayout sidebar={<Sidebar />} header={<NavBar />}>
+    <DashLayout.Content>
+      {children}
+    </DashLayout.Content>
+  </DashLayout>
+);
+```
+
+### Pattern 3: Two-Column Split
+```typescript
+export const BlogLayout = ({ post, sidebar }) => (
+  <LayoutBlock>
+    <SplitBlock
+      left={<ArticleContent post={post} />}
+      right={sidebar}
+      ratio="2:1"
+    />
+  </LayoutBlock>
+);
+```
+
+## Responsive Considerations
+
+All layouts include responsive features:
+
+- **Mobile first** - Base styles for mobile devices
+- **Breakpoints** - Tailwind responsive prefixes (sm:, md:, lg:, xl:)
+- **Stack on small** - Layouts collapse to single column on mobile
+- **Touch targets** - Appropriate sizing for touch devices
+
+## Layout Construction Strategies
+
+### For Landing Pages
+```typescript
+<LayoutBlock>
+  <Hero />
+  <Features />
+  <Testimonials />
+  <CTA />
+  <Footer />
+</LayoutBlock>
+```
+
+### For Dashboards
+```typescript
+<DashLayout sidebar={<Navigation />}>
+  <DashLayout.Content>
+    <Grid cols={3} gap="md">
+      <StatCard />
+      <ChartCard />
+      <TableCard />
+    </Grid>
+  </DashLayout.Content>
+</DashLayout>
+```
+
+### For Websites
+```typescript
+<LayoutBlock>
+  <Header />
+  <SplitBlock left={<Sidebar />} right={<MainContent />} />
+  <Footer />
+</LayoutBlock>
+```
+
+### For Admin Panels
+```typescript
+<DashLayout sidebar={<AdminMenu />} header={<AdminBar />}>
+  <Grid cols={2} gap="lg">
+    <UserTable />
+    <LogsWidget />
+  </Grid>
+</DashLayout>
+```
+
+## Best Practices
+
+### 1. Compose Layouts from UI Components
+```typescript
+// ✓ Good
+<Grid cols={3} gap="md">
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+
+// ✗ Avoid - low-level styling
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+```
+
+### 2. Use Semantic HTML
+```typescript
+// ✓ Good
+<header><NavBar /></header>
+<main><Content /></main>
+<footer><Footer /></footer>
+
+// ✗ Avoid - non-semantic
+<div><NavBar /></div>
+<div><Content /></div>
+<div><Footer /></div>
+```
+
+### 3. Leverage Responsive Design
+```typescript
+// ✓ Good - responsive
+<Grid cols={{base: 1, md: 2, lg: 3}} gap="md">
+
+// ✗ Avoid - fixed layouts
+<Grid cols={3} gap="md">
+```
+
+## Next Steps
+
+- [Architecture Overview](../README.md) - Review the full architecture
+- [UI Components](../ui-components/README.md) - See components used in layouts
+- [API Reference - Layout Components](../../04-api-reference/layout-components/README.md) - Complete layout documentation
+
+
+# ================================================================================
+
+# FILE 7: 03-architecture\package-structure\README.md
+# ================================================================================
+# Package Structure
+
+## Overview
+
+The Package Structure defines how UI8Kit/Core is configured, packaged, and distributed through `package.json`. It supports multiple integration formats and distribution methods.
+
+## Package.json Configuration
+
+### Main Entry Points
+
+The library configures multiple entry points for different use cases:
+
+```json
+{
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+}
+```
+
+### Export Points
+
+Different export patterns enable various integration scenarios:
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    },
+    "./button": {
+      "import": "./dist/components/ui/button/index.es.js",
+      "require": "./dist/components/ui/button/index.js"
+    },
+    "./card": {
+      "import": "./dist/components/ui/card/index.es.js",
+      "require": "./dist/components/ui/card/index.js"
+    }
+  }
+}
+```
+
+## Distribution Formats
+
+### 1. CommonJS (CJS)
+For Node.js and older module systems:
+
+```
+dist/index.js
+dist/components/ui/button/index.js
+dist/components/ui/card/index.js
+```
+
+Usage:
+```javascript
+const { Button } = require('ui8kit-core');
+```
+
+### 2. ES Modules (ESM)
+For modern JavaScript environments:
+
+```
+dist/index.es.js
+dist/components/ui/button/index.es.js
+dist/components/ui/card/index.es.js
+```
+
+Usage:
+```javascript
+import { Button } from 'ui8kit-core';
+import Button from 'ui8kit-core/button';
+```
+
+### 3. TypeScript Definitions
+Type definitions for full type safety:
+
+```
+dist/index.d.ts
+dist/components/ui/button/index.d.ts
+dist/components/ui/card/index.d.ts
+```
+
+## Dependencies
+
+### Runtime Dependencies
+
+Core dependencies that are required:
+
+```json
+{
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "class-variance-authority": "^0.7.0",
+    "classnames": "^2.3.0"
+  }
+}
+```
+
+- **react** - React library for component rendering
+- **react-dom** - React DOM utilities
+- **class-variance-authority** - CVA variant system
+- **classnames** - Class name utility (cx function)
+
+### Development Dependencies
+
+Tools for building and testing:
+
+```json
+{
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}
+```
+
+- **typescript** - TypeScript compiler
+- **@types/react** - React TypeScript definitions
+- **@types/react-dom** - React DOM TypeScript definitions
+- **tailwindcss** - Tailwind CSS framework
+
+## Build Scripts
+
+Common build scripts in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "tsc && tailwindcss build",
+    "build:ts": "tsc",
+    "build:types": "tsc --declaration",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/",
+    "prepublishOnly": "npm run build"
+  }
+}
+```
+
+## Integration Formats
+
+### 1. NPM Installation
+Standard package manager installation:
+
+```bash
+npm install ui8kit-core
+```
+
+Usage:
+```javascript
+import { Button, Card } from 'ui8kit-core';
+```
+
+### 2. Per-Component Installation
+Install individual components via CLI:
+
+```bash
+npx buildy-ui add button
+npx buildy-ui add card
+```
+
+### 3. JSON Registry
+Component metadata for programmatic access:
+
+```json
+{
+  "components": [
+    {
+      "name": "Button",
+      "path": "components/ui/button",
+      "description": "Primary button component"
+    }
+  ]
+}
+```
+
+### 4. Git Submodule
+For monorepo integration:
+
+```bash
+git submodule add https://github.com/org/ui8kit-core libs/ui8kit-core
+```
+
+### 5. Source Integration
+Direct source file usage:
+
+```typescript
+import { Button } from '../path/to/ui8kit-core/src/components/ui/button';
+```
+
+## Version Management
+
+### Semantic Versioning
+
+Follow semantic versioning (semver):
+
+```
+MAJOR.MINOR.PATCH
+3.2.1
+│ │ └─ Patch (bug fixes)
+│ └─── Minor (new features, backward compatible)
+└───── Major (breaking changes)
+```
+
+### Changelog
+
+Maintain a `CHANGELOG.md` documenting releases:
+
+```markdown
+## [3.2.0] - 2024-01-15
+
+### Added
+- New Flex layout component
+- Button size variant
+
+### Fixed
+- Card border radius issue
+
+### Changed
+- Updated TypeScript to 5.3
+```
+
+## Publishing to NPM
+
+### Authentication
+
+```bash
+npm login
+npm whoami
+```
+
+### Publishing
+
+```bash
+npm publish
+```
+
+### Pre-publish Scripts
+
+Run tests and build before publishing:
+
+```bash
+npm run test
+npm run build
+npm publish
+```
+
+## Best Practices
+
+### 1. Semantic Export Names
+```json
+{
+  "exports": {
+    "./button": "./dist/components/ui/button/index.js",
+    "./card": "./dist/components/ui/card/index.js"
+  }
+}
+```
+
+### 2. Include Type Definitions
+```json
+{
+  "types": "dist/index.d.ts"
+}
+```
+
+### 3. Manage Dependencies Carefully
+- List all required dependencies
+- Pin dev dependencies to prevent breaking builds
+- Use peer dependencies for flexible integration
+
+### 4. Clear Entry Points
+```json
+{
+  "main": "dist/index.js",
+  "module": "dist/index.es.js"
+}
+```
+
+## Next Steps
+
+- [Build System](../build-system/README.md) - Learn how to build the package
+- [Component Registry](../component-registry/README.md) - Understand component metadata
+- [TypeScript Configuration](../typescript-configuration/README.md) - Review type setup
+
+
+# ================================================================================
+
+# FILE 8: 03-architecture\README.md
+# ================================================================================
+# Architecture
+
+## Overview
+
+UI8Kit/Core follows a three-layered architecture that mirrors atomic design principles. Each layer builds upon the previous one, creating a scalable and maintainable component system.
+
+## The Three Layers
+
+### Layer 1: Core Components (Atoms)
+Located in `src/core/ui/`, these are the foundational primitives:
+- **Box** - Basic container for layout
+- **Block** - Block-level layout component
+- **Grid** - Grid layout system
+- **Stack** - Flexbox-based stacking
+- **Button** - Base button primitive
+
+These components provide basic styling, prop forwarding, and TypeScript support.
+
+[Learn more about Core Components →](./core-components/README.md)
+
+### Layer 2: UI Components (Molecules)
+Located in `src/components/ui/`, these are composite components built from core components:
+- **Card** - Complex container with header, content, footer
+- **Input** - Enhanced input with variants
+- **Select** - Dropdown selection component
+- **Modal** - Dialog/modal component
+- **Alert** - Notification component
+
+These components add higher-level functionality and include the prop forwarding API.
+
+[Learn more about UI Components →](./ui-components/README.md)
+
+### Layer 3: Layouts (Organisms)
+Located in `src/layouts/`, these are complex page layout systems:
+- **DashLayout** - Dashboard layout with sidebar
+- **SplitBlock** - Split/two-column layout
+- **LayoutBlock** - Flexible layout container
+- **Grid** - Advanced grid layout
+- **Flex** - Flexible layout components
+
+These components compose multiple layers to create complete page layouts.
+
+[Learn more about Layouts →](./layouts/README.md)
+
+## Key Architectural Concepts
+
+### CVA-Based Variant System
+The variant system is centralized in `src/core/variants/` using Class Variance Authority (CVA). This provides:
+- Composable, reusable styling units
+- Reduced class duplication
+- Type-safe variant props
+- Consistent design across components
+
+[Deep dive into Variant System →](./variant-system/README.md)
+
+### Prop Forwarding API
+Components support extending base components with additional variant props:
+```typescript
+<Button 
+  variant="primary"           // Core prop
+  padding="lg"                // Variant prop
+  bgColor="blue"              // Variant prop
+>
+  Click me
+</Button>
+```
+
+This pattern enables unlimited customization within the design system.
+
+[Learn about UI Components →](./ui-components/README.md)
+
+### Data-Class Attributes
+All components use `data-class` attributes for identification:
+```html
+<div data-class="card-header">Content</div>
+<div data-class="button-primary">Button</div>
+```
+
+This enables easy DOM targeting, testing, and component tracking.
+
+## Directory Structure
+
+```
+src/
+├── core/
+│   ├── ui/              # Core primitives
+│   ├── variants/        # CVA variant system
+│   └── types/           # Shared TypeScript types
+├── components/
+│   ├── ui/              # Composite UI components
+│   ├── README.md        # Usage examples
+│   └── GUIDE_CREATE_FORM.md  # Custom form guide
+├── layouts/             # Layout components
+├── themes/
+│   └── providers/       # Theme management
+└── styles/              # Global styles
+```
+
+## Package Configuration
+
+The library supports multiple distribution formats through `package.json` configuration:
+- Main entry point for CommonJS
+- ES module exports
+- TypeScript definitions
+- Per-component exports
+
+[Learn about Package Structure →](./package-structure/README.md)
+
+## Build System
+
+The library uses TypeScript for compilation and supports:
+- Automated builds for distribution
+- Type definition generation
+- Multiple output formats
+
+[Learn about Build System →](./build-system/README.md)
+
+## Component Registry
+
+A `registry.json` file provides component metadata for tooling support:
+- Component descriptions
+- Available props
+- Usage examples
+- Installation information
+
+[Learn about Component Registry →](./component-registry/README.md)
+
+## TypeScript Configuration
+
+Full TypeScript support includes:
+- Strict type checking
+- Path aliases for imports
+- Generated type definitions
+- Comprehensive type safety
+
+[Learn about TypeScript Configuration →](./typescript-configuration/README.md)
+
+## Design Philosophy
+
+**Minimalism First**: The architecture is designed around a principle of minimal components for maximum flexibility. Just 15 composite components and 12 reusable variants cover approximately 80% of typical design scenarios.
+
+This means:
+- Learning curve is reduced
+- Maintenance is simplified
+- Customization remains unlimited
+- Performance is optimized
+
+## Next Steps
+
+- [Core Components](./core-components/README.md) - Start with the primitives
+- [Variant System](./variant-system/README.md) - Understand styling approach
+- [UI Components](./ui-components/README.md) - Explore composite components
+
+
+# ================================================================================
+
+# FILE 9: 03-architecture\typescript-configuration\README.md
+# ================================================================================
+# TypeScript Configuration
+
+## Overview
+
+TypeScript Configuration in UI8Kit/Core provides full type safety, strict checking, and developer experience features through comprehensive `tsconfig.json` setup.
+
+## Complete TypeScript Configuration
+
+### Main Configuration File
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react-jsx",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "@core/*": ["./src/core/*"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@types/*": ["./src/types/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
+}
+```
+
+## Configuration Options Explained
+
+### Target and Module
+
+```typescript
+{
+  "target": "ES2020",        // Output JavaScript version
+  "module": "ESNext",        // Module system
+  "lib": ["ES2020", "DOM"]   // Available APIs
+}
+```
+
+- **target**: Controls JavaScript output version (ES2020 supports modern features)
+- **module**: ESNext allows tooling to handle module transformation
+- **lib**: Includes ES2020 and DOM APIs for React development
+
+### JSX Configuration
+
+```typescript
+{
+  "jsx": "react-jsx"  // Use new JSX transform (React 17+)
+}
+```
+
+No need to import React in every file using JSX.
+
+### Declaration Files
+
+```typescript
+{
+  "declaration": true,       // Generate .d.ts files
+  "declarationMap": true     // Generate source maps for declarations
+}
+```
+
+Enables TypeScript definitions and better IDE support.
+
+### Output Configuration
+
+```typescript
+{
+  "outDir": "./dist",   // Output directory
+  "rootDir": "./src"    // Input directory
+}
+```
+
+Maps source files to distribution output.
+
+### Strict Type Checking
+
+```typescript
+{
+  "strict": true  // Enables all strict type checking options
+}
+```
+
+Enables:
+- `noImplicitAny` - Error on implicitly any types
+- `strictNullChecks` - Strict null/undefined checking
+- `strictFunctionTypes` - Strict function type checking
+- `strictBindCallApply` - Strict bind/call/apply checking
+- `strictPropertyInitialization` - Strict property initialization
+- `noImplicitThis` - Error on implicit 'this' type
+
+### Module Resolution
+
+```typescript
+{
+  "moduleResolution": "node",   // Use Node.js style resolution
+  "esModuleInterop": true       // Interop between CommonJS and ES modules
+}
+```
+
+Ensures compatibility with npm packages and modern tooling.
+
+### Path Aliases
+
+```typescript
+{
+  "paths": {
+    "@core/*": ["./src/core/*"],
+    "@components/*": ["./src/components/*"],
+    "@layouts/*": ["./src/layouts/*"]
+  }
+}
+```
+
+Enable clean imports:
+```typescript
+// Instead of
+import { Button } from '../../../src/components/ui/button';
+
+// Use
+import { Button } from '@components/ui/button';
+```
+
+### Other Important Options
+
+```typescript
+{
+  "skipLibCheck": true,                    // Skip type checking of .d.ts files
+  "forceConsistentCasingInFileNames": true, // Enforce consistent file names
+  "resolveJsonModule": true,               // Allow importing JSON
+  "isolatedModules": true,                 // Each file transpiles independently
+  "noEmit": true                           // Don't emit output (for IDE checking)
+}
+```
+
+## Type Definitions
+
+### Component Types
+
+Well-typed component interfaces:
+
+```typescript
+// src/components/ui/button/index.tsx
+import { forwardRef } from 'react';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', size = 'md', loading = false, ...props }, ref) => {
+    return <button ref={ref} {...props} />;
+  }
+);
+
+Button.displayName = 'Button';
+```
+
+### Variant Types
+
+Type-safe variants:
+
+```typescript
+// src/core/variants/spacing.ts
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const spacing = cva('', {
+  variants: {
+    padding: {
+      xs: 'p-1',
+      sm: 'p-2',
+      md: 'p-4',
+      lg: 'p-6',
+      xl: 'p-8',
+    },
+    margin: {
+      xs: 'm-1',
+      sm: 'm-2',
+      md: 'm-4',
+      lg: 'm-6',
+      xl: 'm-8',
+    },
+  },
+});
+
+export type SpacingVariants = VariantProps<typeof spacing>;
+```
+
+### Extending Types
+
+Compose component types:
+
+```typescript
+// src/components/ui/card/index.tsx
+import { forwardRef } from 'react';
+import type { SpacingVariants } from '@core/variants';
+
+interface CardProps 
+  extends React.HTMLAttributes<HTMLDivElement>,
+          SpacingVariants {
+  bgColor?: 'white' | 'gray' | 'blue';
+  shadow?: 'none' | 'sm' | 'md' | 'lg';
+}
+
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  (props, ref) => {
+    // Component implementation
+  }
+);
+```
+
+## IDE and Editor Support
+
+### IntelliSense
+
+TypeScript configuration enables:
+
+```typescript
+<Button 
+  variant="primary"  // Autocomplete shows valid options
+  size="lg"          // Type checking ensures valid values
+  onClick={() => {}} // Type inference works correctly
+/>
+```
+
+### Type Checking
+
+Real-time error detection:
+
+```typescript
+<Button variant="invalid" /> // TypeScript Error: Type '"invalid"' is not assignable to type '"primary" | "secondary" | "danger"'
+```
+
+### Ref Type Safety
+
+```typescript
+const buttonRef = useRef<HTMLButtonElement>(null);
+<Button ref={buttonRef} /> // Ref type is validated
+
+// Later
+if (buttonRef.current) {
+  buttonRef.current.click(); // Method exists on HTMLButtonElement
+}
+```
+
+## Build and Compilation
+
+### Development Build
+
+Watch mode for development:
+
+```bash
+tsc --watch
+```
+
+Recompiles on file changes, useful during development.
+
+### Production Build
+
+Full compilation for distribution:
+
+```bash
+tsc
+```
+
+Generates all output files, declarations, and source maps.
+
+### Emit Only Declarations
+
+Generate only `.d.ts` files:
+
+```bash
+tsc --declaration --emitDeclarationOnly
+```
+
+## Testing Configuration
+
+### Jest TypeScript Support
+
+```typescript
+// jest.config.js
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    '^@core/(.*)$': '<rootDir>/src/core/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+  },
+};
+```
+
+### Test File Types
+
+```typescript
+// src/components/ui/button/__tests__/button.test.tsx
+import { render, screen } from '@testing-library/react';
+import { Button } from '../';
+
+describe('Button', () => {
+  it('renders correctly', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+});
+```
+
+## Best Practices
+
+### 1. Use Strict Mode
+```typescript
+"strict": true
+```
+
+Enables comprehensive type checking from the start.
+
+### 2. Use Path Aliases
+```typescript
+"paths": {
+  "@core/*": ["./src/core/*"]
+}
+```
+
+Makes imports cleaner and refactoring easier.
+
+### 3. Define Return Types
+```typescript
+// ✓ Good
+function getButtonClasses(variant: string): string {
+  // Implementation
+}
+
+// ✗ Avoid
+function getButtonClasses(variant: string) {
+  // Implicit return type
+}
+```
+
+### 4. Export Interfaces
+```typescript
+// ✓ Good
+export interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+}
+
+// ✗ Avoid
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+}
+```
+
+Users can import and extend your types.
+
+### 5. Use forwardRef with Types
+```typescript
+// ✓ Good
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => <button ref={ref} {...props} />
+);
+
+// Type-safe ref usage
+const ref = useRef<HTMLButtonElement>(null);
+<Button ref={ref} />
+```
+
+## Troubleshooting
+
+### Type Not Found
+
+Check:
+- `typeRoots` and `types` configuration
+- `@types` packages installed
+- Path aliases configured correctly
+
+### Cannot Find Module
+
+Verify:
+- Import paths match file structure
+- Path aliases in tsconfig
+- Module resolution settings
+
+### Ref Type Errors
+
+Use correct generic types:
+
+```typescript
+// ✓ Good
+const ref = useRef<HTMLButtonElement>(null);
+
+// ✗ Wrong
+const ref = useRef<HTMLElement>(null);
+```
+
+## Next Steps
+
+- [Build System](../build-system/README.md) - Learn TypeScript compilation
+- [Package Structure](../package-structure/README.md) - Type definition distribution
+- [API Reference](../../04-api-reference/README.md) - View typed components
+
+
+# ================================================================================
+
+# FILE 10: 03-architecture\ui-components\README.md
+# ================================================================================
+# UI Components
+
+## Overview
+
+UI Components are composite components built from core primitives, located in `src/components/ui/`. They represent the "molecules" in atomic design, adding higher-level functionality while maintaining type safety and prop forwarding.
+
+## Key Characteristics
+
+- **Composite structure** - Built from core components
+- **Variant integration** - Import and use variant props
+- **Prop forwarding API** - Extend with additional variant props
+- **Data-class attributes** - Consistent DOM identification
+- **Compound pattern** - Components like Card with subcomponents
+
+## Core Principles
+
+### 1. Composition Over Duplication
+UI Components compose core components rather than duplicating code:
+
+```typescript
+import { Box, Block } from '@core/ui';
+import { spacing, colors } from '@core/variants';
+
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ padding = 'md', bgColor = 'white', ...props }, ref) => {
+    const classes = cx(
+      spacing({ padding }),
+      colors({ bgColor })
+    );
+    return <Box ref={ref} className={classes} {...props} />;
+  }
+);
+```
+
+### 2. Prop Forwarding API
+UI Components accept variant props from the core system:
+
+```typescript
+<Button 
+  variant="primary"    // Component prop
+  padding="lg"         // Variant prop from spacing
+  bgColor="blue"       // Variant prop from colors
+  rounded="md"         // Variant prop from effects
+>
+  Click me
+</Button>
+```
+
+### 3. Compound Components
+Complex components use the compound pattern for flexible composition:
+
+```typescript
+<Card>
+  <Card.Header data-class="card-header">
+    Header Content
+  </Card.Header>
+  <Card.Content data-class="card-content">
+    Main Content
+  </Card.Content>
+  <Card.Footer data-class="card-footer">
+    Footer Content
+  </Card.Footer>
+</Card>
+```
+
+### 4. Data-Class Identification
+All UI Components include `data-class` attributes for DOM targeting:
+
+```typescript
+// Components render with data-class for identification
+<div data-class="card">
+  <div data-class="card-header">...</div>
+  <div data-class="card-content">...</div>
+  <div data-class="card-footer">...</div>
+</div>
+```
+
+## TypeScript Integration
+
+### Props Interfaces
+UI Components have comprehensive TypeScript interfaces:
+
+```typescript
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  padding?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  bgColor?: 'white' | 'gray' | 'blue';
+  shadow?: 'none' | 'sm' | 'md' | 'lg';
+}
+```
+
+### Ref Forwarding
+All UI Components properly forward refs:
+
+```typescript
+const cardRef = useRef<HTMLDivElement>(null);
+<Card ref={cardRef} />  // Full type safety
+```
+
+## Common Patterns
+
+### Pattern 1: Basic Props Extension
+```typescript
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ size = 'md', variant = 'primary', ...props }, ref) => {
+    const classes = cx(
+      'inline-flex items-center justify-center',
+      sizes[size],
+      variants[variant]
+    );
+    return <button ref={ref} className={classes} {...props} />;
+  }
+);
+```
+
+### Pattern 2: Compound Components
+```typescript
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ ...props }, ref) => (
+    <div ref={ref} data-class="card" {...props} />
+  )
+);
+
+Card.Header = forwardRef<HTMLDivElement, CardHeaderProps>(
+  (props, ref) => <div ref={ref} data-class="card-header" {...props} />
+);
+
+Card.Content = forwardRef<HTMLDivElement, CardContentProps>(
+  (props, ref) => <div ref={ref} data-class="card-content" {...props} />
+);
+```
+
+### Pattern 3: Controlled Components
+```typescript
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ value, onChange, ...props }, ref) => {
+    return (
+      <input 
+        ref={ref} 
+        value={value} 
+        onChange={onChange}
+        data-class="input"
+        {...props} 
+      />
+    );
+  }
+);
+```
+
+## Variant Integration
+
+UI Components import and use variants from the core system:
+
+```typescript
+import { spacing, colors, effects, layout } from '@core/variants';
+
+const cardClasses = cx(
+  spacing({ padding: props.padding }),      // From spacing variant
+  colors({ bgColor: props.bgColor }),       // From colors variant
+  effects({ shadow: props.shadow }),        // From effects variant
+  layout({ width: 'full' })                 // From layout variant
+);
+```
+
+## Best Practices
+
+### 1. Keep Interfaces Simple
+```typescript
+// ✓ Good - focused interface
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+// ✗ Avoid - too many custom props
+interface ButtonProps {
+  variant, size, color, shadow, padding, margin, ...
+}
+```
+
+### 2. Use Data-Class Consistently
+```typescript
+// ✓ Good
+<div data-class="card-header">...</div>
+
+// ✗ Avoid inconsistent naming
+<div data-class="cardHeader">...</div>
+<div data-class="card_header">...</div>
+```
+
+### 3. Leverage Compound Components
+```typescript
+// ✓ Good - explicit structure
+<Card>
+  <Card.Header />
+  <Card.Content />
+  <Card.Footer />
+</Card>
+
+// ✗ Avoid - generic children
+<Card header={...} content={...} footer={...} />
+```
+
+## Next Steps
+
+- [Variant System](../variant-system/README.md) - Understand how variants work
+- [Layouts](../layouts/README.md) - See how UI components are used in layouts
+- [API Reference - UI Components](../../04-api-reference/ui-components/README.md) - Complete component documentation
+
+
+# ================================================================================
+
+# FILE 11: 03-architecture\variant-system\README.md
+# ================================================================================
+# Variant System
+
+## Overview
+
+The Variant System is the styling backbone of UI8Kit/Core, located in `src/core/variants/`. It uses Class Variance Authority (CVA) to centralize and organize Tailwind utility classes into reusable, composable units.
+
+## Why Variants?
+
+In traditional component libraries, styling logic is scattered throughout components, leading to:
+- **Duplicated classes** - Same utilities repeated across components
+- **Inconsistent design** - Styles drift over time
+- **Hard to maintain** - Changes require editing multiple files
+- **Difficult to scale** - Adding new components means copying style patterns
+
+**Variants solve this** by centralizing all styling logic in one place.
+
+## Core Principles
+
+### 1. Composability
+Variants are built from smaller, reusable units:
+```typescript
+const spacing = cva('', {
+  variants: {
+    padding: {
+      sm: 'p-2',
+      md: 'p-4',
+      lg: 'p-6',
+    }
+  }
+});
+
+const colors = cva('', {
+  variants: {
+    bg: {
+      blue: 'bg-blue-600',
+      green: 'bg-green-600',
+    }
+  }
+});
+```
+
+### 2. Reusability
+Variants are shared across all components:
+```typescript
+// Used in Button, Card, Input, Select, etc.
+const buttonClasses = cx(spacing({ padding: 'md' }), colors({ bg: 'blue' }));
+```
+
+### 3. Type Safety
+Variants are fully typed with TypeScript:
+```typescript
+// TypeScript catches invalid variant values
+<Button padding="lg" />  // ✓ Valid
+<Button padding="huge" />  // ✗ TypeScript error
+```
+
+## Variant Categories
+
+### Spacing Variants
+Control margin and padding:
+```typescript
+// Properties: margin, padding
+// Values: xs, sm, md, lg, xl, 2xl
+```
+
+### Color Variants
+Manage colors and backgrounds:
+```typescript
+// Properties: bgColor, textColor
+// Values: gray, blue, green, red, etc.
+```
+
+### Layout Variants
+Handle dimensions and layouts:
+```typescript
+// Properties: width, height, display
+// Values: full, half, 1/3, 1/4, auto, etc.
+```
+
+### Effect Variants
+Shadow, border, and rounded corners:
+```typescript
+// Properties: shadow, border, rounded
+// Values: none, sm, md, lg, xl
+```
+
+### Typography Variants
+Font and text styling:
+```typescript
+// Properties: fontSize, fontWeight, lineHeight
+// Values: xs, sm, md, lg, xl, bold, normal, etc.
+```
+
+### Flexbox Variants
+Flexible layout control:
+```typescript
+// Properties: flexDirection, justifyContent, alignItems
+// Values: row, col, center, between, start, end
+```
+
+### Grid Variants
+Grid layout control:
+```typescript
+// Properties: gridCols, gridRows, gridGap
+// Values: 1, 2, 3, 4, 6, 12, auto, etc.
+```
+
+## CVA Basics
+
+### What is CVA?
+
+Class Variance Authority provides a type-safe way to manage variant combinations:
+
+```typescript
+import { cva } from 'class-variance-authority';
+
+const button = cva('px-4 py-2 rounded-md', {
+  variants: {
+    intent: {
+      primary: 'bg-blue-600 text-white',
+      secondary: 'bg-gray-200 text-gray-900',
+    },
+    size: {
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
+    },
+  },
+  defaultVariants: {
+    intent: 'primary',
+    size: 'md',
+  },
+});
+```
+
+### Using CVA Variants
+
+```typescript
+button()  // Uses defaults
+button({ intent: 'secondary', size: 'lg' })  // Custom values
+```
+
+## Variant Composition
+
+Multiple variants compose together without conflicts:
+
+```typescript
+const containerClasses = cx(
+  spacing({ padding: 'lg' }),      // p-6
+  colors({ bgColor: 'white' }),     // bg-white
+  effects({ shadow: 'md' }),        // shadow-md
+  typography({ fontSize: 'base' })  // text-base
+);
+```
+
+## Integration with Components
+
+Variants are imported and used in components:
+
+```typescript
+import { spacing, colors, layout } from '@core/variants';
+
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ padding = 'md', bgColor = 'white', ...props }, ref) => {
+    const classes = cx(
+      spacing({ padding }),
+      colors({ bgColor })
+    );
+    return <div ref={ref} className={classes} {...props} />;
+  }
+);
+```
+
+## Best Practices
+
+### 1. Use Variants, Not ClassName Props
+```typescript
+// ✓ Good
+<Button padding="lg" />
+
+// ✗ Avoid
+<Button className="p-4" />
+```
+
+### 2. Extend Through Props, Not CSS
+```typescript
+// ✓ Good
+<Button padding="lg" bgColor="blue" />
+
+// ✗ Avoid
+<button style={{ padding: '24px', background: 'blue' }} />
+```
+
+### 3. Keep Variants Focused
+Each variant handles one design concern:
+```typescript
+// ✓ Good - focused
+const spacing = { padding: { ... }, margin: { ... } }
+
+// ✗ Avoid - too broad
+const allStyles = { padding: { ... }, margin: { ... }, color: { ... }, ... }
+```
+
+## Next Steps
+
+- [Core Components](../core-components/README.md) - See how variants are used
+- [UI Components](../ui-components/README.md) - Complex variant composition examples
+- [API Reference](../../04-api-reference/README.md) - View all available variants
+
+
+# ================================================================================
+
+# FILE 12: 04-api-reference\core-components\README.md
+# ================================================================================
+# Core Components API
+
+## Overview
+
+Core Components are the foundational primitives of UI8Kit/Core. They provide basic HTML element wrappers with TypeScript support and prop forwarding.
+
+## Components List
+
+This section documents all core primitive components:
+
+- **Box** - Generic container element
+- **Block** - Block-level container
+- **Grid** - Grid layout system
+- **Stack** - Flexbox stacking container
+- **Button** - Button primitive
+
+## Component Documentation
+
+Each core component includes:
+
+1. **Overview** - Purpose and use cases
+2. **Props Interface** - TypeScript interface
+3. **Props Table** - Detailed prop documentation
+4. **forwardRef Support** - Ref typing
+5. **HTML Attributes** - Native HTML prop support
+6. **Examples** - Practical usage examples
+
+## Box Component
+
+### Overview
+Generic container element for flexible layouts.
+
+### Props Interface
+```typescript
+interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Inherits all standard HTML div attributes
+}
+```
+
+### Usage
+```typescript
+import { Box } from 'ui8kit-core';
+
+<Box>
+  Content
+</Box>
+```
+
+## Block Component
+
+### Overview
+Block-level container with semantic meaning.
+
+### Props Interface
+```typescript
+interface BlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Inherits all standard HTML div attributes
+}
+```
+
+### Usage
+```typescript
+import { Block } from 'ui8kit-core';
+
+<Block>
+  Block-level content
+</Block>
+```
+
+## Grid Component
+
+### Overview
+Grid layout system for arranging components.
+
+### Props Interface
+```typescript
+interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+  cols?: number | string;
+  gap?: string;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `cols` | `number \| string` | `1` | Number of columns |
+| `gap` | `string` | `0` | Gap between items |
+| `...rest` | `HTMLAttributes` | - | All HTML div attributes |
+
+### Usage
+```typescript
+import { Grid } from 'ui8kit-core';
+
+<Grid cols={3} gap="md">
+  <Box>Item 1</Box>
+  <Box>Item 2</Box>
+  <Box>Item 3</Box>
+</Grid>
+```
+
+## Stack Component
+
+### Overview
+Flexbox container for stacking components.
+
+### Props Interface
+```typescript
+interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
+  direction?: 'row' | 'col';
+  gap?: string;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `direction` | `'row' \| 'col'` | `'col'` | Stack direction |
+| `gap` | `string` | `0` | Gap between items |
+| `...rest` | `HTMLAttributes` | - | All HTML div attributes |
+
+### Usage
+```typescript
+import { Stack } from 'ui8kit-core';
+
+<Stack direction="row" gap="md">
+  <Box>Item 1</Box>
+  <Box>Item 2</Box>
+</Stack>
+```
+
+## Button Component
+
+### Overview
+Button primitive for user interactions.
+
+### Props Interface
+```typescript
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  // Inherits all standard HTML button attributes
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type |
+| `disabled` | `boolean` | `false` | Disable button |
+| `onClick` | `(e: React.MouseEvent) => void` | - | Click handler |
+| `...rest` | `HTMLAttributes` | - | All HTML button attributes |
+
+### Usage
+```typescript
+import { Button } from 'ui8kit-core';
+
+<Button type="submit">
+  Submit
+</Button>
+```
+
+## ForwardRef and Refs
+
+All core components support `forwardRef` for direct DOM access:
+
+```typescript
+import { useRef } from 'react';
+import { Button } from 'ui8kit-core';
+
+function MyComponent() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  
+  return (
+    <Button 
+      ref={buttonRef}
+      onClick={() => {
+        if (buttonRef.current) {
+          console.log('Button clicked!');
+        }
+      }}
+    >
+      Click me
+    </Button>
+  );
+}
+```
+
+## HTML Attribute Support
+
+All core components accept standard HTML attributes:
+
+```typescript
+<Box 
+  id="my-box"
+  className="custom-class"
+  data-test-id="box"
+  role="region"
+  aria-label="Main content"
+>
+  Content
+</Box>
+```
+
+## Display Names
+
+Components have displayName set for debugging:
+
+```typescript
+Box.displayName = 'Box';
+Block.displayName = 'Block';
+Button.displayName = 'Button';
+```
+
+## Next Steps
+
+- [UI Components](../ui-components/README.md) - Learn about composite components
+- [Variant System](../../03-architecture/variant-system/README.md) - Add styling with variants
+- [Architecture](../../03-architecture/core-components/README.md) - Understand core concepts
+
+
+# ================================================================================
+
+# FILE 13: 04-api-reference\layout-components\README.md
+# ================================================================================
+# Layout Components API
+
+## Overview
+
+Layout Components are complex page template systems located in `src/layouts/`. They compose UI components to create complete page structures for common scenarios.
+
+## Components List
+
+Main layout components:
+
+- **DashLayout** - Dashboard layout with sidebar
+- **SplitBlock** - Two-column split layout
+- **LayoutBlock** - Flexible container layout
+- **Grid** - Advanced grid layout (layout version)
+- **Flex** - Flexbox layout container
+
+## DashLayout Component
+
+### Overview
+Vertical dashboard layout with sidebar navigation and top header.
+
+### Props Interface
+```typescript
+interface DashLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
+  sidebar?: React.ReactNode;
+  header?: React.ReactNode;
+  sidebarWidth?: string;
+  collapsed?: boolean;
+  onToggleSidebar?: () => void;
+}
+```
+
+### Usage Example
+
+```typescript
+import { DashLayout } from 'ui8kit-core';
+
+<DashLayout
+  sidebar={<NavMenu />}
+  header={<TopBar />}
+>
+  <DashLayout.Content>
+    <h1>Dashboard Content</h1>
+  </DashLayout.Content>
+</DashLayout>
+```
+
+### Subcomponents
+
+#### DashLayout.Content
+Main content area of the dashboard.
+
+```typescript
+<DashLayout.Content>
+  Dashboard content here
+</DashLayout.Content>
+```
+
+### Use Cases
+
+- Admin dashboards
+- Application interfaces
+- Complex web applications with navigation
+
+## SplitBlock Component
+
+### Overview
+Two-column split layout for side-by-side content.
+
+### Props Interface
+```typescript
+interface SplitBlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  left?: React.ReactNode;
+  right?: React.ReactNode;
+  ratio?: string;  // e.g., "1:2", "2:1"
+  gap?: string;
+  responsive?: boolean;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `left` | `ReactNode` | - | Left panel content |
+| `right` | `ReactNode` | - | Right panel content |
+| `ratio` | `string` | `'1:1'` | Column ratio (e.g., "1:2") |
+| `gap` | `string` | `'md'` | Gap between columns |
+| `responsive` | `boolean` | `true` | Stack on mobile |
+
+### Usage Example
+
+```typescript
+import { SplitBlock } from 'ui8kit-core';
+
+<SplitBlock
+  left={<Sidebar />}
+  right={<MainContent />}
+  ratio="1:2"
+  gap="lg"
+/>
+```
+
+### Use Cases
+
+- Content with sidebar
+- Two-panel interfaces
+- Master-detail views
+- Blog layouts (article + sidebar)
+
+## LayoutBlock Component
+
+### Overview
+Flexible container for general page layouts.
+
+### Props Interface
+```typescript
+interface LayoutBlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  padding?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '6xl';
+  centered?: boolean;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `padding` | spacing values | `'md'` | Container padding |
+| `maxWidth` | width values | `'6xl'` | Maximum width |
+| `centered` | `boolean` | `true` | Center content |
+
+### Usage Example
+
+```typescript
+import { LayoutBlock } from 'ui8kit-core';
+
+<LayoutBlock padding="lg" maxWidth="6xl" centered>
+  <Header />
+  <MainContent />
+  <Footer />
+</LayoutBlock>
+```
+
+### Use Cases
+
+- General page containers
+- Responsive wrappers
+- Content sections
+- Landing pages
+
+## Grid Component (Layout Version)
+
+### Overview
+Advanced grid layout system for arranging multiple items.
+
+### Props Interface
+```typescript
+interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
+  cols?: number | { base?: number; md?: number; lg?: number };
+  gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  autoFit?: boolean;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `cols` | `number \| object` | `1` | Number of columns |
+| `gap` | spacing values | `'md'` | Gap between items |
+| `autoFit` | `boolean` | `false` | Auto-fit columns |
+
+### Usage Examples
+
+```typescript
+import { Grid } from 'ui8kit-core';
+
+// Fixed 3 columns
+<Grid cols={3} gap="md">
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+  <Card>Item 3</Card>
+</Grid>
+
+// Responsive columns
+<Grid 
+  cols={{ base: 1, md: 2, lg: 3 }}
+  gap="lg"
+>
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+
+// Auto-fitting columns
+<Grid cols={3} gap="md" autoFit>
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+```
+
+### Use Cases
+
+- Product grids
+- Card layouts
+- Dashboard widgets
+- Gallery layouts
+
+## Flex Component
+
+### Overview
+Flexbox layout container for flexible arrangements.
+
+### Props Interface
+```typescript
+interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
+  direction?: 'row' | 'col';
+  justify?: 'start' | 'center' | 'between' | 'end';
+  align?: 'start' | 'center' | 'end' | 'stretch';
+  gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  wrap?: boolean;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `direction` | `'row' \| 'col'` | `'row'` | Flex direction |
+| `justify` | justify values | `'start'` | Main axis alignment |
+| `align` | align values | `'center'` | Cross axis alignment |
+| `gap` | spacing values | `'md'` | Gap between items |
+| `wrap` | `boolean` | `false` | Allow wrapping |
+
+### Usage Examples
+
+```typescript
+import { Flex } from 'ui8kit-core';
+
+// Navigation bar
+<Flex direction="row" justify="between" align="center" gap="md">
+  <Logo />
+  <NavItems />
+  <UserMenu />
+</Flex>
+
+// Button group
+<Flex gap="md" justify="center">
+  <Button>Cancel</Button>
+  <Button variant="primary">Save</Button>
+</Flex>
+
+// Vertical stack with spacing
+<Flex direction="col" gap="lg">
+  <Card>Card 1</Card>
+  <Card>Card 2</Card>
+  <Card>Card 3</Card>
+</Flex>
+
+// Wrapping items
+<Flex wrap justify="between" gap="md">
+  {items.map(item => <Tag key={item.id}>{item}</Tag>)}
+</Flex>
+```
+
+### Use Cases
+
+- Navigation bars
+- Button groups
+- Flexible arrangements
+- Centered content
+- Spaced lists
+
+## Layout Composition Patterns
+
+### Landing Page Pattern
+
+```typescript
+<LayoutBlock maxWidth="6xl">
+  <DashLayout sidebar={null}>
+    <DashLayout.Content>
+      <Hero />
+      <Features />
+      <Testimonials />
+      <CTA />
+      <Footer />
+    </DashLayout.Content>
+  </DashLayout>
+</LayoutBlock>
+```
+
+### Dashboard Pattern
+
+```typescript
+<DashLayout sidebar={<AdminNav />} header={<AdminBar />}>
+  <DashLayout.Content>
+    <Grid cols={3} gap="md">
+      <StatCard />
+      <ChartCard />
+      <TableCard />
+    </Grid>
+  </DashLayout.Content>
+</DashLayout>
+```
+
+### Article Layout Pattern
+
+```typescript
+<LayoutBlock maxWidth="4xl">
+  <SplitBlock
+    left={<ArticleContent />}
+    right={<SidebarWidget />}
+    ratio="2:1"
+  />
+</LayoutBlock>
+```
+
+## Responsive Considerations
+
+All layout components include responsive features:
+
+- **Mobile first** - Base styles for mobile
+- **Breakpoints** - Responsive props for different sizes
+- **Stack on small** - Layouts adapt for small screens
+- **Touch targets** - Appropriate sizing
+
+## Styling
+
+Layout components accept standard styling:
+
+```typescript
+<LayoutBlock 
+  className="custom-class"
+  style={{ backgroundColor: '#f5f5f5' }}
+>
+  Content
+</LayoutBlock>
+```
+
+## Next Steps
+
+- [UI Components](../ui-components/README.md) - Learn about component building blocks
+- [Architecture Layouts](../../03-architecture/layouts/README.md) - Understand layout concepts
+- [Development Guide](../../05-development-guide/README.md) - Practical usage patterns
+
+
+# ================================================================================
+
+# FILE 14: 04-api-reference\README.md
+# ================================================================================
+# API Reference
+
+## Overview
+
+Complete API documentation for all UI8Kit/Core components, organized by architectural layer.
+
+## Three Sections
+
+### 1. Core Components API
+Basic primitives and foundational components with minimal functionality.
+
+[View Core Components API →](./core-components/README.md)
+
+Components:
+- Box
+- Block
+- Grid
+- Stack
+- Button
+- And more...
+
+### 2. UI Components API
+Composite components built from core primitives with extended functionality.
+
+[View UI Components API →](./ui-components/README.md)
+
+Components:
+- Card (with Header, Content, Footer)
+- Button (enhanced)
+- Input
+- Select
+- Modal
+- Alert
+- And more...
+
+### 3. Layout Components API
+Complex page layout systems for common scenarios.
+
+[View Layout Components API →](./layout-components/README.md)
+
+Components:
+- DashLayout
+- SplitBlock
+- LayoutBlock
+- Grid (advanced)
+- Flex
+- And more...
+
+## Component Documentation Format
+
+Each component is documented with:
+
+### Overview
+Brief description and use cases
+
+### Props Interface
+Complete TypeScript interface with all properties:
+
+```typescript
+interface ComponentProps extends React.HTMLAttributes<HTMLElement> {
+  // Custom props
+}
+```
+
+### Props Table
+Detailed table of all props with types and defaults
+
+### Variants
+Available variant props from the core variant system
+
+### Type Safety
+TypeScript type information and ref types
+
+### Usage Examples
+Practical code examples demonstrating typical usage
+
+### Best Practices
+Recommendations for optimal usage
+
+## Navigation
+
+- [Core Components](./core-components/README.md) - Basic building blocks
+- [UI Components](./ui-components/README.md) - Ready-made components
+- [Layout Components](./layout-components/README.md) - Page layouts
+
+## TypeScript Support
+
+All components are fully typed:
+
+```typescript
+import { Button, Card } from 'ui8kit-core';
+
+const ref = useRef<HTMLButtonElement>(null);
+
+<Button 
+  ref={ref}
+  variant="primary"
+  size="lg"
+>
+  Click me
+</Button>
+```
+
+## Variants
+
+Components use variants from the core system:
+
+```typescript
+import { Button } from 'ui8kit-core';
+
+<Button
+  padding="lg"           // Spacing variant
+  bgColor="blue"         // Color variant
+  shadow="md"            // Effect variant
+  rounded="md"           // Effect variant
+>
+  Customized Button
+</Button>
+```
+
+## Data-Class Attributes
+
+All components include `data-class` attributes:
+
+```typescript
+<Button data-class="button-primary" />
+// Renders: <button data-class="button-primary" />
+```
+
+Use for:
+- DOM testing and targeting
+- Component identification
+- Analytics tracking
+- Debug inspection
+
+## Integration
+
+### NPM Import
+```typescript
+import { Button, Card } from 'ui8kit-core';
+```
+
+### Per-Component Import
+```typescript
+import { Button } from 'ui8kit-core/button';
+import { Card } from 'ui8kit-core/card';
+```
+
+### Direct Source
+```typescript
+import { Button } from 'ui8kit-core/src/components/ui/button';
+```
+
+## TypeScript Version
+
+Requires TypeScript 4.5 or higher for full type support.
+
+## Next Steps
+
+- [Core Components](./core-components/README.md) - Learn the primitives
+- [UI Components](./ui-components/README.md) - Explore ready-made components
+- [Layout Components](./layout-components/README.md) - Build page layouts
+
+
+# ================================================================================
+
+# FILE 15: 04-api-reference\ui-components\README.md
+# ================================================================================
+# UI Components API
+
+## Overview
+
+UI Components are composite components built from core primitives, located in `src/components/ui/`. They add higher-level functionality and include the prop forwarding API for variant integration.
+
+## Components List
+
+Main UI components:
+
+- **Card** - Container with header, content, footer
+- **Button** - Enhanced button with variants
+- **Input** - Text input with variants
+- **Select** - Dropdown selection
+- **Modal** - Dialog/modal component
+- **Alert** - Notification/alert component
+
+## Component Structure
+
+Each UI Component includes:
+
+1. **Overview** - Purpose and use cases
+2. **Props Interface** - TypeScript interface with variant props
+3. **Props Table** - Detailed prop documentation
+4. **Variants** - Available variant props
+5. **Type Safety** - TypeScript and ref support
+6. **Examples** - Usage patterns
+7. **Compound Components** - Subcomponent patterns
+
+## Card Component
+
+### Overview
+Flexible container component with header, content, and footer subcomponents.
+
+### Props Interface
+```typescript
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  padding?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  bgColor?: 'white' | 'gray' | 'blue';
+  shadow?: 'none' | 'sm' | 'md' | 'lg';
+  rounded?: 'none' | 'sm' | 'md' | 'lg';
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `padding` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Padding variant |
+| `bgColor` | `'white' \| 'gray' \| 'blue'` | `'white'` | Background color |
+| `shadow` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Shadow effect |
+| `rounded` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Border radius |
+| `...rest` | `HTMLAttributes` | - | All HTML div attributes |
+
+### Compound Components
+
+The Card component has subcomponents:
+
+```typescript
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+```
+
+#### Card.Header
+Container for card title/header content.
+
+```typescript
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+<Card.Header data-class="card-header">
+  Header Content
+</Card.Header>
+```
+
+#### Card.Content
+Main content area of the card.
+
+```typescript
+interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+<Card.Content data-class="card-content">
+  Main Content
+</Card.Content>
+```
+
+#### Card.Footer
+Footer content area.
+
+```typescript
+interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+<Card.Footer data-class="card-footer">
+  Footer Content
+</Card.Footer>
+```
+
+### Usage Example
+
+```typescript
+import { Card } from 'ui8kit-core';
+
+<Card padding="lg" bgColor="white" shadow="md">
+  <Card.Header>User Profile</Card.Header>
+  <Card.Content>
+    <p>Name: John Doe</p>
+    <p>Email: john@example.com</p>
+  </Card.Content>
+  <Card.Footer>
+    <button>Edit</button>
+    <button>Delete</button>
+  </Card.Footer>
+</Card>
+```
+
+## Button Component (Enhanced)
+
+### Overview
+Enhanced button component with variant support.
+
+### Props Interface
+```typescript
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  padding?: 'xs' | 'sm' | 'md' | 'lg';
+  bgColor?: 'blue' | 'gray' | 'red';
+  loading?: boolean;
+}
+```
+
+### Props Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'danger'` | `'primary'` | Button style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `padding` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Padding variant |
+| `bgColor` | `'blue' \| 'gray' \| 'red'` | - | Custom background color |
+| `loading` | `boolean` | `false` | Show loading state |
+| `disabled` | `boolean` | `false` | Disable button |
+| `...rest` | `HTMLAttributes` | - | All HTML button attributes |
+
+### Usage Examples
+
+```typescript
+import { Button } from 'ui8kit-core';
+
+// Primary button
+<Button variant="primary">Primary</Button>
+
+// Secondary button
+<Button variant="secondary">Secondary</Button>
+
+// Large danger button
+<Button variant="danger" size="lg">Delete</Button>
+
+// With custom color
+<Button bgColor="blue" padding="lg">Custom</Button>
+
+// Loading state
+<Button loading>Processing...</Button>
+```
+
+## Input Component
+
+### Overview
+Text input with variant support.
+
+### Props Interface
+```typescript
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'outline' | 'filled';
+  error?: boolean;
+  disabled?: boolean;
+}
+```
+
+### Usage Example
+
+```typescript
+import { Input } from 'ui8kit-core';
+
+<Input 
+  type="text" 
+  placeholder="Enter text"
+  size="md"
+  variant="outline"
+/>
+```
+
+## Select Component
+
+### Overview
+Dropdown selection component.
+
+### Usage Example
+
+```typescript
+import { Select } from 'ui8kit-core';
+
+<Select>
+  <option value="">Select an option</option>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+</Select>
+```
+
+## Modal Component
+
+### Overview
+Dialog/modal for displaying content in an overlay.
+
+### Usage Example
+
+```typescript
+import { Modal } from 'ui8kit-core';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Open Modal</button>
+      {open && (
+        <Modal onClose={() => setOpen(false)}>
+          <Modal.Header>Modal Title</Modal.Header>
+          <Modal.Content>Modal content here</Modal.Content>
+          <Modal.Footer>
+            <button onClick={() => setOpen(false)}>Close</button>
+          </Modal.Footer>
+        </Modal>
+      )}
+    </>
+  );
+}
+```
+
+## Alert Component
+
+### Overview
+Notification/alert component for user messages.
+
+### Props Interface
+```typescript
+interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  type?: 'info' | 'success' | 'warning' | 'error';
+  closeable?: boolean;
+  onClose?: () => void;
+}
+```
+
+### Usage Example
+
+```typescript
+import { Alert } from 'ui8kit-core';
+
+<Alert type="success">
+  Operation completed successfully!
+</Alert>
+
+<Alert type="error" closeable onClose={() => {}}>
+  An error occurred
+</Alert>
+```
+
+## Ref Forwarding
+
+All UI Components support ref forwarding:
+
+```typescript
+import { useRef } from 'react';
+import { Card, Button } from 'ui8kit-core';
+
+const cardRef = useRef<HTMLDivElement>(null);
+const buttonRef = useRef<HTMLButtonElement>(null);
+
+<Card ref={cardRef}>
+  <Button ref={buttonRef}>Click me</Button>
+</Card>
+```
+
+## Data-Class Attributes
+
+All UI Components use data-class for identification:
+
+```typescript
+<Card data-class="card">
+  <Card.Header data-class="card-header" />
+  <Card.Content data-class="card-content" />
+  <Card.Footer data-class="card-footer" />
+</Card>
+
+<Button data-class="button-primary" />
+```
+
+## Next Steps
+
+- [Layout Components](../layout-components/README.md) - Learn about layout systems
+- [API Reference](../README.md) - Back to API overview
+- [Architecture](../../03-architecture/ui-components/README.md) - Understand UI component concepts
+
+
+# ================================================================================
+
+# FILE 16: 05-development-guide\advanced-workflow\README.md
+# ================================================================================
+# Advanced Workflow
+
+## Overview
+
+Advanced Workflow covers edge cases and complex scenarios where standard components may need customization or composition.
+
+## Scenario 1: Custom Form Components
+
+When form-specific components are absent, compose from Block + Box:
+
+```typescript
+import { Card, Block, Box, Button, Input } from 'ui8kit-core';
+
+interface FormFieldProps {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}
+
+function FormField({ label, error, children }: FormFieldProps) {
+  return (
+    <Block marginBottom="md">
+      <label className="block text-sm font-medium mb-2">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <Box className="text-red-500 text-sm mt-1">
+          {error}
+        </Box>
+      )}
+    </Block>
+  );
+}
+
+function AdvancedForm() {
+  const [values, setValues] = useState({ name: '', email: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleChange = (field: string, value: string) => {
+    setValues(v => ({ ...v, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Validation logic
+  };
+
+  return (
+    <Card>
+      <Card.Header>Advanced Form</Card.Header>
+      <Card.Content>
+        <form onSubmit={handleSubmit}>
+          <FormField label="Name" error={errors.name}>
+            <Input
+              value={values.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              className={errors.name ? 'border-red-500' : ''}
+            />
+          </FormField>
+
+          <FormField label="Email" error={errors.email}>
+            <Input
+              type="email"
+              value={values.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              className={errors.email ? 'border-red-500' : ''}
+            />
+          </FormField>
+
+          <Button type="submit" variant="primary">
+            Submit
+          </Button>
+        </form>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Scenario 2: Nested Composition
+
+Build complex interfaces through composition:
+
+```typescript
+import { DashLayout, Grid, Card, SplitBlock, Flex } from 'ui8kit-core';
+
+function ComplexDashboard() {
+  return (
+    <DashLayout 
+      sidebar={<AdvancedSidebar />} 
+      header={<AdvancedHeader />}
+    >
+      <DashLayout.Content>
+        <Grid cols={2} gap="lg">
+          {/* Left column */}
+          <div>
+            <Card>
+              <Card.Header>Key Metrics</Card.Header>
+              <Card.Content>
+                <Grid cols={2} gap="md">
+                  <MetricCard title="Total Users" value="1,234" />
+                  <MetricCard title="Revenue" value="$45,678" />
+                </Grid>
+              </Card.Content>
+            </Card>
+          </div>
+
+          {/* Right column */}
+          <div>
+            <SplitBlock
+              left={<ChartCard />}
+              right={<AnalyticsCard />}
+              ratio="1:1"
+            />
+          </div>
+        </Grid>
+      </DashLayout.Content>
+    </DashLayout>
+  );
+}
+
+function MetricCard({ title, value }: { title: string; value: string }) {
+  return (
+    <Card padding="md">
+      <div className="text-center">
+        <div className="text-gray-500 text-sm">{title}</div>
+        <div className="text-2xl font-bold mt-2">{value}</div>
+      </div>
+    </Card>
+  );
+}
+```
+
+## Scenario 3: Controlled Component State Management
+
+Managing complex form state:
+
+```typescript
+import { Card, Input, Button, Alert } from 'ui8kit-core';
+import { useState, useCallback } from 'react';
+
+interface FormData {
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  [key: string]: string;
+}
+
+function ComplexForm() {
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const validate = useCallback((data: FormData): FormErrors => {
+    const newErrors: FormErrors = {};
+
+    if (!data.username) {
+      newErrors.username = 'Username is required';
+    } else if (data.username.length < 3) {
+      newErrors.username = 'Username must be at least 3 characters';
+    }
+
+    if (!data.password) {
+      newErrors.password = 'Password is required';
+    } else if (data.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    }
+
+    if (data.password !== data.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    return newErrors;
+  }, []);
+
+  const handleChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value,
+    }));
+    // Clear error for this field
+    setErrors(prev => ({
+      ...prev,
+      [field]: '',
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const newErrors = validate(formData);
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      setSubmitted(true);
+      // Submit logic
+    }
+  };
+
+  return (
+    <Card padding="lg" maxWidth="md">
+      <Card.Header>Registration Form</Card.Header>
+      <Card.Content>
+        {submitted && (
+          <Alert type="success" className="mb-4">
+            Registration successful!
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Username
+            </label>
+            <Input
+              value={formData.username}
+              onChange={(e) => handleChange('username', e.target.value)}
+              className={errors.username ? 'border-red-500' : ''}
+            />
+            {errors.username && (
+              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Password
+            </label>
+            <Input
+              type="password"
+              value={formData.password}
+              onChange={(e) => handleChange('password', e.target.value)}
+              className={errors.password ? 'border-red-500' : ''}
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Confirm Password
+            </label>
+            <Input
+              type="password"
+              value={formData.confirmPassword}
+              onChange={(e) => handleChange('confirmPassword', e.target.value)}
+              className={errors.confirmPassword ? 'border-red-500' : ''}
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+            )}
+          </div>
+
+          <Button type="submit" variant="primary">
+            Register
+          </Button>
+        </form>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Scenario 4: Ref Forwarding with Custom Logic
+
+Accessing DOM for special interactions:
+
+```typescript
+import { Card, Button, Input } from 'ui8kit-core';
+import { useRef } from 'react';
+
+function SearchWithFocus() {
+  const searchRef = useRef<HTMLInputElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleQuickSearch = () => {
+    searchRef.current?.focus();
+  };
+
+  const handleClear = () => {
+    if (searchRef.current) {
+      searchRef.current.value = '';
+      searchRef.current.focus();
+    }
+  };
+
+  return (
+    <Card ref={cardRef} padding="md">
+      <Card.Header>Advanced Search</Card.Header>
+      <Card.Content>
+        <div className="flex gap-2">
+          <Input
+            ref={searchRef}
+            type="text"
+            placeholder="Search..."
+          />
+          <Button onClick={handleQuickSearch}>Focus</Button>
+          <Button onClick={handleClear}>Clear</Button>
+        </div>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Scenario 5: Custom Hooks Integration
+
+Using custom hooks with components:
+
+```typescript
+import { useState, useCallback, useEffect } from 'react';
+import { Card, Grid, Button, Alert } from 'ui8kit-core';
+
+function useAsync<T>(asyncFunction: () => Promise<T>, immediate = true) {
+  const [status, setStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
+  const [value, setValue] = useState<T | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  const execute = useCallback(async () => {
+    setStatus('pending');
+    setValue(null);
+    setError(null);
+    try {
+      const response = await asyncFunction();
+      setValue(response);
+      setStatus('success');
+      return response;
+    } catch (error) {
+      setError(error as Error);
+      setStatus('error');
+    }
+  }, [asyncFunction]);
+
+  useEffect(() => {
+    if (immediate) {
+      execute();
+    }
+  }, [execute, immediate]);
+
+  return { execute, status, value, error };
+}
+
+function DataDisplay() {
+  const { execute, status, value, error } = useAsync(
+    async () => {
+      const response = await fetch('/api/data');
+      return response.json();
+    },
+    false
+  );
+
+  return (
+    <Card>
+      <Card.Header>Async Data</Card.Header>
+      <Card.Content>
+        {status === 'pending' && <Alert type="info">Loading...</Alert>}
+        {status === 'error' && (
+          <Alert type="error">Error: {error?.message}</Alert>
+        )}
+        {status === 'success' && (
+          <Grid cols={3} gap="md">
+            {Array.isArray(value) && value.map((item, i) => (
+              <Card key={i}>{JSON.stringify(item)}</Card>
+            ))}
+          </Grid>
+        )}
+        <Button onClick={() => execute()} className="mt-4">
+          Fetch Data
+        </Button>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Best Practices for Advanced Scenarios
+
+1. **Keep Components Focused** - Each component should have a single responsibility
+2. **Use TypeScript** - Leverage types for complex logic
+3. **Extract Custom Hooks** - Reuse state logic across components
+4. **Validate at Component Level** - Validate data before rendering
+5. **Use Composition** - Build complex UIs from simple components
+
+## Next Steps
+
+- [Best Practices](../best-practices/README.md) - General guidelines
+- [Dark Mode](../dark-mode/README.md) - Theme implementation
+- [API Reference](../../04-api-reference/README.md) - Component API details
+
+
+# ================================================================================
+
+# FILE 17: 05-development-guide\basic-workflow\README.md
+# ================================================================================
+# Basic Workflow
+
+## Overview
+
+Basic Workflow covers common development patterns and typical usage scenarios for UI8Kit/Core components.
+
+## Pattern 1: Component Setup
+
+### Step 1: Import
+```typescript
+import { Button, Card, Input } from 'ui8kit-core';
+```
+
+### Step 2: Use in JSX
+```typescript
+function MyComponent() {
+  return (
+    <Card>
+      <Card.Header>Title</Card.Header>
+      <Card.Content>
+        <Button>Click me</Button>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Pattern 2: Simple List Display
+
+Display a list of items using Grid:
+
+```typescript
+import { Grid, Card } from 'ui8kit-core';
+
+interface Item {
+  id: string;
+  title: string;
+  description: string;
+}
+
+function ItemList({ items }: { items: Item[] }) {
+  return (
+    <Grid cols={3} gap="md">
+      {items.map(item => (
+        <Card key={item.id}>
+          <Card.Header>{item.title}</Card.Header>
+          <Card.Content>{item.description}</Card.Content>
+        </Card>
+      ))}
+    </Grid>
+  );
+}
+```
+
+## Pattern 3: Form Building
+
+Create a user-friendly form:
+
+```typescript
+import { Card, Button, Input } from 'ui8kit-core';
+import { useState } from 'react';
+
+function ContactForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({ name, email, message });
+    // Submit form logic
+  };
+
+  return (
+    <Card padding="lg" maxWidth="md">
+      <Card.Header>Contact Us</Card.Header>
+      <Card.Content>
+        <form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
+          />
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your Email"
+          />
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Your Message"
+          />
+          <Button type="submit" variant="primary">
+            Send
+          </Button>
+        </form>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Pattern 4: Modal Usage
+
+Show modal dialogs:
+
+```typescript
+import { Modal, Button, Card } from 'ui8kit-core';
+import { useState } from 'react';
+
+function DeleteConfirmation() {
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = () => {
+    // Delete logic
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Button variant="danger" onClick={() => setOpen(true)}>
+        Delete Item
+      </Button>
+
+      {open && (
+        <Modal onClose={() => setOpen(false)}>
+          <Modal.Header>Confirm Deletion</Modal.Header>
+          <Modal.Content>
+            Are you sure you want to delete this item?
+          </Modal.Content>
+          <Modal.Footer>
+            <Button onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+    </>
+  );
+}
+```
+
+## Pattern 5: Conditional Rendering
+
+Show/hide content based on state:
+
+```typescript
+import { Card, Alert, Button } from 'ui8kit-core';
+import { useState } from 'react';
+
+function ConditionalContent() {
+  const [showAlert, setShowAlert] = useState(false);
+
+  return (
+    <Card>
+      <Card.Header>Conditional Rendering</Card.Header>
+      <Card.Content>
+        {showAlert && (
+          <Alert type="info">
+            This alert is now visible!
+          </Alert>
+        )}
+        <Button onClick={() => setShowAlert(!showAlert)}>
+          Toggle Alert
+        </Button>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Pattern 6: Layout Composition
+
+Combine layout components:
+
+```typescript
+import { LayoutBlock, SplitBlock, Card } from 'ui8kit-core';
+
+function PageLayout() {
+  return (
+    <LayoutBlock maxWidth="6xl" padding="lg" centered>
+      <header>
+        <h1>My App</h1>
+      </header>
+
+      <SplitBlock
+        left={
+          <Card>
+            <Card.Header>Sidebar</Card.Header>
+            <Card.Content>Side content</Card.Content>
+          </Card>
+        }
+        right={
+          <Card>
+            <Card.Header>Main Content</Card.Header>
+            <Card.Content>Main content goes here</Card.Content>
+          </Card>
+        }
+        ratio="1:2"
+      />
+
+      <footer>
+        <p>&copy; 2024 My App</p>
+      </footer>
+    </LayoutBlock>
+  );
+}
+```
+
+## Pattern 7: Navigation Menu
+
+Build navigation:
+
+```typescript
+import { Flex, Button } from 'ui8kit-core';
+
+function NavBar() {
+  const [active, setActive] = useState('home');
+
+  return (
+    <Flex
+      direction="row"
+      justify="between"
+      align="center"
+      gap="md"
+      padding="md"
+    >
+      <h1>Logo</h1>
+      <Flex gap="md">
+        <Button
+          variant={active === 'home' ? 'primary' : 'secondary'}
+          onClick={() => setActive('home')}
+        >
+          Home
+        </Button>
+        <Button
+          variant={active === 'about' ? 'primary' : 'secondary'}
+          onClick={() => setActive('about')}
+        >
+          About
+        </Button>
+        <Button
+          variant={active === 'contact' ? 'primary' : 'secondary'}
+          onClick={() => setActive('contact')}
+        >
+          Contact
+        </Button>
+      </Flex>
+    </Flex>
+  );
+}
+```
+
+## Pattern 8: Data Display Table
+
+Display tabular data:
+
+```typescript
+import { Card, Grid, Box } from 'ui8kit-core';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  status: string;
+}
+
+function UserTable({ users }: { users: User[] }) {
+  return (
+    <Card>
+      <Card.Header>Users</Card.Header>
+      <Card.Content>
+        <Box className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Box>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+## Component Usage Tips
+
+### Use Variants for Styling
+```typescript
+// Good - use variants
+<Button padding="lg" bgColor="blue" rounded="md">Click</Button>
+
+// Avoid - use className
+<Button className="p-6 bg-blue-600 rounded-md">Click</Button>
+```
+
+### Use Compound Components for Structure
+```typescript
+// Good - semantic structure
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
+
+// Less semantic
+<div><div>Title</div><div>Content</div><div>Actions</div></div>
+```
+
+### ForwardRef for Direct Access
+```typescript
+// When you need direct DOM access
+const buttonRef = useRef<HTMLButtonElement>(null);
+<Button ref={buttonRef} onClick={() => buttonRef.current?.focus()} />
+```
+
+## Next Steps
+
+- [Advanced Workflow](../advanced-workflow/README.md) - Handle complex scenarios
+- [Best Practices](../best-practices/README.md) - Follow recommendations
+- [API Reference](../../04-api-reference/README.md) - View component APIs
+
+
+# ================================================================================
+
+# FILE 18: 05-development-guide\best-practices\README.md
+# ================================================================================
+# Best Practices
+
+## Overview
+
+General guidelines and recommendations for using UI8Kit/Core components effectively.
+
+## Component Usage
+
+### 1. Prefer Variants Over className
+
+```typescript
+// Good - use variants from the system
+<Button 
+  padding="lg" 
+  bgColor="blue" 
+  rounded="md"
+/>
+
+// Less optimal - hardcoded classes
+<Button className="p-6 bg-blue-600 rounded-md" />
+```
+
+Variants provide:
+- Type safety
+- Consistency across components
+- Easy theme changes
+- Better maintainability
+
+### 2. Use Semantic HTML
+
+```typescript
+// Good - semantic elements
+<header>
+  <nav>Navigation</nav>
+</header>
+<main>
+  <article>Content</article>
+</main>
+<footer>Footer</footer>
+
+// Less semantic
+<div>
+  <div>Navigation</div>
+</div>
+<div>
+  <div>Content</div>
+</div>
+<div>Footer</div>
+```
+
+Benefits:
+- Better accessibility
+- SEO friendly
+- More maintainable code
+- Clearer intent
+
+### 3. Leverage Compound Components
+
+```typescript
+// Good - clear structure
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
+
+// Less clear - generic wrapper
+<Card header="Title" content="Content" footer="Actions" />
+```
+
+Advantages:
+- Explicit structure
+- Flexible composition
+- Type-safe subcomponents
+- Clear hierarchy
+
+### 4. Use TypeScript Interfaces
+
+```typescript
+// Good - typed props
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+}
+
+const MyButton = (props: ButtonProps) => {
+  // Implementation
+};
+
+// Less helpful - any type
+const MyButton = (props: any) => {
+  // Implementation
+};
+```
+
+Benefits:
+- IDE autocomplete
+- Compile-time error checking
+- Self-documenting code
+- Easier refactoring
+
+## Layout Best Practices
+
+### 1. Use Layout Components
+
+```typescript
+// Good - use provided layout
+<DashLayout sidebar={<Nav />} header={<Header />}>
+  <DashLayout.Content>Content</DashLayout.Content>
+</DashLayout>
+
+// More work - manual layout
+<div style={{ display: 'flex' }}>
+  <aside>Nav</aside>
+  <main>Content</main>
+</div>
+```
+
+### 2. Responsive Design
+
+```typescript
+// Good - responsive
+<Grid
+  cols={{ base: 1, md: 2, lg: 3 }}
+  gap="md"
+>
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+
+// Fixed - not responsive
+<Grid cols={3} gap="md">
+  {items.map(item => <Card key={item.id}>{item}</Card>)}
+</Grid>
+```
+
+### 3. Proper Spacing
+
+```typescript
+// Good - consistent spacing
+<Card padding="lg" gap="md">
+  <Box marginBottom="md">Section 1</Box>
+  <Box marginBottom="md">Section 2</Box>
+</Card>
+
+// Inconsistent - manual spacing
+<Card>
+  <Box style={{ marginBottom: '20px' }}>Section 1</Box>
+  <Box style={{ marginBottom: '10px' }}>Section 2</Box>
+</Card>
+```
+
+## Performance
+
+### 1. Minimize Re-renders
+
+```typescript
+// Good - memoized component
+import { memo } from 'react';
+
+const ItemCard = memo(({ item }: { item: Item }) => (
+  <Card>{item.name}</Card>
+));
+
+// Less optimal - re-renders on parent change
+function ItemCard({ item }: { item: Item }) {
+  return <Card>{item.name}</Card>;
+}
+```
+
+### 2. Use Keys in Lists
+
+```typescript
+// Good - stable keys
+{items.map(item => (
+  <Card key={item.id}>{item.name}</Card>
+))}
+
+// Bad - index keys
+{items.map((item, index) => (
+  <Card key={index}>{item.name}</Card>
+))}
+```
+
+### 3. Lazy Load Components
+
+```typescript
+// Good - code splitting
+import { lazy, Suspense } from 'react';
+
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+
+export function App() {
+  return (
+    <Suspense fallback={<Card>Loading...</Card>}>
+      <HeavyComponent />
+    </Suspense>
+  );
+}
+```
+
+## Accessibility
+
+### 1. Use ARIA Labels
+
+```typescript
+// Good - accessible button
+<Button 
+  aria-label="Close dialog"
+  onClick={handleClose}
+>
+  ✕
+</Button>
+
+// Less accessible
+<Button onClick={handleClose}>✕</Button>
+```
+
+### 2. Keyboard Navigation
+
+```typescript
+// Good - keyboard support
+<Button onClick={handleAction} onKeyDown={handleKeyDown}>
+  Action
+</Button>
+
+// Verify tab order and focus management
+<Card>
+  <Button>First</Button>
+  <Button>Second</Button>
+</Card>
+```
+
+### 3. Color Contrast
+
+```typescript
+// Good - sufficient contrast
+<Button bgColor="blue">High contrast text</Button>
+
+// Check contrast ratios meet WCAG standards
+```
+
+## Semantic HTML
+
+### 1. Use Correct Heading Hierarchy
+
+```typescript
+// Good - proper hierarchy
+<>
+  <h1>Page Title</h1>
+  <h2>Section Title</h2>
+  <h3>Subsection Title</h3>
+</>
+
+// Bad - skipped levels
+<>
+  <h1>Page Title</h1>
+  <h3>Subsection Title</h3>
+</>
+```
+
+### 2. List Elements for Lists
+
+```typescript
+// Good - semantic list
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+
+// Less semantic
+<div>
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+```
+
+### 3. Form Elements
+
+```typescript
+// Good - proper form structure
+<form onSubmit={handleSubmit}>
+  <label htmlFor="email">Email</label>
+  <Input id="email" type="email" />
+  <Button type="submit">Submit</Button>
+</form>
+
+// Less semantic
+<div>
+  <span>Email</span>
+  <input type="email" />
+  <button>Submit</button>
+</div>
+```
+
+## State Management
+
+### 1. Use Proper State Level
+
+```typescript
+// Good - state at right level
+function Parent() {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  return (
+    <Grid cols={3}>
+      {items.map(item => (
+        <ItemCard
+          key={item.id}
+          selected={selected === item.id}
+          onClick={() => setSelected(item.id)}
+        />
+      ))}
+    </Grid>
+  );
+}
+```
+
+### 2. Avoid Prop Drilling
+
+```typescript
+// Good - use context for deeply nested props
+const ThemeContext = createContext<Theme>('light');
+
+export function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Layout />
+    </ThemeContext.Provider>
+  );
+}
+
+function DeeplyNestedComponent() {
+  const theme = useContext(ThemeContext);
+  return <Card>Using {theme} theme</Card>;
+}
+```
+
+## Error Handling
+
+### 1. Display Error States
+
+```typescript
+// Good - show errors clearly
+function DataDisplay() {
+  const { data, error, loading } = useData();
+
+  if (loading) return <Alert type="info">Loading...</Alert>;
+  if (error) return <Alert type="error">{error.message}</Alert>;
+
+  return <Grid>{data.map(item => <Card key={item.id}>{item}</Card>)}</Grid>;
+}
+```
+
+### 2. Validate Input
+
+```typescript
+// Good - validate before submit
+function Form() {
+  const [values, setValues] = useState({ email: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!values.email) newErrors.email = 'Email required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      // Submit
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input value={values.email} onChange={(e) => setValues({ email: e.target.value })} />
+      {errors.email && <p className="text-red-500">{errors.email}</p>}
+      <Button type="submit">Submit</Button>
+    </form>
+  );
+}
+```
+
+## Next Steps
+
+- [Dark Mode](../dark-mode/README.md) - Theme implementation
+- [Development Guide](../README.md) - Back to overview
+- [API Reference](../../04-api-reference/README.md) - Component details
+
+
+# ================================================================================
+
+# FILE 19: 05-development-guide\dark-mode\README.md
+# ================================================================================
+# Dark Mode
+
+## Overview
+
+Dark mode implementation in UI8Kit/Core using the Theme Provider for configuration, toggling, and persistence.
+
+## Theme Configuration
+
+### Setup ThemeProvider
+
+Wrap your application with ThemeProvider:
+
+```typescript
+import { ThemeProvider } from 'ui8kit-core/themes';
+import { App } from './App';
+
+export function Root() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+}
+```
+
+## Using Dark Mode Hook
+
+Access theme state using `useTheme` hook:
+
+```typescript
+import { useTheme } from 'ui8kit-core/themes';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button onClick={toggleTheme}>
+      Current theme: {theme}
+    </button>
+  );
+}
+```
+
+### Hook API
+
+```typescript
+interface UseThemeReturn {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+  setTheme: (theme: 'light' | 'dark') => void;
+  isDark: boolean;
+  isLight: boolean;
+}
+
+const { 
+  theme,      // Current theme value
+  toggleTheme,  // Toggle between light/dark
+  setTheme,   // Set specific theme
+  isDark,     // Boolean check for dark mode
+  isLight     // Boolean check for light mode
+} = useTheme();
+```
+
+## Theme Toggle Component
+
+### Basic Toggle
+
+```typescript
+import { useTheme } from 'ui8kit-core/themes';
+import { Button } from 'ui8kit-core';
+
+function DarkModeToggle() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <Button 
+      onClick={toggleTheme}
+      variant={isDark ? 'primary' : 'secondary'}
+    >
+      {isDark ? '🌙 Dark' : '☀️ Light'}
+    </Button>
+  );
+}
+```
+
+### Toggle in Header
+
+```typescript
+import { DashLayout, Flex, Button } from 'ui8kit-core';
+import { useTheme } from 'ui8kit-core/themes';
+
+function Header() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <Flex 
+      justify="between" 
+      align="center" 
+      padding="md"
+    >
+      <h1>My App</h1>
+      <Flex gap="md">
+        <Button>Settings</Button>
+        <Button onClick={toggleTheme}>
+          {isDark ? '🌙' : '☀️'}
+        </Button>
+      </Flex>
+    </Flex>
+  );
+}
+```
+
+### Toggle with Icon
+
+```typescript
+import { useTheme } from 'ui8kit-core/themes';
+import { Button } from 'ui8kit-core';
+
+function ThemeToggleIcon() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <Button
+      onClick={toggleTheme}
+      variant="ghost"
+      size="sm"
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+    >
+      {isDark ? (
+        <svg className="w-5 h-5">
+          {/* Sun icon */}
+        </svg>
+      ) : (
+        <svg className="w-5 h-5">
+          {/* Moon icon */}
+        </svg>
+      )}
+    </Button>
+  );
+}
+```
+
+## Conditional Styling
+
+### Using Theme in Components
+
+```typescript
+import { useTheme } from 'ui8kit-core/themes';
+import { Card } from 'ui8kit-core';
+
+function ThemedCard() {
+  const { isDark } = useTheme();
+
+  return (
+    <Card
+      bgColor={isDark ? 'dark-gray' : 'white'}
+      className={isDark ? 'border-gray-700' : 'border-gray-200'}
+    >
+      Content
+    </Card>
+  );
+}
+```
+
+### Dark Mode Classes
+
+Use Tailwind's dark mode classes:
+
+```typescript
+<div className="bg-white dark:bg-gray-900 text-black dark:text-white">
+  Content that changes with dark mode
+</div>
+```
+
+## Persistence
+
+### LocalStorage Persistence
+
+Theme preference is automatically saved to localStorage:
+
+```typescript
+// Automatically persisted
+const { theme, toggleTheme } = useTheme();
+
+// On page reload, the saved theme is restored
+```
+
+### System Preference Detection
+
+ThemeProvider respects system dark mode preference:
+
+```typescript
+// If no saved preference, checks:
+// prefers-color-scheme: dark/light
+```
+
+### Manual Persistence
+
+Override auto-save if needed:
+
+```typescript
+import { useTheme } from 'ui8kit-core/themes';
+import { useEffect } from 'react';
+
+function MyComponent() {
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    // Save to custom location
+    localStorage.setItem('my-app-theme', theme);
+  }, [theme]);
+
+  return null;
+}
+```
+
+## CSS Variables
+
+### Available Theme Variables
+
+Dark mode uses CSS variables for theming:
+
+```css
+:root {
+  /* Light mode */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-border: #e5e5e5;
+}
+
+:root.dark {
+  /* Dark mode */
+  --color-bg: #1f2937;
+  --color-text: #f3f4f6;
+  --color-border: #374151;
+}
+```
+
+### Using CSS Variables
+
+```typescript
+<div className="bg-[var(--color-bg)] text-[var(--color-text)]">
+  Uses theme colors
+</div>
+```
+
+## Complete Theme Setup
+
+### Full Application Example
+
+```typescript
+import { ThemeProvider } from 'ui8kit-core/themes';
+import { DashLayout, Flex, Button } from 'ui8kit-core';
+import { useTheme } from 'ui8kit-core/themes';
+
+function Header() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <Flex justify="between" align="center" padding="md">
+      <h1>App Title</h1>
+      <Button onClick={toggleTheme}>
+        {isDark ? '🌙 Dark' : '☀️ Light'}
+      </Button>
+    </Flex>
+  );
+}
+
+function Content() {
+  const { isDark } = useTheme();
+
+  return (
+    <div className={isDark ? 'bg-gray-900' : 'bg-white'}>
+      Main content
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <DashLayout header={<Header />}>
+      <DashLayout.Content>
+        <Content />
+      </DashLayout.Content>
+    </DashLayout>
+  );
+}
+
+export function Root() {
+  return (
+    <ThemeProvider defaultTheme="light">
+      <App />
+    </ThemeProvider>
+  );
+}
+```
+
+## Theme Provider Props
+
+```typescript
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultTheme?: 'light' | 'dark';
+  storageKey?: string;
+  attribute?: 'class' | 'data-theme';
+}
+
+<ThemeProvider
+  defaultTheme="light"
+  storageKey="my-app-theme"
+  attribute="class"
+>
+  <App />
+</ThemeProvider>
+```
+
+## Best Practices
+
+### 1. Centralize Theme Toggle
+```typescript
+// Good - accessible in header
+<Header>
+  <ThemeToggle />
+</Header>
+
+// Less ideal - buried in settings
+<Settings>
+  <ThemeToggle />
+</Settings>
+```
+
+### 2. Respect User Preference
+```typescript
+// Good - respects system preference
+<ThemeProvider>
+  <App />
+</ThemeProvider>
+
+// Less ideal - forces theme
+<ThemeProvider defaultTheme="light">
+  <App />
+</ThemeProvider>
+```
+
+### 3. Consistent Colors
+```typescript
+// Good - use CSS variables
+className="bg-[var(--color-bg)]"
+
+// Less consistent - hardcoded
+className={isDark ? 'bg-gray-900' : 'bg-white'}
+```
+
+## Troubleshooting
+
+### Theme Not Persisting
+
+Check:
+1. `ThemeProvider` wraps entire app
+2. Browser storage is enabled
+3. No conflicting localStorage keys
+
+### Flash of Wrong Theme
+
+Prevent by loading theme early:
+
+```typescript
+// Add to head tag
+<script>
+  const theme = localStorage.getItem('theme') || 'light';
+  document.documentElement.classList.add(theme);
+</script>
+```
+
+### Tailwind Dark Mode Not Working
+
+Ensure Tailwind config includes dark mode:
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class',
+  // ... rest of config
+};
+```
+
+## Next Steps
+
+- [Best Practices](../best-practices/README.md) - General guidelines
+- [Development Guide](../README.md) - Back to overview
+- [Architecture](../../03-architecture/README.md) - System overview
+
+
+# ================================================================================
+
+# FILE 20: 05-development-guide\README.md
+# ================================================================================
+# Development Guide
+
+## Overview
+
+The Development Guide provides practical workflows, patterns, and best practices for using UI8Kit/Core in your applications.
+
+## Sections
+
+### 1. Basic Workflow
+Common development patterns and usage examples for typical scenarios.
+
+[View Basic Workflow →](./basic-workflow/README.md)
+
+Topics:
+- Component setup
+- Common patterns
+- Typical use cases
+
+### 2. Advanced Workflow
+Handling edge cases where standard components are insufficient.
+
+[View Advanced Workflow →](./advanced-workflow/README.md)
+
+Topics:
+- Custom forms
+- Component composition
+- Advanced patterns
+
+### 3. Best Practices
+General guidelines and recommendations for using components and building layouts.
+
+[View Best Practices →](./best-practices/README.md)
+
+Topics:
+- Component usage
+- Layout patterns
+- Performance optimization
+- Accessibility
+- Semantic HTML
+
+### 4. Dark Mode
+Implementation, toggle functionality, and persistence.
+
+[View Dark Mode →](./dark-mode/README.md)
+
+Topics:
+- Theme configuration
+- Dark mode setup
+- Toggle implementation
+- Persistence
+
+## Quick Start
+
+### Step 1: Install
+```bash
+npm install ui8kit-core
+```
+
+### Step 2: Basic Import
+```typescript
+import { Button, Card } from 'ui8kit-core';
+
+export function App() {
+  return (
+    <Card>
+      <Card.Header>Welcome</Card.Header>
+      <Card.Content>
+        <Button>Click me</Button>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+### Step 3: Use Variants
+```typescript
+<Button 
+  padding="lg" 
+  bgColor="blue"
+  rounded="md"
+>
+  Customized Button
+</Button>
+```
+
+## Development Philosophy
+
+UI8Kit/Core follows these principles:
+
+### 1. Minimalism
+Use the simplest component that solves your problem. Most interfaces can be built with core and UI components without custom styling.
+
+### 2. Composition
+Combine components rather than creating complex monolithic components. This increases flexibility and reusability.
+
+### 3. Type Safety
+Leverage TypeScript for better developer experience and fewer runtime errors.
+
+### 4. Consistency
+Follow established patterns for prop naming, data-class attributes, and component structure.
+
+### 5. Accessibility
+All components prioritize semantic HTML and ARIA attributes for accessibility.
+
+## Common Workflows
+
+### Building a Form
+
+```typescript
+import { Card, Button, Input } from 'ui8kit-core';
+import { useState } from 'react';
+
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <Card maxWidth="md">
+      <Card.Header>Login</Card.Header>
+      <Card.Content>
+        <Input 
+          type="email" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <Input 
+          type="password" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+      </Card.Content>
+      <Card.Footer>
+        <Button variant="primary">Sign In</Button>
+      </Card.Footer>
+    </Card>
+  );
+}
+```
+
+### Building a Dashboard
+
+```typescript
+import { DashLayout, Grid, Card } from 'ui8kit-core';
+
+function Dashboard() {
+  return (
+    <DashLayout sidebar={<NavMenu />} header={<TopBar />}>
+      <DashLayout.Content>
+        <Grid cols={3} gap="md">
+          <StatCard title="Users" value="1,234" />
+          <StatCard title="Revenue" value="$45,678" />
+          <StatCard title="Orders" value="789" />
+        </Grid>
+      </DashLayout.Content>
+    </DashLayout>
+  );
+}
+```
+
+### Building a Layout
+
+```typescript
+import { LayoutBlock, Flex, SplitBlock } from 'ui8kit-core';
+
+function BlogPage() {
+  return (
+    <LayoutBlock maxWidth="6xl" padding="lg">
+      <header>
+        <h1>My Blog</h1>
+      </header>
+      
+      <SplitBlock
+        left={<ArticleContent />}
+        right={<Sidebar />}
+        ratio="2:1"
+      />
+      
+      <footer>
+        <Flex justify="between" gap="md">
+          <p>&copy; 2024</p>
+          <nav>{/* Footer links */}</nav>
+        </Flex>
+      </footer>
+    </LayoutBlock>
+  );
+}
+```
+
+## Component Patterns
+
+### Pattern: Controlled Component
+```typescript
+const [value, setValue] = useState('');
+
+<Input 
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+```
+
+### Pattern: Ref Access
+```typescript
+const ref = useRef<HTMLButtonElement>(null);
+
+<Button ref={ref}>Click me</Button>
+
+// Later: ref.current?.click()
+```
+
+### Pattern: Compound Component
+```typescript
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
+```
+
+### Pattern: With Variants
+```typescript
+<Button
+  variant="primary"
+  size="lg"
+  padding="md"
+  bgColor="blue"
+>
+  Click me
+</Button>
+```
+
+## TypeScript Support
+
+All components are fully typed:
+
+```typescript
+import { Button, Card } from 'ui8kit-core';
+import type { ButtonProps, CardProps } from 'ui8kit-core';
+
+interface MyButtonProps extends ButtonProps {
+  customProp?: string;
+}
+
+function MyButton(props: MyButtonProps) {
+  return <Button {...props} />;
+}
+```
+
+## Next Steps
+
+- [Basic Workflow](./basic-workflow/README.md) - Learn common patterns
+- [Advanced Workflow](./advanced-workflow/README.md) - Handle edge cases
+- [Best Practices](./best-practices/README.md) - Follow recommendations
+- [Dark Mode](./dark-mode/README.md) - Implement themes
+- [API Reference](../04-api-reference/README.md) - View component API
+
+
+# ================================================================================
+
+# FILE 21: 06-troubleshooting\README.md
+# ================================================================================
+# Troubleshooting
+
+## Overview
+
+Solutions for common problems, frequently asked questions, and debugging guides for UI8Kit/Core.
+
+## Installation Issues
+
+### Module Not Found Error
+
+**Problem**: `Cannot find module 'ui8kit-core'`
+
+**Solutions**:
+1. Verify installation:
+```bash
+npm list ui8kit-core
+```
+
+2. Reinstall if needed:
+```bash
+npm uninstall ui8kit-core
+npm install ui8kit-core
+```
+
+3. Check package.json:
+```json
+{
+  "dependencies": {
+    "ui8kit-core": "^3.0.0"
+  }
+}
+```
+
+4. Clear npm cache:
+```bash
+npm cache clean --force
+npm install
+```
+
+### Tailwind CSS Not Applied
+
+**Problem**: Styles don't appear on components
+
+**Solutions**:
+1. Verify Tailwind CSS is installed:
+```bash
+npm list tailwindcss
+```
+
+2. Check `tailwind.config.js` includes UI8Kit:
+```javascript
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/ui8kit-core/dist/**/*.{js,jsx,ts,tsx}",
+  ],
+  // ... rest of config
+};
+```
+
+3. Import Tailwind CSS in your main CSS file:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+4. Verify CSS is imported in your app entry point:
+```typescript
+import './styles.css'; // or tailwind.css
+```
+
+## Component Issues
+
+### Component Not Rendering
+
+**Problem**: Component appears in code but doesn't show in browser
+
+**Solutions**:
+1. Check import statement:
+```typescript
+// Correct
+import { Button } from 'ui8kit-core';
+
+// Wrong
+import Button from 'ui8kit-core'; // Named export, not default
+```
+
+2. Verify component is exported:
+```typescript
+// Check if using correct export
+import { Card } from 'ui8kit-core';
+```
+
+3. Check for console errors and fix them
+
+### Ref Not Working
+
+**Problem**: `ref` prop not forwarding properly
+
+**Solutions**:
+1. Use `useRef` correctly:
+```typescript
+const buttonRef = useRef<HTMLButtonElement>(null);
+<Button ref={buttonRef} />
+```
+
+2. Access ref properly:
+```typescript
+if (buttonRef.current) {
+  buttonRef.current.click(); // Button has click method
+}
+```
+
+3. Check ref type matches component:
+```typescript
+// Good - button ref type
+const ref = useRef<HTMLButtonElement>(null);
+
+// Bad - wrong type
+const ref = useRef<HTMLElement>(null); // Too generic
+```
+
+### TypeScript Errors
+
+**Problem**: Type errors with component props
+
+**Solutions**:
+1. Import types:
+```typescript
+import { Button, type ButtonProps } from 'ui8kit-core';
+```
+
+2. Extend component props:
+```typescript
+interface MyButtonProps extends ButtonProps {
+  customProp?: string;
+}
+```
+
+3. Check variant values are correct:
+```typescript
+// Good - valid variant
+<Button variant="primary" />
+
+// Bad - invalid variant
+<Button variant="invalid" />
+```
+
+## Layout Issues
+
+### Layout Not Responsive
+
+**Problem**: Layout doesn't change on different screen sizes
+
+**Solutions**:
+1. Use responsive props:
+```typescript
+// Good - responsive
+<Grid cols={{ base: 1, md: 2, lg: 3 }} />
+
+// Bad - fixed
+<Grid cols={3} />
+```
+
+2. Add viewport meta tag:
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+```
+
+3. Test with browser dev tools mobile view
+
+### Grid/Flex Not Aligning
+
+**Problem**: Items not aligned as expected
+
+**Solutions**:
+1. Check alignment props:
+```typescript
+<Flex
+  justify="between"    // Space-between
+  align="center"       // Vertical center
+  direction="row"      // Horizontal layout
+/>
+```
+
+2. Verify gap property:
+```typescript
+<Grid gap="md" /> // Use variant gaps, not custom values
+```
+
+3. Inspect computed CSS in dev tools
+
+## State Management Issues
+
+### State Not Updating
+
+**Problem**: Component doesn't update when state changes
+
+**Solutions**:
+1. Check useState usage:
+```typescript
+// Good
+const [value, setValue] = useState('');
+setValue(newValue); // Direct call updates state
+
+// Bad - doesn't update state
+value = newValue; // Direct assignment doesn't work in React
+```
+
+2. For objects, create new reference:
+```typescript
+// Good - new object reference
+setValues({ ...values, name: 'John' });
+
+// Bad - mutating original
+values.name = 'John';
+setValues(values);
+```
+
+3. Check dependency arrays in useEffect:
+```typescript
+useEffect(() => {
+  // This runs when dependencies change
+}, [dependency1, dependency2]);
+```
+
+## Form Issues
+
+### Form Submission Not Working
+
+**Problem**: Form doesn't submit when button clicked
+
+**Solutions**:
+1. Use correct button type:
+```typescript
+<Button type="submit">Submit</Button>
+```
+
+2. Wrap button in form:
+```typescript
+<form onSubmit={handleSubmit}>
+  <Input {...} />
+  <Button type="submit">Submit</Button>
+</form>
+```
+
+3. Prevent default properly:
+```typescript
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault(); // Stop default form submission
+  // Your logic here
+};
+```
+
+### Input Not Capturing Value
+
+**Problem**: Input field doesn't update or lose focus
+
+**Solutions**:
+1. Use controlled component pattern:
+```typescript
+const [value, setValue] = useState('');
+
+<Input
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+```
+
+2. Check onChange handler:
+```typescript
+// Good
+onChange={(e) => setValue(e.target.value)}
+
+// Bad - missing e.target.value
+onChange={() => setValue('')}
+```
+
+3. Verify input type is correct:
+```typescript
+<Input type="email" /> // For email inputs
+<Input type="password" /> // For passwords
+```
+
+## Performance Issues
+
+### Slow Component Rendering
+
+**Problem**: Application feels sluggish
+
+**Solutions**:
+1. Memoize components:
+```typescript
+const Item = memo(({ item }) => (
+  <Card>{item.name}</Card>
+));
+```
+
+2. Use proper keys in lists:
+```typescript
+// Good - stable unique keys
+{items.map(item => (
+  <Card key={item.id}>{item}</Card>
+))}
+
+// Bad - index keys cause re-renders
+{items.map((item, index) => (
+  <Card key={index}>{item}</Card>
+))}
+```
+
+3. Lazy load heavy components:
+```typescript
+const HeavyComponent = lazy(() => import('./Heavy'));
+
+<Suspense fallback={<Card>Loading...</Card>}>
+  <HeavyComponent />
+</Suspense>
+```
+
+## Dark Mode Issues
+
+### Theme Not Persisting
+
+**Problem**: Theme resets on page refresh
+
+**Solutions**:
+1. Wrap with ThemeProvider:
+```typescript
+<ThemeProvider>
+  <App />
+</ThemeProvider>
+```
+
+2. Check localStorage is enabled
+3. Verify provider wraps entire app
+4. Check browser console for errors
+
+### Flash of Wrong Theme
+
+**Problem**: Page loads with wrong theme briefly
+
+**Solutions**:
+1. Add theme loading script in HTML head:
+```html
+<script>
+  const theme = localStorage.getItem('theme') || 'light';
+  document.documentElement.classList.add(theme);
+</script>
+```
+
+2. Set initial theme in provider:
+```typescript
+<ThemeProvider defaultTheme="light">
+  <App />
+</ThemeProvider>
+```
+
+## Build Issues
+
+### TypeScript Compilation Errors
+
+**Problem**: Build fails with TypeScript errors
+
+**Solutions**:
+1. Check TypeScript version:
+```bash
+npm list typescript
+```
+
+2. Update tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
+```
+
+3. Fix type errors in code
+
+### Bundle Size Too Large
+
+**Problem**: Built bundle is too large
+
+**Solutions**:
+1. Enable tree-shaking:
+```json
+{
+  "sideEffects": false,
+  "type": "module"
+}
+```
+
+2. Code splitting:
+```typescript
+import { lazy } from 'react';
+const Component = lazy(() => import('./Component'));
+```
+
+3. Check imports are correct:
+```typescript
+// Good - tree-shakeable
+import { Button } from 'ui8kit-core';
+
+// Less efficient - might include everything
+import * as UI from 'ui8kit-core';
+```
+
+## Browser Compatibility
+
+### Styles Not Working in Older Browsers
+
+**Problem**: Styles work in modern browsers but not in older ones
+
+**Solutions**:
+1. Check target in tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020"
+  }
+}
+```
+
+2. Add polyfills if needed
+3. Test with browser compatibility matrix
+
+## Getting Help
+
+### When You're Stuck
+
+1. **Check documentation** - Review API Reference and examples
+2. **Search issues** - Check GitHub issues for similar problems
+3. **Check console** - Read browser console for error messages
+4. **Verify setup** - Double-check installation and configuration
+5. **Simplify** - Create minimal reproduction case
+6. **Ask for help** - Create issue with reproduction steps
+
+### Creating a Reproduction Case
+
+```typescript
+// Minimal example that reproduces the issue
+import { Button } from 'ui8kit-core';
+
+export function TestCase() {
+  return <Button>Click me</Button>;
+}
+```
+
+Include:
+- Versions of dependencies
+- Steps to reproduce
+- Expected behavior
+- Actual behavior
+- Minimal code example
+
+## FAQ
+
+### Q: How do I customize component colors?
+
+**A**: Use variant props:
+```typescript
+<Button bgColor="blue" padding="lg">Custom Button</Button>
+```
+
+### Q: Can I use custom className?
+
+**A**: Yes, but variants are preferred:
+```typescript
+<Button className="custom-class" padding="lg">
+  Button with custom class
+</Button>
+```
+
+### Q: How do I extend components?
+
+**A**: Create wrapper components:
+```typescript
+function MyButton(props) {
+  return <Button variant="primary" {...props} />;
+}
+```
+
+### Q: Does it work with Next.js?
+
+**A**: Yes, it works with both App and Pages routers.
+
+### Q: Do I need all components?
+
+**A**: No, use only what you need. Tree-shaking removes unused code.
+
+## Next Steps
+
+- [API Reference](../04-api-reference/README.md) - Component documentation
+- [Development Guide](../05-development-guide/README.md) - Usage guides
+- [Architecture](../03-architecture/README.md) - System overview
+- [Getting Started](../02-getting-started/README.md) - Setup guide
+
+
+# ================================================================================
+
+# FILE 22: README.md
+# ================================================================================
+# UI8Kit/Core Documentation
+
+Welcome to the comprehensive documentation for **UI8Kit/Core** - a three-layered React UI component library built with utility-first classes and clean HTML5 semantic tag approach.
+
+## Quick Navigation
+
+- [Overview](./01-overview/README.md) - Introduction to the library and core principles
+- [Getting Started](./02-getting-started/README.md) - Installation and basic setup
+- [Architecture](./03-architecture/README.md) - Detailed architecture explanation
+- [API Reference](./04-api-reference/README.md) - Complete component API documentation
+- [Development Guide](./05-development-guide/README.md) - Usage patterns and best practices
+- [Troubleshooting](./06-troubleshooting/README.md) - Solutions and FAQ
+
+## Core Concept
+
+UI8Kit/Core embodies **minimalism**: complex interfaces can be built using just **15 composite components** and **12 reusable variants** that cover ~80% of design scenarios. This provides minimal code footprint, eliminates redundant classes, and enables unlimited design-flexible layouts.
+
+## Features
+
+- ✅ Three-layered architecture aligned with atomic design
+- ✅ CVA-based (class-variance-authority) variant system
+- ✅ Prop forwarding API for extended components
+- ✅ Tailwind CSS utility-first approach
+- ✅ TypeScript support with full type safety
+- ✅ Multiple integration formats (npm, registry, submodule, source)
+
+## Project Structure
+
+- **Core/UI** - Basic primitives and foundational components
+- **Components/UI** - Composite components with extended functionality
+- **Layouts** - Pre-built layout templates and systems
+
+Start exploring by visiting the [Overview](./01-overview/README.md) section!
+
+
+# ================================================================================
+
+# FILE 23: SUMMARY.md
+# ================================================================================
+# Summary
+
+## Main Sections
+
+* [Overview](./01-overview/README.md)
+* [Getting Started](./02-getting-started/README.md)
+
+## Architecture
+
+* [Architecture](./03-architecture/README.md)
+    * [Core Components](./03-architecture/core-components/README.md)
+    * [Variant System](./03-architecture/variant-system/README.md)
+    * [UI Components](./03-architecture/ui-components/README.md)
+    * [Layouts](./03-architecture/layouts/README.md)
+    * [Package Structure](./03-architecture/package-structure/README.md)
+    * [Build System](./03-architecture/build-system/README.md)
+    * [Component Registry](./03-architecture/component-registry/README.md)
+    * [TypeScript Configuration](./03-architecture/typescript-configuration/README.md)
+
+## API Reference
+
+* [API Reference](./04-api-reference/README.md)
+    * [Core Components](./04-api-reference/core-components/README.md)
+    * [UI Components](./04-api-reference/ui-components/README.md)
+    * [Layout Components](./04-api-reference/layout-components/README.md)
+
+## Development Guide
+
+* [Development Guide](./05-development-guide/README.md)
+    * [Basic Workflow](./05-development-guide/basic-workflow/README.md)
+    * [Advanced Workflow](./05-development-guide/advanced-workflow/README.md)
+    * [Best Practices](./05-development-guide/best-practices/README.md)
+    * [Dark Mode](./05-development-guide/dark-mode/README.md)
+
+## Support
+
+* [Troubleshooting](./06-troubleshooting/README.md)
+
+
+# ================================================================================
+
