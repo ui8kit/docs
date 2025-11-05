@@ -1,10 +1,3 @@
----
-{
-  "title": "Overview",
-  "generatedAt": "2025-11-04T11:57:47.204Z"
-}
----
-
 # Overview
 
 Relevant source files

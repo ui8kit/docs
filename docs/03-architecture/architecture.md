@@ -1,10 +1,3 @@
----
-{
-  "title": "Architecture",
-  "generatedAt": "2025-11-04T11:57:47.694Z"
-}
----
-
 # Architecture
 
 Relevant source files

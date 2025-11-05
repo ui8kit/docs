@@ -1,10 +1,3 @@
----
-{
-  "title": "Core Components",
-  "generatedAt": "2025-11-04T11:57:47.850Z"
-}
----
-
 # Core Components
 
 Relevant source files

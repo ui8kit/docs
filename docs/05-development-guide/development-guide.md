@@ -1,10 +1,3 @@
----
-{
-  "title": "Development Guide",
-  "generatedAt": "2025-11-04T11:57:50.093Z"
-}
----
-
 # Development Guide
 
 Relevant source files

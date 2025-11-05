@@ -1,10 +1,3 @@
----
-{
-  "title": "Variant System",
-  "generatedAt": "2025-11-04T11:57:48.100Z"
-}
----
-
 # Variant System
 
 Relevant source files

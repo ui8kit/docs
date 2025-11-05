@@ -1,10 +1,3 @@
----
-{
-  "title": "API Reference",
-  "generatedAt": "2025-11-04T11:57:49.287Z"
-}
----
-
 # API Reference
 
 Relevant source files

@@ -1,10 +1,3 @@
----
-{
-  "title": "Dark Mode",
-  "generatedAt": "2025-11-04T11:57:51.041Z"
-}
----
-
 # Dark Mode
 
 Relevant source files

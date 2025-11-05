@@ -1,10 +1,3 @@
----
-{
-  "title": "Troubleshooting",
-  "generatedAt": "2025-11-04T11:57:51.225Z"
-}
----
-
 # Troubleshooting
 
 Relevant source files

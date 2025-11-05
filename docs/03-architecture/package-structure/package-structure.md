@@ -1,10 +1,3 @@
----
-{
-  "title": "Package Structure",
-  "generatedAt": "2025-11-04T11:57:48.652Z"
-}
----
-
 # Package Structure
 
 Relevant source files

@@ -1,10 +1,3 @@
----
-{
-  "title": "Best Practices",
-  "generatedAt": "2025-11-04T11:57:50.969Z"
-}
----
-
 # Best Practices
 
 Relevant source files

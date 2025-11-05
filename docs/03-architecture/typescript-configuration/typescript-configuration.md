@@ -1,10 +1,3 @@
----
-{
-  "title": "TypeScript Configuration",
-  "generatedAt": "2025-11-04T11:57:49.067Z"
-}
----
-
 # TypeScript Configuration
 
 Relevant source files

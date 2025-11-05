@@ -1,10 +1,3 @@
----
-{
-  "title": "Build System",
-  "generatedAt": "2025-11-04T11:57:48.788Z"
-}
----
-
 # Build System
 
 Relevant source files

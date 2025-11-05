@@ -1,10 +1,3 @@
----
-{
-  "title": "Layout Components",
-  "generatedAt": "2025-11-04T11:57:49.952Z"
-}
----
-
 # Layout Components
 
 Relevant source files

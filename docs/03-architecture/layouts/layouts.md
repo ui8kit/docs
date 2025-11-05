@@ -1,10 +1,3 @@
----
-{
-  "title": "Layouts",
-  "generatedAt": "2025-11-04T11:57:48.538Z"
-}
----
-
 # Layouts
 
 Relevant source files

@@ -1,10 +1,3 @@
----
-{
-  "title": "Basic Workflow",
-  "generatedAt": "2025-11-04T11:57:50.504Z"
-}
----
-
 # Basic Workflow
 
 Relevant source files

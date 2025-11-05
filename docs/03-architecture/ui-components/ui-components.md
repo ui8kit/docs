@@ -1,10 +1,3 @@
----
-{
-  "title": "UI Components",
-  "generatedAt": "2025-11-04T11:57:48.299Z"
-}
----
-
 # UI Components
 
 Relevant source files

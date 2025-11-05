@@ -1,10 +1,3 @@
----
-{
-  "title": "Component Registry",
-  "generatedAt": "2025-11-04T11:57:48.909Z"
-}
----
-
 # Component Registry
 
 Relevant source files

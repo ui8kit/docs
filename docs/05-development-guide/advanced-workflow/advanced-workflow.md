@@ -1,10 +1,3 @@
----
-{
-  "title": "Advanced Workflow",
-  "generatedAt": "2025-11-04T11:57:50.727Z"
-}
----
-
 # Advanced Workflow
 
 Relevant source files

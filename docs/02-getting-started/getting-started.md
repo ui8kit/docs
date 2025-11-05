@@ -1,10 +1,3 @@
----
-{
-  "title": "Getting Started",
-  "generatedAt": "2025-11-04T11:57:47.472Z"
-}
----
-
 # Getting Started
 
 Relevant source files
