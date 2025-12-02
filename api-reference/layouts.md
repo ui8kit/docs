@@ -1,24 +1,24 @@
 # Layout Components API
 
-Комплексное руководство по компонентам лейаута UI8Kit - Container, Stack, Group, Grid и их использованию.
+Comprehensive guide to UI8Kit layout components - Container, Stack, Group, Grid and their usage.
 
 ## 📦 Container
 
-Адаптивный контейнер с предустановленными максимальными ширинами.
+Responsive container with preset maximum widths.
 
-### Использование
+### Usage
 
 ```tsx
 import { Container } from '@ui8kit/core'
 
 <Container size="lg" centered px="md">
   <Block py="xl">
-    Ваш контент здесь
+    Your content here
   </Block>
 </Container>
 ```
 
-### Пропы
+### Props
 
 ```tsx
 interface ContainerProps extends
@@ -29,7 +29,7 @@ interface ContainerProps extends
 }
 ```
 
-### Размеры контейнера
+### Container Sizes
 
 | Size | Max Width | Breakpoint |
 |------|-----------|------------|
@@ -39,149 +39,149 @@ interface ContainerProps extends
 | `lg` | 1280px | `@media (min-width: 1024px)` |
 | `xl` | 1536px | `@media (min-width: 1280px)` |
 
-### Примеры
+### Examples
 
-#### Базовый контейнер
+#### Basic Container
 ```tsx
 <Container>
-  <Text>Контент ограничен максимальной шириной</Text>
+  <Text>Content is limited by max width</Text>
 </Container>
 ```
 
-#### Контейнер с центрированием
+#### Centered Container
 ```tsx
 <Container centered>
   <Card w="full" maxW="md">
-    <Text>Этот контент центрирован по горизонтали</Text>
+    <Text>This content is horizontally centered</Text>
   </Card>
 </Container>
 ```
 
-#### Адаптивный контейнер
+#### Responsive Container
 ```tsx
 <Container size="lg" px={{ base: "md", md: "lg" }}>
   <Grid cols="1-2-3" gap="lg">
-    <Card>Колонка 1</Card>
-    <Card>Колонка 2</Card>
-    <Card>Колонка 3</Card>
+    <Card>Column 1</Card>
+    <Card>Column 2</Card>
+    <Card>Column 3</Card>
   </Grid>
 </Container>
 ```
 
 ## 📚 Stack
 
-Вертикальный стек элементов с контролем промежутков.
+Vertical stack of elements with gap control.
 
-### Использование
+### Usage
 
 ```tsx
 import { Stack } from '@ui8kit/core'
 
 <Stack gap="lg" align="center" p="md">
-  <Title>Заголовок</Title>
-  <Text>Описание</Text>
-  <Button>Действие</Button>
+  <Title>Heading</Title>
+  <Text>Description</Text>
+  <Button>Action</Button>
 </Stack>
 ```
 
-### Пропы
+### Props
 
 ```tsx
 interface StackProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps,
   Pick<VariantFlexProps, 'gap' | 'align'> {
-  // Наследует spacing и flex пропы
+  // Inherits spacing and flex props
 }
 ```
 
-### Примеры
+### Examples
 
-#### Базовый стек
+#### Basic Stack
 ```tsx
 <Stack gap="md">
-  <Title size="lg">Заголовок секции</Title>
-  <Text>Описание секции с некоторым текстом</Text>
+  <Title size="lg">Section Heading</Title>
+  <Text>Section description with some text</Text>
   <Group gap="sm">
-    <Button variant="outline">Отмена</Button>
-    <Button>Сохранить</Button>
+    <Button variant="outline">Cancel</Button>
+    <Button>Save</Button>
   </Group>
 </Stack>
 ```
 
-#### Стек с выравниванием
+#### Stack with Alignment
 ```tsx
 <Stack gap="xl" align="center" ta="center">
   <Icon lucideIcon={CheckCircle} size="xl" c="success" />
-  <Title>Успешно!</Title>
-  <Text c="muted">Операция завершена</Text>
-  <Button size="lg">Продолжить</Button>
+  <Title>Success!</Title>
+  <Text c="muted">Operation completed</Text>
+  <Button size="lg">Continue</Button>
 </Stack>
 ```
 
-#### Стек с разделителями
+#### Stack with Dividers
 ```tsx
 <Stack gap="lg">
   <Block>
-    <Title size="md">Секция 1</Title>
-    <Text>Контент первой секции</Text>
+    <Title size="md">Section 1</Title>
+    <Text>Content of the first section</Text>
   </Block>
 
   <Block borderTop="default" pt="lg">
-    <Title size="md">Секция 2</Title>
-    <Text>Контент второй секции</Text>
+    <Title size="md">Section 2</Title>
+    <Text>Content of the second section</Text>
   </Block>
 </Stack>
 ```
 
 ## 🎯 Group
 
-Горизонтальный стек с выравниванием и контролем обертывания.
+Horizontal stack with alignment and wrap control.
 
-### Использование
+### Usage
 
 ```tsx
 import { Group } from '@ui8kit/core'
 
 <Group gap="md" align="center" justify="between">
-  <Button variant="outline">Отмена</Button>
-  <Button>Сохранить</Button>
+  <Button variant="outline">Cancel</Button>
+  <Button>Save</Button>
 </Group>
 ```
 
-### Пропы
+### Props
 
 ```tsx
 interface GroupProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps,
   Pick<VariantFlexProps, 'gap' | 'align' | 'justify' | 'wrap'> {
-  // Наследует spacing и flex пропы
+  // Inherits spacing and flex props
 }
 ```
 
-### Примеры
+### Examples
 
-#### Кнопки действий
+#### Action Buttons
 ```tsx
 <Group gap="sm" justify="end">
-  <Button variant="outline">Отмена</Button>
-  <Button variant="destructive">Удалить</Button>
-  <Button>Сохранить</Button>
+  <Button variant="outline">Cancel</Button>
+  <Button variant="destructive">Delete</Button>
+  <Button>Save</Button>
 </Group>
 ```
 
-#### Навигация с иконками
+#### Navigation with Icons
 ```tsx
 <Group gap="lg" align="center">
   <Icon lucideIcon={Home} />
-  <Text fw="medium">Главная</Text>
+  <Text fw="medium">Home</Text>
   <Icon lucideIcon={ChevronRight} size="sm" />
-  <Text c="muted">Текущая страница</Text>
+  <Text c="muted">Current page</Text>
 </Group>
 ```
 
-#### Адаптивная группа
+#### Responsive Group
 ```tsx
 <Group gap="md" wrap="wrap" justify="center">
   <Badge>React</Badge>
@@ -193,83 +193,83 @@ interface GroupProps extends
 
 ## 🔲 Grid
 
-CSS Grid с адаптивными пресетами колонок.
+CSS Grid with responsive column presets.
 
-### Использование
+### Usage
 
 ```tsx
 import { Grid, GridCol } from '@ui8kit/core'
 
 <Grid cols="1-2-3" gap="lg">
-  <GridCol span={2}>Широкая колонка</GridCol>
-  <GridCol>Обычная колонка</GridCol>
-  <GridCol>Обычная колонка</GridCol>
+  <GridCol span={2}>Wide column</GridCol>
+  <GridCol>Regular column</GridCol>
+  <GridCol>Regular column</GridCol>
 </Grid>
 ```
 
-### Пропы Grid
+### Props Grid
 
 ```tsx
 interface GridProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps,
   VariantGridProps {
-  cols?: string  // Формат: "1-2-3" (моб-табл-десктоп)
+  cols?: string  // Format: "1-2-3" (mobile-tablet-desktop)
 }
 ```
 
-### Пропы GridCol
+### Props GridCol
 
 ```tsx
 interface GridColProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps {
-  span?: number    // Сколько колонок занимает
-  start?: number   // Начальная линия
-  end?: number     // Конечная линия
+  span?: number    // How many columns it spans
+  start?: number   // Starting line
+  end?: number     // Ending line
 }
 ```
 
-### Пресеты колонок
+### Column Presets
 
-| Preset | Мобильный | Планшет | Десктоп |
+| Preset | Mobile | Tablet | Desktop |
 |--------|-----------|---------|---------|
-| `"1"` | 1 колонка | 1 колонка | 1 колонка |
+| `"1"` | 1 column | 1 column | 1 column |
 | `"1-2"` | 1 | 2 | 2 |
 | `"1-2-3"` | 1 | 2 | 3 |
 | `"1-2-4"` | 1 | 2 | 4 |
 | `"1-3-6"` | 1 | 3 | 6 |
 
-### Примеры
+### Examples
 
-#### Простая сетка
+#### Simple Grid
 ```tsx
 <Grid cols="1-2-3" gap="md">
-  <Card>Элемент 1</Card>
-  <Card>Элемент 2</Card>
-  <Card>Элемент 3</Card>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+  <Card>Item 3</Card>
 </Grid>
 ```
 
-#### Сетка с разными размерами колонок
+#### Grid with Different Column Sizes
 ```tsx
 <Grid cols="3" gap="lg">
   <GridCol span={2}>
     <Card p="lg">
-      <Title>Широкий контент</Title>
-      <Text>Эта колонка занимает 2/3 ширины</Text>
+      <Title>Wide content</Title>
+      <Text>This column spans 2/3 width</Text>
     </Card>
   </GridCol>
   <GridCol>
     <Card p="lg">
-      <Title>Боковая панель</Title>
-      <Text>Узкая колонка</Text>
+      <Title>Sidebar</Title>
+      <Text>Narrow column</Text>
     </Card>
   </GridCol>
 </Grid>
 ```
 
-#### Асимметричная сетка
+#### Asymmetric Grid
 ```tsx
 <Grid cols="4" gap="md">
   <GridCol span={1} start={1}>1</GridCol>
@@ -278,7 +278,7 @@ interface GridColProps extends
 </Grid>
 ```
 
-#### Карточная сетка
+#### Card Grid
 ```tsx
 <Grid cols="1-2-3-4" gap="lg" p="lg">
   {items.map((item) => (
@@ -289,7 +289,7 @@ interface GridColProps extends
         <Text c="muted">{item.description}</Text>
         <Group justify="between" mt="sm">
           <Text fw="bold">{item.price}</Text>
-          <Button size="sm">Купить</Button>
+          <Button size="sm">Buy</Button>
         </Group>
       </Stack>
     </Card>
@@ -297,7 +297,7 @@ interface GridColProps extends
 </Grid>
 ```
 
-## 🏗️ Расширенные паттерны
+## 🏗️ Advanced Patterns
 
 ### Holy Grail Layout
 
@@ -307,11 +307,11 @@ interface GridColProps extends
     {/* Header */}
     <Block bg="primary" c="primary-foreground" p="md">
       <Group justify="between" align="center">
-        <Title>Логотип</Title>
+        <Title>Logo</Title>
         <Group gap="lg">
-          <Button variant="ghost">Главная</Button>
-          <Button variant="ghost">О нас</Button>
-          <Button variant="ghost">Контакты</Button>
+          <Button variant="ghost">Home</Button>
+          <Button variant="ghost">About</Button>
+          <Button variant="ghost">Contact</Button>
         </Group>
       </Group>
     </Block>
@@ -322,12 +322,12 @@ interface GridColProps extends
       <GridCol span={1}>
         <Stack gap="md">
           <Card p="md">
-            <Title size="md">Навигация</Title>
-            {/* Навигационные ссылки */}
+            <Title size="md">Navigation</Title>
+            {/* Navigation links */}
           </Card>
           <Card p="md">
-            <Title size="md">Фильтры</Title>
-            {/* Фильтры */}
+            <Title size="md">Filters</Title>
+            {/* Filters */}
           </Card>
         </Stack>
       </GridCol>
@@ -335,9 +335,9 @@ interface GridColProps extends
       {/* Content */}
       <GridCol span={3}>
         <Stack gap="lg">
-          <Title>Основной контент</Title>
+          <Title>Main Content</Title>
           <Grid cols="1-2-3" gap="md">
-            {/* Карточки контента */}
+            {/* Content cards */}
           </Grid>
         </Stack>
       </GridCol>
@@ -348,8 +348,8 @@ interface GridColProps extends
       <Group justify="between" align="center">
         <Text>© 2024 UI8Kit</Text>
         <Group gap="md">
-          <Button variant="link" size="sm">Политика</Button>
-          <Button variant="link" size="sm">Условия</Button>
+          <Button variant="link" size="sm">Policy</Button>
+          <Button variant="link" size="sm">Terms</Button>
         </Group>
       </Group>
     </Block>
@@ -369,15 +369,15 @@ interface GridColProps extends
         <Stack gap="sm">
           <Button variant="ghost" w="full" justify="start">
             <Icon lucideIcon={Home} mr="sm" />
-            Главная
+            Home
           </Button>
           <Button variant="ghost" w="full" justify="start">
             <Icon lucideIcon={Users} mr="sm" />
-            Пользователи
+            Users
           </Button>
           <Button variant="ghost" w="full" justify="start">
             <Icon lucideIcon={Settings} mr="sm" />
-            Настройки
+            Settings
           </Button>
         </Stack>
       </Stack>
@@ -388,10 +388,10 @@ interface GridColProps extends
       <Stack gap="lg">
         {/* Header */}
         <Group justify="between" align="center">
-          <Title>Аналитика</Title>
+          <Title>Analytics</Title>
           <Group gap="sm">
-            <Button variant="outline">Экспорт</Button>
-            <Button>Создать отчет</Button>
+            <Button variant="outline">Export</Button>
+            <Button>Create Report</Button>
           </Group>
         </Group>
 
@@ -399,30 +399,30 @@ interface GridColProps extends
         <Grid cols="1-2-4" gap="md">
           <Card p="md" bg="primary" c="primary-foreground">
             <Title size="2xl">1,234</Title>
-            <Text>Пользователи</Text>
+            <Text>Users</Text>
           </Card>
           <Card p="md" bg="secondary" c="secondary-foreground">
             <Title size="2xl">567</Title>
-            <Text>Заказы</Text>
+            <Text>Orders</Text>
           </Card>
           <Card p="md" bg="accent" c="accent-foreground">
             <Title size="2xl">$89,012</Title>
-            <Text>Доход</Text>
+            <Text>Revenue</Text>
           </Card>
           <Card p="md" bg="muted" c="foreground">
             <Title size="2xl">94.2%</Title>
-            <Text>Конверсия</Text>
+            <Text>Conversion</Text>
           </Card>
         </Grid>
 
         {/* Charts and Tables */}
         <Grid cols="1-2" gap="lg">
           <Card p="lg">
-            <Title size="lg" mb="md">График продаж</Title>
+            <Title size="lg" mb="md">Sales Chart</Title>
             {/* Chart component */}
           </Card>
           <Card p="lg">
-            <Title size="lg" mb="md">Последние заказы</Title>
+            <Title size="lg" mb="md">Recent Orders</Title>
             {/* Table component */}
           </Card>
         </Grid>
@@ -432,16 +432,16 @@ interface GridColProps extends
 </Container>
 ```
 
-## 📱 Адаптивные паттерны
+## 📱 Responsive Patterns
 
 ### Mobile-First Grid
 
 ```tsx
 <Grid cols="1-2-3-4" gap="md">
-  {/* Автоматически: 1 колонка на моб, 4 на десктопе */}
+  {/* Automatically: 1 column on mobile, 4 on desktop */}
   {Array.from({ length: 8 }, (_, i) => (
     <Card key={i} p="md">
-      Элемент {i + 1}
+      Item {i + 1}
     </Card>
   ))}
 </Grid>
@@ -450,17 +450,17 @@ interface GridColProps extends
 ### Responsive Stack/Group
 
 ```tsx
-{/* Stack на мобильном, Group на десктопе */}
+{/* Stack on mobile, Group on desktop */}
 <Box display={{ base: "flex", md: "block" }} flexDirection={{ base: "column", md: "row" }} gap="md">
-  <Card>Элемент 1</Card>
-  <Card>Элемент 2</Card>
-  <Card>Элемент 3</Card>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+  <Card>Item 3</Card>
 </Box>
 ```
 
-## 🔧 Кастомизация
+## 🔧 Customization
 
-### Темизация лейаут компонентов
+### Theming Layout Components
 
 ```tsx
 const theme = {
@@ -474,7 +474,7 @@ const theme = {
   }
 }
 
-// Использование в компонентах
+// Usage in components
 <Container rounded={theme.rounded.container} p={theme.spacing.section}>
   <Card rounded={theme.rounded.card} p={theme.spacing.card}>
     Content
@@ -482,7 +482,7 @@ const theme = {
 </Container>
 ```
 
-### Создание кастомных лейаут компонентов
+### Creating Custom Layout Components
 
 ```tsx
 const PageLayout = ({ children, sidebar, header, footer }) => (

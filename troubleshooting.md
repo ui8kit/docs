@@ -1,30 +1,30 @@
 # Troubleshooting Guide
 
-Руководство по решению распространенных проблем при работе с UI8Kit. Найдите ответы на самые частые вопросы и проблемы.
+Guide to solving common problems when working with UI8Kit. Find answers to the most frequent questions and issues.
 
-## 🚨 Быстрая диагностика
+## 🚨 Quick Diagnostics
 
-### Проверьте базовую настройку
+### Check basic setup
 
 ```bash
-# 1. Версии пакетов
+# 1. Package versions
 npm list @ui8kit/core react react-dom typescript
 
-# 2. TypeScript компиляция
+# 2. TypeScript compilation
 npm run type-check
 
-# 3. Линтинг
+# 3. Linting
 npm run lint
 
-# 4. Сборка
+# 4. Build
 npm run build
 ```
 
-### Компоненты не стилизуются?
+### Components not styling?
 
 ```tsx
-// Проверьте порядок импортов
-import './index.css'          // Сначала CSS
+// Check import order
+import './index.css'          // CSS first
 import { ThemeProvider } from '@/providers/theme'
 import App from './App'
 
@@ -36,20 +36,20 @@ ReactDOM.render(
 )
 ```
 
-## 🛠️ Распространенные проблемы
+## 🛠️ Common Problems
 
-### 1. Компоненты не рендерятся / пустой экран
+### 1. Components not rendering / blank screen
 
-**Симптомы:**
-- Компоненты UI8Kit не отображаются
-- Стили не применяются
-- Консоль ошибок нет
+**Symptoms:**
+- UI8Kit components don't display
+- Styles not applied
+- No console errors
 
-**Решения:**
+**Solutions:**
 
-#### Проверьте ThemeProvider
+#### Check ThemeProvider
 ```tsx
-// ✅ Правильно
+// ✅ Correct
 import { ThemeProvider } from '@/providers/theme'
 import { defaultTheme } from '@/themes'
 
@@ -61,7 +61,7 @@ ReactDOM.render(
 )
 ```
 
-#### Проверьте CSS переменные
+#### Check CSS Variables
 ```css
 /* src/index.css */
 @tailwind base;
@@ -72,12 +72,12 @@ ReactDOM.render(
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    /* ... остальные переменные */
+    /* ... other variables */
   }
 }
 ```
 
-#### Проверьте Tailwind конфигурацию
+#### Check Tailwind Configuration
 ```js
 // tailwind.config.js
 /** @type {import('tailwindcss').Config} */
@@ -85,49 +85,49 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    // ✅ Обязательно для UI8Kit
+    // ✅ Required for UI8Kit
     "./node_modules/@ui8kit/core/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        // ... остальные цвета
+        // ... other colors
       }
     }
   }
 }
 ```
 
-### 2. TypeScript ошибки
+### 2. TypeScript Errors
 
-**Симптомы:**
+**Symptoms:**
 - `Cannot find module '@ui8kit/core'`
 - `Property 'variant' does not exist`
-- Красные подчеркивания в IDE
+- Red underlines in IDE
 
-**Решения:**
+**Solutions:**
 
-#### Проверьте установку пакета
+#### Check Package Installation
 ```bash
-# Переустановите зависимости
+# Reinstall dependencies
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-#### Проверьте TypeScript конфигурацию
+#### Check TypeScript Configuration
 ```json
 // tsconfig.json
 {
   "compilerOptions": {
-    "moduleResolution": "bundler",  // Для Vite
+    "moduleResolution": "bundler",  // For Vite
     "allowImportingTsExtensions": true,
     "skipLibCheck": true
   }
 }
 ```
 
-#### Проверьте версии
+#### Check Versions
 ```json
 // package.json
 {
@@ -139,39 +139,39 @@ npm install
 }
 ```
 
-### 3. Стили конфликтуют с Tailwind
+### 3. Styles Conflict with Tailwind
 
-**Симптомы:**
-- Неправильные цвета или spacing
-- Стили не перезаписываются
-- Конфликты с существующими стилями
+**Symptoms:**
+- Incorrect colors or spacing
+- Styles not being overridden
+- Conflicts with existing styles
 
-**Решения:**
+**Solutions:**
 
-#### Проверьте порядок CSS
+#### Check CSS Order
 ```css
-/* Правильный порядок */
+/* Correct order */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Ваши кастомные стили после */
+/* Your custom styles after */
 .my-custom-class {
   /* ... */
 }
 ```
 
-#### Используйте Tailwind merge
+#### Use Tailwind Merge
 ```tsx
 import { cn } from '@ui8kit/core/lib/utils'
 
 <div className={cn(
-  "bg-red-500 text-white",  // Tailwind классы
-  "hover:bg-red-600"        // Модификаторы
+  "bg-red-500 text-white",  // Tailwind classes
+  "hover:bg-red-600"        // Modifiers
 )}>
 ```
 
-#### Проверьте content paths
+#### Check Content Paths
 ```js
 // tailwind.config.js
 export default {
@@ -182,26 +182,26 @@ export default {
 }
 ```
 
-### 4. Dark mode не работает
+### 4. Dark Mode Not Working
 
-**Симптомы:**
-- Тема не переключается
-- Цвета не меняются
-- localStorage не сохраняется
+**Symptoms:**
+- Theme doesn't switch
+- Colors don't change
+- localStorage doesn't save
 
-**Решения:**
+**Solutions:**
 
-#### Проверьте ThemeProvider
+#### Check ThemeProvider
 ```tsx
 const { toggleDarkMode, isDarkMode } = useTheme()
 
-// Правильное использование
+// Correct usage
 <button onClick={toggleDarkMode}>
   {isDarkMode ? '☀️ Light' : '🌙 Dark'}
 </button>
 ```
 
-#### Проверьте CSS переменные для dark mode
+#### Check CSS Variables for Dark Mode
 ```css
 @layer base {
   :root {
@@ -216,7 +216,7 @@ const { toggleDarkMode, isDarkMode } = useTheme()
 }
 ```
 
-#### Проверьте JavaScript
+#### Check JavaScript
 ```tsx
 useEffect(() => {
   const root = document.documentElement
@@ -227,18 +227,18 @@ useEffect(() => {
 }, [isDarkMode])
 ```
 
-### 5. Производительность проблем
+### 5. Performance Issues
 
-**Симптомы:**
-- Медленная загрузка
-- Лаги при взаимодействии
-- Высокое использование CPU
+**Symptoms:**
+- Slow loading
+- Lag during interaction
+- High CPU usage
 
-**Решения:**
+**Solutions:**
 
-#### Code splitting
+#### Code Splitting
 ```tsx
-// Динамические импорты
+// Dynamic imports
 const Modal = lazy(() => import('./Modal'))
 
 function App() {
@@ -256,32 +256,32 @@ const MemoizedComponent = memo(function Component({ data }) {
   return <div>{data}</div>
 })
 
-// Стабильные коллбеки
+// Stable callbacks
 const handleClick = useCallback(() => {
     setCount(c => c + 1)
   }, [])
 ```
 
-#### Bundle анализ
+#### Bundle Analysis
 ```bash
-# Установите analyzer
+# Install analyzer
 npm install -D vite-bundle-analyzer
 
-# Проанализируйте
+# Analyze
 npm run build
 npx vite-bundle-analyzer dist
 ```
 
-### 6. Формы не работают
+### 6. Forms Not Working
 
-**Симптомы:**
-- onSubmit не вызывается
-- Поля не обновляются
-- Валидация не срабатывает
+**Symptoms:**
+- onSubmit not called
+- Fields don't update
+- Validation doesn't trigger
 
-**Решения:**
+**Solutions:**
 
-#### Правильная структура формы
+#### Correct Form Structure
 ```tsx
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -291,7 +291,7 @@ function ContactForm() {
   })
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()  // ✅ Предотвратить перезагрузку
+    e.preventDefault()  // ✅ Prevent reload
     console.log(formData)
   }
 
@@ -318,16 +318,16 @@ const [value, setValue] = useState('')
 <Box component="input" defaultValue="value" />
 ```
 
-### 7. Адаптивность не работает
+### 7. Responsiveness Not Working
 
-**Симптомы:**
-- Компоненты не перестраиваются на мобильных
-- Grid не адаптируется
-- Брейкпоинты игнорируются
+**Symptoms:**
+- Components don't rearrange on mobile
+- Grid doesn't adapt
+- Breakpoints ignored
 
-**Решения:**
+**Solutions:**
 
-#### Проверьте responsive props
+#### Check Responsive Props
 ```tsx
 // ✅ Responsive spacing
 <Block p={{ base: "md", md: "lg", xl: "xl" }}>
@@ -336,11 +336,11 @@ const [value, setValue] = useState('')
 
 // ✅ Responsive grid
 <Grid cols="1-2-3-4">
-  {/* 1 колонка на моб, 4 на xl */}
+  {/* 1 column on mobile, 4 on xl */}
 </Grid>
 ```
 
-#### Проверьте Tailwind breakpoints
+#### Check Tailwind Breakpoints
 ```js
 // tailwind.config.js
 export default {
@@ -356,18 +356,18 @@ export default {
 }
 ```
 
-### 8. Accessibility проблемы
+### 8. Accessibility Issues
 
-**Симптомы:**
-- Screen readers не работают
-- Keyboard navigation не работает
-- Color contrast проблемы
+**Symptoms:**
+- Screen readers don't work
+- Keyboard navigation doesn't work
+- Color contrast issues
 
-**Решения:**
+**Solutions:**
 
-#### ARIA атрибуты
+#### ARIA Attributes
 ```tsx
-// Правильная семантика
+// Correct semantics
 <Block component="nav" aria-label="Main navigation">
   <Group component="ul" role="menubar">
     <Block component="li" role="none">
@@ -376,13 +376,13 @@ export default {
   </Group>
 </Block>
 
-// Screen reader контент
+// Screen reader content
 <Text className="sr-only">Loading...</Text>
 ```
 
-#### Focus management
+#### Focus Management
 ```tsx
-// Правильный focus flow
+// Correct focus flow
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault()
@@ -391,12 +391,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 ```
 
-## 🧪 Тестирование проблем
+## 🧪 Testing Issues
 
-### Тесты падают
+### Tests Failing
 
 ```tsx
-// Проверьте test setup
+// Check test setup
 // src/test-utils.tsx
 import { render, RenderOptions } from '@testing-library/react'
 import { ThemeProvider } from '@/providers/theme'
@@ -419,10 +419,10 @@ export * from '@testing-library/react'
 export { customRender as render }
 ```
 
-### Mock window APIs
+### Mock Window APIs
 
 ```tsx
-// Для localStorage, matchMedia
+// For localStorage, matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -438,12 +438,12 @@ Object.defineProperty(window, 'matchMedia', {
 })
 ```
 
-## 🚀 Продвинутые решения
+## 🚀 Advanced Solutions
 
-### Custom webpack конфигурация
+### Custom Webpack Configuration
 
 ```js
-// Для сложных случаев
+// For complex cases
 // webpack.config.js
 module.exports = {
   resolve: {
@@ -463,10 +463,10 @@ module.exports = {
 }
 ```
 
-### Monorepo setup
+### Monorepo Setup
 
 ```json
-// Для работы с локальными пакетами
+// For working with local packages
 // package.json
 {
   "workspaces": [
@@ -476,12 +476,12 @@ module.exports = {
 }
 ```
 
-## 📞 Получение помощи
+## 📞 Getting Help
 
-### Debug информация
+### Debug Information
 
 ```tsx
-// Добавьте в development
+// Add in development
 if (process.env.NODE_ENV === 'development') {
   console.log('UI8Kit Debug:', {
     theme: useTheme(),
@@ -491,19 +491,19 @@ if (process.env.NODE_ENV === 'development') {
 }
 ```
 
-### Сообщество
+### Community
 
-- **GitHub Issues**: Для баг репортов
-- **GitHub Discussions**: Для вопросов
-- **Discord**: Для быстрой помощи
+- **GitHub Issues**: For bug reports
+- **GitHub Discussions**: For questions
+- **Discord**: For quick help
 
-### Необходимая информация для баг репортов
+### Required Information for Bug Reports
 
 ```
-## Описание проблемы
-- Что ожидалось
-- Что произошло
-- Шаги для воспроизведения
+## Problem Description
+- What was expected
+- What happened
+- Steps to reproduce
 
 ## Environment
 - UI8Kit version: x.x.x
@@ -512,9 +512,9 @@ if (process.env.NODE_ENV === 'development') {
 - Browser: Chrome/Firefox/Safari
 - OS: Windows/macOS/Linux
 
-## Code example
+## Code Example
 ```tsx
-// Минимальный пример для воспроизведения
+// Minimal example to reproduce
 ```
 
 ## Logs
@@ -523,36 +523,36 @@ Console errors or warnings
 ```
 ```
 
-## 🎯 Профилактика
+## 🎯 Prevention
 
-### Регулярные проверки
+### Regular Checks
 
-1. **Обновляйте зависимости**
+1. **Update Dependencies**
 ```bash
 npm update @ui8kit/core
 ```
 
-2. **Проверяйте TypeScript**
+2. **Check TypeScript**
 ```bash
 npm run type-check
 ```
 
-3. **Анализируйте bundle**
+3. **Analyze Bundle**
 ```bash
 npm run build && npm run analyze
 ```
 
-4. **Тестируйте accessibility**
+4. **Test Accessibility**
 ```bash
 npx axe-core your-app-url
 ```
 
-### Best practices
+### Best Practices
 
-- Всегда используйте ThemeProvider
-- Проверяйте компоненты в обеих темах
-- Тестируйте на мобильных устройствах
-- Мониторьте performance metrics
-- Следите за обновлениями библиотеки
+- Always use ThemeProvider
+- Test components in both themes
+- Test on mobile devices
+- Monitor performance metrics
+- Follow library updates
 
-Следуя этому руководству, вы сможете решить большинство проблем с UI8Kit. Если проблема persists, не стесняйтесь обращаться в сообщество! 🚀
+Following this guide, you'll be able to solve most UI8Kit issues. If the problem persists, don't hesitate to reach out to the community! 🚀

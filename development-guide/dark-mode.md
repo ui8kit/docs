@@ -1,19 +1,19 @@
 # Dark Mode Implementation
 
-Полное руководство по реализации dark mode в приложениях UI8Kit с поддержкой системных предпочтений и ручным переключением.
+Complete guide to implementing dark mode in UI8Kit applications with system preferences support and manual switching.
 
-## 🎯 Обзор
+## 🎯 Overview
 
-UI8Kit предоставляет готовую систему тем с поддержкой dark mode через:
+UI8Kit provides a ready-made theme system with dark mode support through:
 
-- CSS переменные для цветов
-- ThemeProvider контекст
-- Автоматическое обнаружение системных предпочтений
-- Плавные переходы между темами
+- CSS variables for colors
+- ThemeProvider context
+- Automatic system preferences detection
+- Smooth transitions between themes
 
-## 🛠️ Настройка CSS переменных
+## 🛠️ CSS Variables Setup
 
-Добавьте CSS переменные в ваш `globals.css`:
+Add CSS variables to your `globals.css`:
 
 ```css
 @tailwind base;
@@ -69,7 +69,7 @@ UI8Kit предоставляет готовую систему тем с под
 
 ## 🎨 ThemeProvider
 
-Создайте провайдер темы в `src/providers/theme.tsx`:
+Create theme provider in `src/providers/theme.tsx`:
 
 ```tsx
 import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from 'react'
@@ -163,9 +163,9 @@ export function useTheme<T extends ThemeBase = ThemeBase>(): ThemeContextValue<T
 }
 ```
 
-## 🎭 Определение темы
+## 🎭 Theme Definition
 
-Создайте конфигурацию темы:
+Create theme configuration:
 
 ```tsx
 // src/themes/index.ts
@@ -212,9 +212,9 @@ export const lesseUITheme = {
 } as const
 ```
 
-## 🚀 Использование в приложении
+## 🚀 Usage in Application
 
-### Базовая настройка
+### Basic Setup
 
 ```tsx
 // src/main.tsx
@@ -230,7 +230,7 @@ ReactDOM.render(
 )
 ```
 
-### Компонент с переключателем темы
+### Theme Toggle Component
 
 ```tsx
 // src/components/ThemeToggle.tsx
@@ -251,7 +251,7 @@ export function ThemeToggle() {
 }
 ```
 
-### App компонент
+### App component
 
 ```tsx
 // src/App.tsx
@@ -285,9 +285,9 @@ export default function App() {
 }
 ```
 
-## 🎨 Кастомные цвета для dark mode
+## 🎨 Custom Colors for Dark Mode
 
-### Добавление кастомных цветов
+### Adding Custom Colors
 
 ```css
 @layer base {
@@ -303,7 +303,7 @@ export default function App() {
 }
 ```
 
-### Использование в Tailwind config
+### Usage in Tailwind Config
 
 ```js
 // tailwind.config.js
@@ -321,9 +321,9 @@ module.exports = {
 }
 ```
 
-## 🔧 Продвинутые паттерны
+## 🔧 Advanced Patterns
 
-### Темы с контекстом
+### Themes with Context
 
 ```tsx
 // src/contexts/ThemeContext.tsx
@@ -373,7 +373,7 @@ export function useExtendedTheme() {
 }
 ```
 
-### Компонент выбора темы
+### Theme Selector Component
 
 ```tsx
 // src/components/ThemeSelector.tsx
@@ -406,9 +406,9 @@ export function ThemeSelector() {
 }
 ```
 
-## 🎭 Анимации переходов
+## 🎭 Transition Animations
 
-Добавьте плавные переходы между темами:
+Add smooth transitions between themes:
 
 ```css
 @layer base {
@@ -416,7 +416,7 @@ export function ThemeSelector() {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Отключение анимаций при reduced motion */
+  /* Disable animations on reduced motion */
   @media (prefers-reduced-motion: reduce) {
     * {
       transition: none;
@@ -425,9 +425,9 @@ export function ThemeSelector() {
 }
 ```
 
-## 🔍 Отладка dark mode
+## 🔍 Debugging Dark Mode
 
-### Хук для отладки
+### Debug Hook
 
 ```tsx
 // src/hooks/useThemeDebug.ts
@@ -448,7 +448,7 @@ export function useThemeDebug() {
 }
 ```
 
-### Визуальный индикатор темы
+### Visual Theme Indicator
 
 ```tsx
 // src/components/ThemeIndicator.tsx
@@ -471,11 +471,11 @@ export function ThemeIndicator() {
 }
 ```
 
-## 📱 Системные предпочтения
+## 📱 System Preferences
 
-### Автоматическое отслеживание
+### Automatic Tracking
 
-ThemeProvider автоматически отслеживает изменения системных предпочтений:
+ThemeProvider automatically tracks system preference changes:
 
 ```tsx
 useEffect(() => {
@@ -487,25 +487,25 @@ useEffect(() => {
 }, [])
 ```
 
-### Тестирование системных предпочтений
+### Testing System Preferences
 
 ```js
-// В браузерной консоли
-// Симуляция темной темы
+// In browser console
+// Simulate dark theme
 window.matchMedia('(prefers-color-scheme: dark)').matches = true
 window.dispatchEvent(new Event('change'))
 
-// Симуляция светлой темы
+// Simulate light theme
 window.matchMedia('(prefers-color-scheme: dark)').matches = false
 window.dispatchEvent(new Event('change'))
 ```
 
-## 🚀 Лучшие практики
+## 🚀 Best Practices
 
-1. **Всегда используйте семантические цвета** вместо жестко заданных
-2. **Тестируйте обе темы** - светлую и темную
-3. **Учитывайте контрастность** для accessibility
-4. **Добавляйте плавные переходы** для лучшего UX
-5. **Сохраняйте выбор пользователя** в localStorage
-6. **Поддерживайте системные предпочтения** по умолчанию
-7. **Тестируйте с reduced motion** настройками
+1. **Always use semantic colors** instead of hardcoded ones
+2. **Test both themes** - light and dark
+3. **Consider contrast** for accessibility
+4. **Add smooth transitions** for better UX
+5. **Save user preference** in localStorage
+6. **Support system preferences** by default
+7. **Test with reduced motion** settings

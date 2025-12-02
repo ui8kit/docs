@@ -1,24 +1,24 @@
 # Variant System
 
-Система вариантов UI8Kit - это сердце библиотеки. Она обеспечивает консистентность стилей, типобезопасность и гибкость через всю кодовую базу.
+UI8Kit's variant system is the heart of the library. It ensures style consistency, type safety, and flexibility throughout the entire codebase.
 
-## 🎯 Что такое варианты?
+## 🎯 What are variants?
 
-Варианты - это предопределенные наборы CSS классов, организованные по категориям. Они позволяют применять стили через пропы компонентов вместо ручного написания классов.
+Variants are predefined sets of CSS classes organized by categories. They allow you to apply styles through component props instead of manually writing classes.
 
 ```tsx
-// Вместо этого:
+// Instead of this:
 <div className="p-4 bg-primary text-primary-foreground rounded-md">
 
-// Используем это:
+// Use this:
 <Block p="md" bg="primary" c="primary-foreground" rounded="md" />
 ```
 
-## 🏗️ Архитектура вариантов
+## 🏗️ Variant Architecture
 
 ### Class Variance Authority (CVA)
 
-UI8Kit использует [CVA](https://cva.style/) для создания типобезопасных вариантов:
+UI8Kit uses [CVA](https://cva.style/) to create type-safe variants:
 
 ```tsx
 import { cva } from 'class-variance-authority'
@@ -44,10 +44,10 @@ export const buttonVariants = cva(
 )
 ```
 
-### Типы вариантов
+### Variant Types
 
 ```tsx
-// Автоматически генерируемые типы
+// Automatically generated types
 type ButtonVariants = VariantProps<typeof buttonVariants>
 // = {
 //   variant?: "primary" | "secondary"
@@ -55,9 +55,9 @@ type ButtonVariants = VariantProps<typeof buttonVariants>
 // }
 ```
 
-## 📂 Структура вариантов
+## 📂 Variant Structure
 
-### Базовые категории
+### Basic Categories
 
 #### 1. Spacing (`spacing.ts`)
 ```tsx
@@ -65,21 +65,21 @@ export const spacingVariants = cva("", {
   variants: {
     // Margin
     m: { xs: "m-1", sm: "m-2", md: "m-4", lg: "m-6", xl: "m-8", "2xl": "m-12", auto: "m-auto" },
-    mx: { /* аналогично */ },
-    my: { /* аналогично */ },
-    mt: { /* аналогично */ },
-    mb: { /* аналогично */ },
-    ml: { /* аналогично */ },
-    mr: { /* аналогично */ },
+    mx: { /* similar */ },
+    my: { /* similar */ },
+    mt: { /* similar */ },
+    mb: { /* similar */ },
+    ml: { /* similar */ },
+    mr: { /* similar */ },
 
     // Padding
     p: { none: "p-0", xs: "p-1", sm: "p-2", md: "p-4", lg: "p-6", xl: "p-8", "2xl": "p-12" },
-    px: { /* аналогично */ },
-    py: { /* аналогично */ },
-    pt: { /* аналогично */ },
-    pb: { /* аналогично */ },
-    pl: { /* аналогично */ },
-    pr: { /* аналогично */ },
+    px: { /* similar */ },
+    py: { /* similar */ },
+    pt: { /* similar */ },
+    pb: { /* similar */ },
+    pl: { /* similar */ },
+    pr: { /* similar */ },
 
     // Space between children
     spaceX: { none: "space-x-0", xs: "space-x-1", sm: "space-x-2", md: "space-x-4" },
@@ -97,7 +97,7 @@ export const colorVariants = cva("", {
       transparent: "bg-transparent",
       primary: "bg-primary",
       secondary: "bg-secondary",
-      // ... все семантические цвета
+      // ... all semantic colors
     },
 
     // Text color
@@ -171,7 +171,7 @@ export const shadowVariants = cva("", {
 })
 ```
 
-### Компонент-специфичные варианты
+### Component-specific variants
 
 #### Button (`button.ts`)
 ```tsx
@@ -208,9 +208,9 @@ export const buttonSizeVariants = cva("", {
 })
 ```
 
-## 🔧 Как использовать варианты
+## 🔧 How to use variants
 
-### В компонентах
+### In components
 
 ```tsx
 import { buttonVariants, spacingVariants } from '../variants'
@@ -230,21 +230,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 ```
 
-### Композиция вариантов
+### Variant composition
 
 ```tsx
-// Комбинируем несколько вариантов
+// Combine multiple variants
 const combinedClasses = cn(
   buttonVariants({ variant: "primary", size: "lg" }),
   spacingVariants({ p: "md", m: "sm" }),
   colorVariants({ bg: "primary" })
 )
-// Результат: "bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 p-4 m-2 bg-primary"
+// Result: "bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 p-4 m-2 bg-primary"
 ```
 
 ### Tailwind Merge
 
-UI8Kit использует `tailwind-merge` для разрешения конфликтов:
+UI8Kit uses `tailwind-merge` to resolve conflicts:
 
 ```tsx
 import { twMerge } from 'tailwind-merge'
@@ -253,11 +253,11 @@ twMerge('px-2 py-1 bg-red-500', 'px-4 bg-blue-500')
 // → 'py-1 px-4 bg-blue-500'
 ```
 
-## 🎨 Темизация вариантов
+## 🎨 Variant theming
 
-Варианты могут быть темизированы через CSS переменные или JavaScript тему.
+Variants can be themed via CSS variables or a JavaScript theme.
 
-### CSS переменные
+### CSS variables
 ```css
 :root {
   --primary: 221.2 83.2% 53.3%;
@@ -270,20 +270,20 @@ twMerge('px-2 py-1 bg-red-500', 'px-4 bg-blue-500')
 }
 ```
 
-### JavaScript тема
+### JavaScript theme
 ```tsx
 const theme = {
   rounded: { default: "lg", button: "xl" },
   buttonSize: { default: "md" }
 }
 
-// Применение в компоненте
+// Application in component
 const rounded = theme.rounded[variant] || theme.rounded.default
 ```
 
-## 🚀 Создание новых вариантов
+## 🚀 Creating new variants
 
-### 1. Создайте файл варианта
+### 1. Create a variant file
 ```tsx
 // variants/newFeature.ts
 import { cva, type VariantProps } from "class-variance-authority"
@@ -308,19 +308,19 @@ export const newFeatureVariants = cva("", {
 export type NewFeatureProps = VariantProps<typeof newFeatureVariants>
 ```
 
-### 2. Экспортируйте в index.ts
+### 2. Export in index.ts
 ```tsx
 // variants/index.ts
 export * from './newFeature'
 ```
 
-### 3. Используйте в компоненте
+### 3. Use in component
 ```tsx
 // components/ui/NewComponent.tsx
 import { newFeatureVariants, type NewFeatureProps } from '../../variants'
 
 interface ComponentProps extends NewFeatureProps {
-  // другие пропы
+  // other props
 }
 
 export const NewComponent = forwardRef<Element, ComponentProps>(
@@ -334,9 +334,9 @@ export const NewComponent = forwardRef<Element, ComponentProps>(
 )
 ```
 
-## 📊 Производительность
+## 📊 Performance
 
-- **Zero runtime** - Все варианты компилируются в CSS
-- **Tree shaking** - Неиспользуемые варианты исключаются
-- **Class merging** - Конфликты разрешаются автоматически
-- **Type safety** - Полная типизация без runtime проверок
+- **Zero runtime** - All variants are compiled into CSS
+- **Tree shaking** - Unused variants are excluded
+- **Class merging** - Conflicts are resolved automatically
+- **Type safety** - Full typing without runtime checks

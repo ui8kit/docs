@@ -1,51 +1,51 @@
 # UI8Kit Documentation
 
-**UI8Kit** - современная React UI библиотека с TypeScript-first подходом, utility-first стилизацией и полиморфными компонентами.
+**UI8Kit** is a modern React UI library with TypeScript-first approach, utility-first styling, and polymorphic components.
 
-## 📚 Документация
+## 📚 Documentation
 
-### Быстрый старт
-- **[Overview](overview.md)** - Общий обзор библиотеки
-- **[Getting Started](getting-started.md)** - Установка и настройка
+### Quick Start
+- **[Overview](overview.md)** - Library overview
+- **[Getting Started](getting-started.md)** - Installation and setup
 
 ### API Reference
-- **[Components](api-reference/components.md)** - Справочник всех компонентов
-- **[Core UI](api-reference/core-ui.md)** - Система вариантов и утилит
-- **[Layouts](api-reference/layouts.md)** - Лейаут компоненты (Container, Stack, Grid)
+- **[Components](api-reference/components.md)** - Complete component reference
+- **[Core UI](api-reference/core-ui.md)** - Variants system and utilities
+- **[Layouts](api-reference/layouts.md)** - Layout components (Container, Stack, Grid)
 
-### Архитектура
-- **[Architecture Overview](architecture/overview.md)** - Общая архитектура
-- **[Variant System](architecture/variant-system.md)** - Система вариантов (CVA)
-- **[Package Structure](architecture/package-structure.md)** - Структура пакетов
-- **[TypeScript Configuration](architecture/typescript-configuration.md)** - Настройка TS
-- **[Build System](architecture/build-system.md)** - Система сборки
+### Architecture
+- **[Architecture Overview](architecture/overview.md)** - General architecture
+- **[Variant System](architecture/variant-system.md)** - Variants system (CVA)
+- **[Package Structure](architecture/package-structure.md)** - Package structure
+- **[TypeScript Configuration](architecture/typescript-configuration.md)** - TypeScript setup
+- **[Build System](architecture/build-system.md)** - Build system
 
-### Разработка
-- **[Development Guide](development-guide/development-guide.md)** - Основное руководство
-- **[Basic Workflow](development-guide/basic-workflow.md)** - Пошаговый workflow
-- **[Best Practices](development-guide/best-practices.md)** - Лучшие практики
-- **[Dark Mode](development-guide/dark-mode.md)** - Реализация тем
+### Development
+- **[Development Guide](development-guide/development-guide.md)** - Main guide
+- **[Basic Workflow](development-guide/basic-workflow.md)** - Step-by-step workflow
+- **[Best Practices](development-guide/best-practices.md)** - Best practices
+- **[Dark Mode](development-guide/dark-mode.md)** - Theme implementation
 
-### Решение проблем
-- **[Troubleshooting](troubleshooting.md)** - Решение распространенных проблем
+### Troubleshooting
+- **[Troubleshooting](troubleshooting.md)** - Solving common issues
 
-## 🚀 Ключевые возможности
+## 🚀 Key Features
 
-- **TypeScript-first**: Полная типизация с автодополнением
-- **Utility-first**: Все стили через пропы компонентов
-- **Полиморфные компоненты**: Любой HTML элемент через `component` проп
-- **Система вариантов**: Консистентная стилизация через CVA
-- **Dark mode**: Встроенная поддержка тем
-- **Tree shaking**: Автоматическое удаление неиспользуемого кода
-- **Accessibility**: ARIA атрибуты и keyboard navigation
+- **TypeScript-first**: Full type safety with autocompletion
+- **Utility-first**: All styles available as component props
+- **Polymorphic components**: Any HTML element via `component` prop
+- **Variants system**: Consistent styling through CVA
+- **Dark mode**: Built-in theme support
+- **Tree shaking**: Automatic unused code removal
+- **Accessibility**: ARIA attributes and keyboard navigation
 
-## 📦 Установка
+## 📦 Installation
 
 ```bash
 npm install @ui8kit/core
 ```
 
-## 🎯 Пример использования
+## 🎯 Usage Example
 
 ```tsx
 import { Button, Block, Container, Stack, Card } from '@ui8kit/core'
@@ -76,7 +76,7 @@ function App() {
 }
 ```
 
-## 🏗️ Архитектура
+## 🏗️ Architecture
 
 ```
 USER LEVEL               COMPOSITE LEVEL           PRIMITIVE LEVEL
@@ -91,21 +91,21 @@ USER LEVEL               COMPOSITE LEVEL           PRIMITIVE LEVEL
 
 ## 📊 Performance
 
-- **Bundle size**: ~15KB gzipped (весь core)
-- **Tree shaking**: Автоматическое удаление неиспользуемого кода
-- **Zero runtime**: Стили компилируются в CSS
-- **Stable references**: Нет ненужных ре-рендеров
+- **Bundle size**: ~15KB gzipped (full core)
+- **Tree shaking**: Automatic unused code removal
+- **Zero runtime**: Styles compiled to CSS
+- **Stable references**: No unnecessary re-renders
 
-## 🤝 Сообщество
+## 🤝 Community
 
 - **GitHub**: [github.com/ui8kit/core](https://github.com/ui8kit/core)
-- **Issues**: Для баг репортов и фич реквестов
-- **Discussions**: Для вопросов и обсуждений
+- **Issues**: For bug reports and feature requests
+- **Discussions**: For questions and discussions
 
-## 📄 Лицензия
+## 📄 License
 
 GPL-3.0
 
 ---
 
-**Начните разработку с [Getting Started](getting-started.md)!** 🚀
+**Start developing with [Getting Started](getting-started.md)!** 🚀

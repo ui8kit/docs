@@ -1,25 +1,25 @@
 # Basic Development Workflow
 
-Пошаговое руководство по разработке с UI8Kit - от установки до деплоя. Следуйте этому workflow для эффективной работы.
+Step-by-step guide to developing with UI8Kit - from installation to deployment. Follow this workflow for efficient work.
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
-### 1. Создание нового проекта
+### 1. Creating a new project
 
 ```bash
-# Используйте create-ui8kit-app (если доступен)
+# Use create-ui8kit-app (if available)
 npx create-ui8kit-app my-app
 cd my-app
 
-# Или настройте вручную
+# Or set up manually
 npm create vite@latest my-app -- --template react-ts
 cd my-app
 npm install @ui8kit/core
 ```
 
-### 2. Базовая настройка
+### 2. Basic Setup
 
-Создайте `src/providers/theme.tsx`:
+Create `src/providers/theme.tsx`:
 
 ```tsx
 import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from 'react'
@@ -69,9 +69,9 @@ export function useTheme<T extends ThemeBase = ThemeBase>(): ThemeContextValue<T
 }
 ```
 
-### 3. Настройка темы
+### 3. Theme Setup
 
-Создайте `src/themes/index.ts`:
+Create `src/themes/index.ts`:
 
 ```tsx
 export const defaultTheme = {
@@ -89,9 +89,9 @@ export const defaultTheme = {
 } as const
 ```
 
-### 4. Настройка CSS
+### 4. CSS Setup
 
-Обновите `src/index.css`:
+Update `src/index.css`:
 
 ```css
 @tailwind base;
@@ -119,9 +119,9 @@ export const defaultTheme = {
 }
 ```
 
-### 5. Настройка Tailwind
+### 5. Tailwind Setup
 
-Обновите `tailwind.config.js`:
+Update `tailwind.config.js`:
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -174,9 +174,9 @@ export default {
 }
 ```
 
-### 6. Создание первого компонента
+### 6. Creating Your First Component
 
-Обновите `src/App.tsx`:
+Update `src/App.tsx`:
 
 ```tsx
 import { Block, Container, Button, Title, Text, Stack } from '@ui8kit/core'
@@ -214,11 +214,11 @@ function App() {
 export default App
 ```
 
-## 🛠️ Ежедневный workflow
+## 🛠️ Daily Workflow
 
-### Разработка компонентов
+### Component Development
 
-1. **Создайте компонент**
+1. **Create Component**
 ```tsx
 // src/components/MyComponent.tsx
 import { Block, Button } from '@ui8kit/core'
@@ -232,13 +232,13 @@ export function MyComponent() {
 }
 ```
 
-2. **Добавьте в barrel export**
+2. **Add to Barrel Export**
 ```tsx
 // src/components/index.ts
 export { MyComponent } from './MyComponent'
 ```
 
-3. **Используйте в приложении**
+3. **Use in Application**
 ```tsx
 import { MyComponent } from '@/components'
 
@@ -247,7 +247,7 @@ function App() {
 }
 ```
 
-### Работа с формами
+### Working with Forms
 
 ```tsx
 import { Block, Box, Button, Group } from '@ui8kit/core'
@@ -367,7 +367,7 @@ export function ContactForm() {
 }
 ```
 
-### Работа с сетками
+### Working with Grids
 
 ```tsx
 import { Grid, Card, Title, Text } from '@ui8kit/core'
@@ -398,15 +398,15 @@ export function ProductGrid() {
 }
 ```
 
-## 🧪 Тестирование
+## 🧪 Testing
 
-### Настройка тестов
+### Test Setup
 
 ```bash
 npm install -D @testing-library/react @testing-library/jest-dom @testing-library/user-event
 ```
 
-### Создание тестов
+### Creating Tests
 
 ```tsx
 // src/components/__tests__/Button.test.tsx
@@ -434,7 +434,7 @@ describe('Button', () => {
 })
 ```
 
-### Настройка test environment
+### Test Environment Setup
 
 ```tsx
 // src/test-utils.tsx
@@ -459,15 +459,15 @@ export * from '@testing-library/react'
 export { customRender as render }
 ```
 
-## 🚀 Деплой
+## 🚀 Deployment
 
-### Build для production
+### Production Build
 
 ```bash
 npm run build
 ```
 
-### Предварительные проверки
+### Pre-deployment Checks
 
 ```bash
 # Type checking
@@ -483,26 +483,26 @@ npm run test
 npm run build
 ```
 
-### Деплой на Vercel
+### Deploy to Vercel
 
-1. Создайте аккаунт на [Vercel](https://vercel.com)
-2. Подключите GitHub репозиторий
-3. Настройте build settings:
+1. Create an account on [Vercel](https://vercel.com)
+2. Connect your GitHub repository
+3. Configure build settings:
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
    - **Install Command**: `npm install`
 
-### Деплой на Netlify
+### Deploy to Netlify
 
-1. Создайте аккаунт на [Netlify](https://netlify.com)
-2. Перетащите папку `dist` в drag & drop область
-3. Или подключите GitHub и настройте:
+1. Create an account on [Netlify](https://netlify.com)
+2. Drag the `dist` folder to the drag & drop area
+3. Or connect GitHub and configure:
    - **Build command**: `npm run build`
    - **Publish directory**: `dist`
 
-## 🔧 Расширение UI8Kit
+## 🔧 Extending UI8Kit
 
-### Создание кастомного компонента
+### Creating Custom Components
 
 ```tsx
 // src/components/ui/CustomCard.tsx
@@ -537,7 +537,7 @@ export const CustomCard = forwardRef<HTMLDivElement, CustomCardProps>(
 CustomCard.displayName = 'CustomCard'
 ```
 
-### Добавление кастомных вариантов
+### Adding Custom Variants
 
 ```tsx
 // src/lib/variants.ts
@@ -554,22 +554,22 @@ export const statusVariants = cva('', {
 })
 ```
 
-## 📊 Мониторинг и оптимизация
+## 📊 Monitoring and Optimization
 
-### Анализ bundle
+### Bundle Analysis
 
 ```bash
-# Установите analyzer
+# Install analyzer
 npm install -D vite-bundle-analyzer
 
-# Добавьте в package.json
+# Add to package.json
 {
   "scripts": {
     "analyze": "vite-bundle-analyzer dist"
   }
 }
 
-# Запустите анализ
+# Run analysis
 npm run build && npm run analyze
 ```
 
@@ -598,44 +598,44 @@ export function usePerformance() {
 
 ## 🎯 Troubleshooting
 
-### Распространенные проблемы
+### Common Issues
 
-1. **Компоненты не стилизуются**
-   - Проверьте, что Tailwind настроен правильно
-   - Убедитесь, что content paths включают UI8Kit
+1. **Components Not Styling**
+   - Check that Tailwind is configured correctly
+   - Ensure content paths include UI8Kit
 
-2. **TypeScript ошибки**
-   - Проверьте версию TypeScript (^5.0.0)
-   - Убедитесь, что типы импортированы правильно
+2. **TypeScript Errors**
+   - Check TypeScript version (^5.0.0)
+   - Ensure types are imported correctly
 
-3. **Тема не применяется**
-   - Проверьте, что ThemeProvider оборачивает приложение
-   - Убедитесь, что CSS переменные определены
+3. **Theme Not Applied**
+   - Check that ThemeProvider wraps the application
+   - Ensure CSS variables are defined
 
-4. **Сборка падает**
-   - Проверьте node_modules
-   - Попробуйте `rm -rf node_modules && npm install`
+4. **Build Failing**
+   - Check node_modules
+   - Try `rm -rf node_modules && npm install`
 
-### Полезные команды
+### Useful Commands
 
 ```bash
-# Очистка и переустановка
+# Clean and reinstall
 rm -rf node_modules package-lock.json
 npm install
 
-# Проверка типов
+# Type checking
 npx tsc --noEmit
 
-# Лinting
+# Linting
 npx eslint src --ext .ts,.tsx
 
-# Форматирование
+# Formatting
 npx prettier --write src
 ```
 
-## 📚 Следующие шаги
+## 📚 Next Steps
 
-- [API Reference](../api-reference/) - Изучите все компоненты
-- [Best Practices](best-practices.md) - Узнайте о лучших практиках
-- [Dark Mode](dark-mode.md) - Настройте поддержку тем
-- [Troubleshooting](../../troubleshooting.md) - Решение проблем
+- [API Reference](../api-reference/) - Learn all components
+- [Best Practices](best-practices.md) - Learn best practices
+- [Dark Mode](dark-mode.md) - Set up theme support
+- [Troubleshooting](../../troubleshooting.md) - Troubleshooting guide

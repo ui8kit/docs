@@ -1,10 +1,10 @@
 # TypeScript Configuration
 
-UI8Kit построен с TypeScript-first подходом. Эта документация объясняет, как настроить TypeScript для максимальной эффективности работы с библиотекой.
+UI8Kit is built with a TypeScript-first approach. This documentation explains how to configure TypeScript for maximum efficiency when working with the library.
 
-## 📋 Рекомендуемая конфигурация
+## 📋 Recommended Configuration
 
-### tsconfig.json для приложений
+### tsconfig.json for Applications
 
 ```json
 {
@@ -39,7 +39,7 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
 }
 ```
 
-### tsconfig.json для библиотек
+### tsconfig.json for Libraries
 
 ```json
 {
@@ -57,18 +57,18 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
 }
 ```
 
-## 🔧 Ключевые опции
+## 🔧 Key Options
 
-### Target и Lib
+### Target and Lib
 ```json
 {
   "target": "ES2020",
   "lib": ["ES2020", "DOM", "DOM.Iterable"]
 }
 ```
-- **ES2020**: Современные возможности JS
-- **DOM**: Браузерные API
-- **DOM.Iterable**: for...of для DOM коллекций
+- **ES2020**: Modern JS features
+- **DOM**: Browser APIs
+- **DOM.Iterable**: for...of for DOM collections
 
 ### Module Resolution
 ```json
@@ -77,8 +77,8 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
   "moduleResolution": "bundler"
 }
 ```
-- **ESNext**: Современные ES модули
-- **bundler**: Для Vite/Rollup/Webpack
+- **ESNext**: Modern ES modules
+- **bundler**: For Vite/Rollup/Webpack
 
 ### JSX
 ```json
@@ -86,7 +86,7 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
   "jsx": "react-jsx"
 }
 ```
-Автоматический импорт React для JSX.
+Automatic React import for JSX.
 
 ### Strict Mode
 ```json
@@ -97,7 +97,7 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
   "noFallthroughCasesInSwitch": true
 }
 ```
-Максимальная строгость для качества кода.
+Maximum strictness for code quality.
 
 ### Path Mapping
 ```json
@@ -109,13 +109,13 @@ UI8Kit построен с TypeScript-first подходом. Эта докум�
   }
 }
 ```
-Короткие импорты для лучшей DX.
+Short imports for better DX.
 
 ## 🎯 UI8Kit TypeScript API
 
-### Типы компонентов
+### Component Types
 
-Все компоненты экспортируют свои типы:
+All components export their types:
 
 ```tsx
 import type {
@@ -126,7 +126,7 @@ import type {
 } from '@ui8kit/core'
 ```
 
-### Универсальные пропы
+### Universal Props
 
 ```tsx
 interface UniversalProps extends
@@ -137,7 +137,7 @@ interface UniversalProps extends
   BorderProps {}
 ```
 
-### Темизация
+### Theming
 
 ```tsx
 import type { ThemeBase } from '@/providers/theme'
@@ -150,17 +150,17 @@ interface CustomTheme extends ThemeBase {
 }
 ```
 
-## 🛠️ Расширенные паттерны
+## 🛠️ Advanced Patterns
 
 ### Conditional Types
 
 ```tsx
-// Тип для полиморфных компонентов
+// Type for polymorphic components
 type ComponentProps<T extends ElementType> = {
   component?: T
 } & React.ComponentPropsWithoutRef<T>
 
-// Использование
+// Usage
 interface ButtonProps<T extends ElementType = 'button'> extends
   ComponentProps<T> {
   variant?: 'primary' | 'secondary'
@@ -171,63 +171,63 @@ interface ButtonProps<T extends ElementType = 'button'> extends
 ### Template Literal Types
 
 ```tsx
-// Для CSS классов
+// For CSS classes
 type SpacingScale = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type SpacingClass = `p-${SpacingScale}` | `m-${SpacingScale}`
 
-// Результат: "p-xs" | "p-sm" | "p-md" | "p-lg" | "p-xl" | "m-xs" | ...
+// Result: "p-xs" | "p-sm" | "p-md" | "p-lg" | "p-xl" | "m-xs" | ...
 ```
 
 ### Utility Types
 
 ```tsx
-// Обязательные пропы
+// Required props
 type RequiredProps<T, K extends keyof T> = T & Required<Pick<T, K>>
 
-// Опциональные пропы
+// Optional props
 type OptionalProps<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
-// Условные пропы
+// Conditional props
 type ConditionalProps<T, Condition> = Condition extends true
   ? T & { requiredProp: string }
   : T & { optionalProp?: string }
 ```
 
-## 🔍 Инференция типов
+## 🔍 Type Inference
 
 ### Auto-completion
 
 ```tsx
-// Полное автодополнение
+// Full autocompletion
 <Button
-  variant="primary"     // ✅ Автодополнение
-  size="lg"            // ✅ Автодополнение
-  rounded="md"         // ✅ Автодополнение
-  onClick={handleClick} // ✅ Типизированный коллбек
+  variant="primary"     // ✅ Autocompletion
+  size="lg"            // ✅ Autocompletion
+  rounded="md"         // ✅ Autocompletion
+  onClick={handleClick} // ✅ Typed callback
 />
 
-// Ошибки компиляции
+// Compilation errors
 <Button
-  variant="invalid"    // ❌ Ошибка: не входит в union type
-  size="huge"         // ❌ Ошибка: не входит в union type
+  variant="invalid"    // ❌ Error: not in union type
+  size="huge"         // ❌ Error: not in union type
 />
 ```
 
-### IntelliSense для тем
+### IntelliSense for Themes
 
 ```tsx
 const theme = useTheme()
 
-// Автодополнение для theme.rounded
+// Autocompletion for theme.rounded
 <Block rounded={theme.rounded.default} />  // ✅
 
-// Автодополнение для theme.buttonSize
+// Autocompletion for theme.buttonSize
 <Button size={theme.buttonSize.icon} />   // ✅
 ```
 
-## 🧪 Тестирование с TypeScript
+## 🧪 Testing with TypeScript
 
-### Setup тестов
+### Test Setup
 
 ```tsx
 // jest.config.js
@@ -241,7 +241,7 @@ export default {
 }
 ```
 
-### Typed тесты
+### Typed Tests
 
 ```tsx
 // components/__tests__/Button.test.tsx
@@ -270,26 +270,26 @@ describe('Button', () => {
 })
 ```
 
-## 🚀 Производительность типов
+## 🚀 Type Performance
 
-### Type-checking оптимизации
+### Type-checking Optimizations
 
 ```json
 {
-  "skipLibCheck": true,        // Пропустить проверку .d.ts файлов
-  "incremental": true,         // Инкрементальная компиляция
+  "skipLibCheck": true,        // Skip .d.ts file checking
+  "incremental": true,         // Incremental compilation
   "tsBuildInfoFile": "dist/tsbuildinfo"
 }
 ```
 
-### Selective type checking
+### Selective Type Checking
 
 ```tsx
-// types/hot.ts - для быстрой проверки
+// types/hot.ts - for quick checking
 export type ButtonVariant = 'primary' | 'secondary'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
-// types/cold.ts - для полной проверки
+// types/cold.ts - for full checking
 export interface ButtonProps {
   variant: ButtonVariant
   size: ButtonSize
@@ -300,31 +300,31 @@ export interface ButtonProps {
 
 ## 🐛 Troubleshooting
 
-### Распространенные ошибки
+### Common Errors
 
 #### 1. Module not found
 ```
 Cannot find module '@ui8kit/core'
 ```
-**Решение:**
-- Проверьте установку пакета: `npm install @ui8kit/core`
-- Проверьте tsconfig paths
+**Solution:**
+- Check package installation: `npm install @ui8kit/core`
+- Check tsconfig paths
 
-#### 2. Type errors в компонентах
+#### 2. Type errors in components
 ```
 Type 'string' is not assignable to type 'RoundedProps'
 ```
-**Решение:**
-- Используйте union типы: `rounded: "md" as const`
-- Или настройте `strict: false` для конкретных файлов
+**Solution:**
+- Use union types: `rounded: "md" as const`
+- Or configure `strict: false` for specific files
 
-#### 3. IntelliSense не работает
-**Решение:**
-- Перезапустите TypeScript language server
-- Проверьте, что .d.ts файлы сгенерированы
-- Убедитесь в правильности tsconfig.json
+#### 3. IntelliSense not working
+**Solution:**
+- Restart TypeScript language server
+- Check that .d.ts files are generated
+- Ensure tsconfig.json is correct
 
-### Debug типы
+### Debug Types
 
 ```tsx
 // utils/debug.ts
@@ -336,34 +336,34 @@ export type DebugType<T> = T extends (...args: any[]) => any
       [K in keyof T]: T[K]
     }
 
-// Использование
+// Usage
 type ButtonDebug = DebugType<ButtonProps>
-// Показывает развернутую структуру типа
+// Shows expanded type structure
 ```
 
-## 📚 Дополнительные ресурсы
+## 📚 Additional Resources
 
-### Официальная документация
+### Official Documentation
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
 
-### Инструменты
+### Tools
 - [TypeScript Playground](https://www.typescriptlang.org/play)
 - [Type Challenges](https://github.com/type-challenges/type-challenges)
 - [Total TypeScript](https://www.totaltypescript.com/)
 
-### Конфигурации
+### Configurations
 - [Awesome TypeScript](https://github.com/dzharii/awesome-typescript)
 - [TypeScript ESLint](https://typescript-eslint.io/)
 
-## 🎯 Лучшие практики
+## 🎯 Best Practices
 
-1. **Всегда используйте strict mode**
-2. **Настраивайте path mapping** для чистых импортов
-3. **Экспортируйте типы** из компонентов
-4. **Используйте generic constraints** для гибкости
-5. **Документируйте сложные типы** с JSDoc
-6. **Регулярно обновляйте** TypeScript до последней версии
-7. **Настраивайте IDE** для лучшего автодополнения
+1. **Always use strict mode**
+2. **Configure path mapping** for clean imports
+3. **Export types** from components
+4. **Use generic constraints** for flexibility
+5. **Document complex types** with JSDoc
+6. **Regularly update** TypeScript to latest version
+7. **Configure IDE** for better autocompletion
 
-При правильной настройке TypeScript станет вашим лучшим союзником в разработке с UI8Kit! 🚀
+With proper configuration, TypeScript will become your best ally in developing with UI8Kit! 🚀

@@ -1,48 +1,48 @@
 # Architecture Overview
 
-UI8Kit построен на принципах модульной архитектуры, где каждый слой имеет четкую ответственность. Библиотека сочетает гибкость utility-first подхода с удобством готовых компонентов.
+UI8Kit is built on modular architecture principles where each layer has a clear responsibility. The library combines the flexibility of utility-first approach with the convenience of ready-made components.
 
-## 🏗️ Архитектурные принципы
+## 🏗️ Architectural Principles
 
-### 1. **Utility-First с семантикой**
-- Все визуальные свойства доступны как пропы компонентов
-- Семантические имена пропов (`bg`, `c`, `p`, `m`)
-- Консистентная система значений через всю библиотеку
+### 1. **Utility-First with Semantics**
+- All visual properties available as component props
+- Semantic prop names (`bg`, `c`, `p`, `m`)
+- Consistent value system throughout the library
 
-### 2. **Полиморфные компоненты**
-- Компоненты могут рендериться как любой HTML элемент через `component` проп
-- Полная типизация для всех возможных элементов
-- Гибкость в семантической разметке
+### 2. **Polymorphic Components**
+- Components can render as any HTML element via `component` prop
+- Full typing for all possible elements
+- Flexibility in semantic markup
 
-### 3. **Система вариантов (CVA)**
-- Class Variance Authority для типобезопасных вариантов
-- Композиция вариантов без конфликтов
-- Автоматическое объединение классов через `tailwind-merge`
+### 3. **Variants System (CVA)**
+- Class Variance Authority for type-safe variants
+- Variant composition without conflicts
+- Automatic class merging through `tailwind-merge`
 
 ### 4. **TypeScript-First**
-- Полная типизация всех пропов
-- Автодополнение в IDE
-- Строгая типобезопасность
+- Full typing of all props
+- IDE autocompletion
+- Strict type safety
 
-## 📦 Структура пакетов
+## 📦 Package Structure
 
 ```
 packages/@ui8kit/
-├── core/                    # Основная библиотека
+├── core/                    # Main library
 │   ├── src/
-│   │   ├── components/      # React компоненты
-│   │   │   ├── ui/          # Базовые UI компоненты
-│   │   │   └── *.tsx        # Композитные компоненты
-│   │   ├── variants/        # Система вариантов (CVA)
-│   │   ├── lib/             # Утилиты
-│   │   └── index.ts         # Главный экспорт
+│   │   ├── components/      # React components
+│   │   │   ├── ui/          # Base UI components
+│   │   │   └── *.tsx        # Composite components
+│   │   ├── variants/        # Variants system (CVA)
+│   │   ├── lib/             # Utilities
+│   │   └── index.ts         # Main export
 │   ├── package.json
 │   └── tsconfig.json
-├── docs/                    # Документация
-└── create-app/              # CLI инструмент
+├── docs/                    # Documentation
+└── create-app/              # CLI tool
 ```
 
-## 🔧 Ключевые технологии
+## 🔧 Key Technologies
 
 ### Class Variance Authority (CVA)
 ```tsx
@@ -65,13 +65,13 @@ const buttonVariants = cva(
 )
 ```
 
-### Полиморфные компоненты
+### Polymorphic Components
 ```tsx
 interface BlockProps extends React.HTMLAttributes<HTMLElement> {
   component?: ElementType
 }
 
-// Использование
+// Usage
 <Block component="section" py="lg">Content</Block>
 <Block component="form" onSubmit={handleSubmit}>Form</Block>
 ```
@@ -80,14 +80,14 @@ interface BlockProps extends React.HTMLAttributes<HTMLElement> {
 ```tsx
 import { twMerge } from 'tailwind-merge'
 
-// Автоматическое разрешение конфликтов классов
+// Automatic class conflict resolution
 twMerge('px-2 py-1', 'px-4') // → 'py-1 px-4'
 ```
 
-## 🧩 Слои архитектуры
+## 🧩 Architecture Layers
 
 ### 1. **Variants Layer** (variants/)
-Определяет все возможные визуальные варианты:
+Defines all possible visual variants:
 
 - **spacing.ts** - margin, padding, gaps
 - **colors.ts** - background, text, border colors
@@ -96,10 +96,10 @@ twMerge('px-2 py-1', 'px-4') // → 'py-1 px-4'
 - **button.ts** - button-specific variants
 
 ### 2. **Primitives Layer** (core/ui/)
-Базовые компоненты без стилей:
+Base components without styles:
 
 ```tsx
-// Просто forwardRef без классов
+// Just forwardRef without classes
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, ...props }, ref) => (
     <button ref={ref} {...props}>
@@ -110,7 +110,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 ```
 
 ### 3. **Components Layer** (components/ui/)
-Применяет варианты к примитивам:
+Applies variants to primitives:
 
 ```tsx
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -128,7 +128,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 ```
 
 ### 4. **Composition Layer** (components/)
-Композитные компоненты из базовых:
+Composite components from base ones:
 
 ```tsx
 export function Card({ children, ...props }: CardProps) {
@@ -140,9 +140,9 @@ export function Card({ children, ...props }: CardProps) {
 }
 ```
 
-## 🎨 Система тем
+## 🎨 Theme System
 
-### Простая структура темы
+### Simple theme structure
 ```tsx
 interface Theme {
   name: string
@@ -152,8 +152,8 @@ interface Theme {
 }
 ```
 
-### CSS переменные
-Библиотека использует CSS переменные для цветов:
+### CSS Variables
+The library uses CSS variables for colors:
 ```css
 :root {
   --primary: 221.2 83.2% 53.3%;
@@ -169,16 +169,16 @@ Props → Variants → Classes → Tailwind → CSS
 Component → forwardRef → Element → DOM
 ```
 
-## 📊 Принципы производительности
+## 📊 Performance Principles
 
-1. **Tree Shaking** - Только используемые компоненты попадают в бандл
-2. **CSS-in-JS без рантайма** - Все стили компилируются в CSS
-3. **Minimal re-renders** - Стабильные ссылки через useMemo
-4. **Small bundle size** - Зависимости: clsx, tailwind-merge, cva
+1. **Tree Shaking** - Only used components end up in the bundle
+2. **Runtime-free CSS-in-JS** - All styles compiled to CSS
+3. **Minimal re-renders** - Stable references through useMemo
+4. **Small bundle size** - Dependencies: clsx, tailwind-merge, cva
 
-## 🚀 Расширение библиотеки
+## 🚀 Library Extension
 
-### Добавление нового варианта
+### Adding a new variant
 ```tsx
 // variants/new-feature.ts
 export const newFeatureVariants = cva("", {
@@ -191,7 +191,7 @@ export const newFeatureVariants = cva("", {
 })
 ```
 
-### Создание нового компонента
+### Creating a new component
 ```tsx
 // components/ui/NewComponent.tsx
 export const NewComponent = forwardRef<Element, NewComponentProps>(

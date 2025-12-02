@@ -1,41 +1,41 @@
 # Best Practices
 
-Рекомендации и паттерны для эффективной разработки с UI8Kit. Следуйте этим практикам для создания поддерживаемого и масштабируемого кода.
+Recommendations and patterns for efficient development with UI8Kit. Follow these practices to create maintainable and scalable code.
 
-## 🎯 Общие принципы
+## 🎯 General Principles
 
-### 1. Используйте семантические пропы
+### 1. Use Semantic Props
 
 ```tsx
-// ✅ Хорошо - семантические пропы
+// ✅ Good - semantic props
 <Block bg="primary" c="primary-foreground" p="md">
   Primary section
 </Block>
 
-// ❌ Плохо - жестко заданные классы
+// ❌ Bad - hardcoded classes
 <div className="bg-blue-500 text-white p-4">
   Primary section
 </div>
 ```
 
-### 2. Следуйте дизайн-системе
+### 2. Follow Design System
 
 ```tsx
-// ✅ Хорошо - используйте дизайн токены
+// ✅ Good - use design tokens
 <Button variant="primary" size="lg" rounded="md">
   Primary Action
 </Button>
 
-// ❌ Плохо - кастомные стили
+// ❌ Bad - custom styles
 <Button className="bg-blue-500 text-white px-6 py-3 rounded-lg">
   Primary Action
 </Button>
 ```
 
-### 3. Будьте последовательны в API
+### 3. Be Consistent in API
 
 ```tsx
-// ✅ Хорошо - последовательное использование
+// ✅ Good - consistent usage
 <Stack gap="lg">
   <Title size="xl">Header</Title>
   <Text>Content</Text>
@@ -45,7 +45,7 @@
   </Group>
 </Stack>
 
-// ❌ Плохо - смешивание подходов
+// ❌ Bad - mixing approaches
 <div className="space-y-6">
   <h1 className="text-3xl">Header</h1>
   <p>Content</p>
@@ -56,37 +56,37 @@
 </div>
 ```
 
-## 🧩 Компонентные паттерны
+## 🧩 Component Patterns
 
-### Полиморфные компоненты
+### Polymorphic Components
 
-Используйте `component` проп для семантической разметки:
+Use the `component` prop for semantic markup:
 
 ```tsx
-// ✅ Хорошо - семантическая разметка
+// ✅ Good - semantic markup
 <Block component="section" py="xl">
   <Block component="h1">Title</Block>
   <Text component="p">Content</Text>
 </Block>
 
-// ✅ Хорошо - доступность
+// ✅ Good - accessibility
 <Button component="a" href="/dashboard">
   Go to Dashboard
 </Button>
 
-// ❌ Плохо - неправильная семантика
+// ❌ Bad - incorrect semantics
 <div>
   <div>Page Title</div>
   <span>Content</span>
 </div>
 ```
 
-### Составные компоненты
+### Compound Components
 
-Используйте compound components для сложных UI:
+Use compound components for complex UI:
 
 ```tsx
-// ✅ Хорошо - compound pattern
+// ✅ Good - compound pattern
 <Card>
   <CardHeader>
     <CardTitle>Card Title</CardTitle>
@@ -100,7 +100,7 @@
   </CardFooter>
 </Card>
 
-// ❌ Плохо - плоская структура
+// ❌ Bad - flat structure
 <div className="card">
   <div className="card-header">
     <h3>Card Title</h3>
@@ -115,52 +115,52 @@
 </div>
 ```
 
-## 🎨 Стилизация
+## 🎨 Styling
 
-### Spacing система
+### Spacing System
 
 ```tsx
-// ✅ Хорошо - используйте spacing scale
+// ✅ Good - use spacing scale
 <Stack gap="lg">
   <Block p="md">Content</Block>
   <Block py="xl">Large padding</Block>
 </Stack>
 
-// ❌ Плохо - магические числа
+// ❌ Bad - magic numbers
 <Stack style={{ gap: '24px' }}>
   <Block style={{ padding: '12px' }}>Content</Block>
   <Block style={{ paddingTop: '48px', paddingBottom: '48px' }}>Large padding</Block>
 </Stack>
 ```
 
-### Цветовая система
+### Color System
 
 ```tsx
-// ✅ Хорошо - семантические цвета
+// ✅ Good - semantic colors
 <Button variant="primary">Primary</Button>
 <Button variant="destructive">Delete</Button>
 <Text c="muted">Muted text</Text>
 
-// ❌ Плохо - жестко заданные цвета
+// ❌ Bad - hardcoded colors
 <Button className="bg-blue-500">Primary</Button>
 <Button className="bg-red-500">Delete</Button>
 <Text className="text-gray-500">Muted text</Text>
 ```
 
-### Responsive дизайн
+### Responsive Design
 
 ```tsx
-// ✅ Хорошо - mobile-first
+// ✅ Good - mobile-first
 <Grid cols="1-2-3" gap="md">
   <Card>Responsive content</Card>
 </Grid>
 
-// ✅ Хорошо - responsive spacing
+// ✅ Good - responsive spacing
 <Block p={{ base: "md", md: "lg", xl: "xl" }}>
   Responsive padding
 </Block>
 
-// ❌ Плохо - множественные условия
+// ❌ Bad - multiple conditions
 {isMobile ? (
   <div className="p-4">Mobile</div>
 ) : (
@@ -168,20 +168,20 @@
 )}
 ```
 
-## 🔧 Производительность
+## 🔧 Performance
 
-### Избегайте ненужных ре-рендеров
+### Avoid Unnecessary Re-renders
 
 ```tsx
-// ✅ Хорошо - мемоизированные коллбеки
+// ✅ Good - memoized callbacks
 const handleClick = useCallback(() => {
   // handle click
 }, [])
 
-// ✅ Хорошо - стабильные ссылки
+// ✅ Good - stable references
 const theme = useMemo(() => ({ /* theme */ }), [])
 
-// ❌ Плохо - новые объекты при каждом рендере
+// ❌ Bad - new objects on every render
 <Button onClick={() => setCount(c => c + 1)}>
   Click
 </Button>
@@ -190,29 +190,29 @@ const theme = useMemo(() => ({ /* theme */ }), [])
 ### Tree Shaking
 
 ```tsx
-// ✅ Хорошо - импортируйте только нужное
+// ✅ Good - import only what you need
 import { Button, Card } from '@ui8kit/core'
 
-// ❌ Плохо - импортируйте все
+// ❌ Bad - import everything
 import * as UI from '@ui8kit/core'
 ```
 
-### Bundle анализ
+### Bundle Analysis
 
-Регулярно анализируйте размер бандла:
+Regularly analyze bundle size:
 
 ```bash
-# Используйте bundle analyzer
+# Use bundle analyzer
 npm run build
 npx vite-bundle-analyzer dist
 ```
 
 ## ♿ Accessibility
 
-### Семантическая разметка
+### Semantic Markup
 
 ```tsx
-// ✅ Хорошо - правильная семантика
+// ✅ Good - correct semantics
 <Block component="main">
   <Block component="nav" aria-label="Main navigation">
     <Group component="ul" role="menubar">
@@ -226,7 +226,7 @@ npx vite-bundle-analyzer dist
   </Block>
 </Block>
 
-// ❌ Плохо - неправильная семантика
+// ❌ Bad - incorrect semantics
 <div>
   <div>
     <div>
@@ -239,10 +239,10 @@ npx vite-bundle-analyzer dist
 </div>
 ```
 
-### Focus management
+### Focus Management
 
 ```tsx
-// ✅ Хорошо - правильный focus flow
+// ✅ Good - correct focus flow
 <Modal>
   <ModalContent>
     <ModalHeader>
@@ -259,10 +259,10 @@ npx vite-bundle-analyzer dist
 </Modal>
 ```
 
-### ARIA атрибуты
+### ARIA Attributes
 
 ```tsx
-// ✅ Хорошо - ARIA для сложных компонентов
+// ✅ Good - ARIA for complex components
 <Button
   aria-expanded={isOpen}
   aria-controls="menu"
@@ -271,18 +271,18 @@ npx vite-bundle-analyzer dist
   Menu
 </Button>
 
-// ✅ Хорошо - screen reader контент
+// ✅ Good - screen reader content
 <Text className="sr-only">
   Screen reader description
 </Text>
 ```
 
-## 🧪 Тестирование
+## 🧪 Testing
 
-### Unit тесты компонентов
+### Component Unit Tests
 
 ```tsx
-// ✅ Хорошо - тестируйте поведение
+// ✅ Good - test behavior
 describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = jest.fn()
@@ -301,10 +301,10 @@ describe('Button', () => {
 })
 ```
 
-### Visual regression тесты
+### Visual Regression Tests
 
 ```tsx
-// ✅ Хорошо - visual snapshots
+// ✅ Good - visual snapshots
 describe('Button variants', () => {
   it('renders primary variant correctly', () => {
     const { container } = render(<Button variant="primary">Primary</Button>)
@@ -313,10 +313,10 @@ describe('Button variants', () => {
 })
 ```
 
-### E2E тесты
+### E2E Tests
 
 ```tsx
-// ✅ Хорошо - end-to-end flows
+// ✅ Good - end-to-end flows
 it('completes user registration', () => {
   cy.visit('/register')
   cy.findByLabelText('Email').type('user@example.com')
@@ -326,60 +326,60 @@ it('completes user registration', () => {
 })
 ```
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
-### Организация файлов
+### File Organization
 
 ```
 src/
-├── components/          # Переиспользуемые компоненты
-│   ├── ui/             # Базовые UI компоненты
-│   ├── forms/          # Формы
-│   └── layout/         # Layout компоненты
-├── hooks/              # Кастомные хуки
-├── lib/                # Утилиты
+├── components/          # Reusable components
+│   ├── ui/             # Basic UI components
+│   ├── forms/          # Forms
+│   └── layout/         # Layout components
+├── hooks/              # Custom hooks
+├── lib/                # Utilities
 ├── providers/          # Context providers
-├── styles/             # Глобальные стили
-└── types/              # TypeScript типы
+├── styles/             # Global styles
+└── types/              # TypeScript types
 ```
 
-### Именование компонентов
+### Component Naming
 
 ```tsx
-// ✅ Хорошо - PascalCase, описательные имена
+// ✅ Good - PascalCase, descriptive names
 export function UserProfileCard() { /* ... */ }
 export function DataTable() { /* ... */ }
 export function ThemeToggle() { /* ... */ }
 
-// ❌ Плохо - неясные имена
-export function Card() { /* ... */ }      // Слишком общее
-export function Btn() { /* ... */ }       // Сокращения
-export function component1() { /* ... */ } // Низкоуровневое
+// ❌ Bad - unclear names
+export function Card() { /* ... */ }      // Too generic
+export function Btn() { /* ... */ }       // Abbreviations
+export function component1() { /* ... */ } // Low-level
 ```
 
-### Barrel exports
+### Barrel Exports
 
 ```tsx
-// ✅ Хорошо - barrel exports для удобного импорта
+// ✅ Good - barrel exports for convenient imports
 // components/index.ts
 export { Button } from './ui/Button'
 export { Card } from './ui/Card'
 export { Input } from './forms/Input'
 
-// Использование
+// Usage
 import { Button, Card, Input } from '@/components'
 
-// ❌ Плохо - глубокие импорты
+// ❌ Bad - deep imports
 import Button from '@/components/ui/Button/Button'
 import Card from '@/components/ui/Card/Card'
 ```
 
-## 🔄 Работа с темами
+## 🔄 Working with Themes
 
-### Темизация компонентов
+### Component Theming
 
 ```tsx
-// ✅ Хорошо - используйте theme context
+// ✅ Good - use theme context
 function ThemedButton({ variant, ...props }) {
   const { rounded } = useTheme()
 
@@ -392,7 +392,7 @@ function ThemedButton({ variant, ...props }) {
   )
 }
 
-// ❌ Плохо - жестко заданные значения
+// ❌ Bad - hardcoded values
 function ThemedButton({ variant, ...props }) {
   return (
     <Button
@@ -404,10 +404,10 @@ function ThemedButton({ variant, ...props }) {
 }
 ```
 
-### Кастомные темы
+### Custom Themes
 
 ```tsx
-// ✅ Хорошо - расширяйте базовую тему
+// ✅ Good - extend base theme
 const customTheme = {
   ...baseTheme,
   colors: {
@@ -416,19 +416,19 @@ const customTheme = {
   }
 }
 
-// ❌ Плохо - перезаписывайте все
+// ❌ Bad - overwrite everything
 const badTheme = {
   primary: '#ff6b6b',
-  // отсутствуют другие необходимые свойства
+  // missing other required properties
 }
 ```
 
-## 🚀 Оптимизация
+## 🚀 Optimization
 
-### Code splitting
+### Code Splitting
 
 ```tsx
-// ✅ Хорошо - lazy loading модальных окон
+// ✅ Good - lazy loading modals
 const Modal = lazy(() => import('./Modal'))
 
 function App() {
@@ -450,13 +450,13 @@ function App() {
 ### Memoization
 
 ```tsx
-// ✅ Хорошо - мемоизируйте тяжелые вычисления
+// ✅ Good - memoize heavy computations
 const filteredItems = useMemo(() =>
   items.filter(item => item.status === 'active'),
   [items]
 )
 
-// ✅ Хорошо - мемоизируйте компоненты
+// ✅ Good - memoize components
 const UserCard = memo(function UserCard({ user }) {
   return (
     <Card>
@@ -467,12 +467,12 @@ const UserCard = memo(function UserCard({ user }) {
 })
 ```
 
-## 📝 Документирование
+## 📝 Documentation
 
-### Компонентная документация
+### Component Documentation
 
 ```tsx
-// ✅ Хорошо - документируйте API
+// ✅ Good - document API
 interface ButtonProps extends
   React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Button style variant */
@@ -523,12 +523,12 @@ import { ComponentName } from './ComponentName'
 | prop | string | - | Description of prop |
 ```
 
-## 🔍 Отладка
+## 🔍 Debugging
 
-### Development tools
+### Development Tools
 
 ```tsx
-// ✅ Хорошо - development helpers
+// ✅ Good - development helpers
 if (process.env.NODE_ENV === 'development') {
   // Debug logging
   console.log('Component state:', state)
@@ -542,10 +542,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 ```
 
-### Error boundaries
+### Error Boundaries
 
 ```tsx
-// ✅ Хорошо - error boundaries для компонентов
+// ✅ Good - error boundaries for components
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props)
@@ -570,13 +570,13 @@ class ErrorBoundary extends Component {
 }
 ```
 
-## 🎯 Итоговые рекомендации
+## 🎯 Final Recommendations
 
-1. **Следуйте дизайн-системе** - используйте семантические пропы вместо кастомных классов
-2. **Пишите доступный код** - правильная семантика и ARIA атрибуты
-3. **Тестируйте thoroughly** - unit, integration и e2e тесты
-4. **Оптимизируйте производительность** - memoization и code splitting
-5. **Документируйте API** - JSDoc и README для компонентов
-6. **Используйте TypeScript** - строгая типизация для надежности
-7. **Будьте последовательны** - единый стиль кода и паттерны
-8. **Планируйте масштабируемость** - модульная архитектура
+1. **Follow Design System** - use semantic props instead of custom classes
+2. **Write Accessible Code** - correct semantics and ARIA attributes
+3. **Test Thoroughly** - unit, integration and e2e tests
+4. **Optimize Performance** - memoization and code splitting
+5. **Document API** - JSDoc and README for components
+6. **Use TypeScript** - strict typing for reliability
+7. **Be Consistent** - unified code style and patterns
+8. **Plan for Scalability** - modular architecture

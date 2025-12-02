@@ -1,12 +1,12 @@
 # Components API Reference
 
-Полный справочник по всем компонентам UI8Kit с примерами использования и типами пропов.
+Complete reference for all UI8Kit components with usage examples and prop types.
 
-## 🧱 Базовые примитивы
+## 🧱 Basic Primitives
 
 ### Block
 
-Полиморфный семантический контейнер с полным набором стилей.
+Polymorphic semantic container with full styling capabilities.
 
 ```tsx
 import { Block } from '@ui8kit/core'
@@ -34,18 +34,18 @@ interface BlockProps extends
 
 ### Box
 
-Гибкий примитив с полным набором вариантов. Может рендериться как любой HTML элемент.
+Flexible primitive with full variant support. Can render as any HTML element.
 
 ```tsx
 import { Box } from '@ui8kit/core'
 
-// Как input
+// As input
 <Box component="input" type="text" w="full" p="md" rounded="md" border="default" />
 
-// Как textarea
+// As textarea
 <Box component="textarea" rows={4} w="full" p="md" rounded="md" border="default" />
 
-// Как div с flex
+// As div with flex
 <Box display="flex" gap="md" align="center">
   Content
 </Box>
@@ -65,15 +65,15 @@ interface BoxProps extends
   component?: ElementType
   className?: string
   children?: ReactNode
-  [key: string]: any  // Для дополнительных пропов
+  [key: string]: any  // For additional props
 }
 ```
 
-## 🎨 UI Компоненты
+## 🎨 UI Components
 
 ### Button
 
-Интерактивная кнопка с вариантами стилей и состояний.
+Interactive button with style and state variants.
 
 ```tsx
 import { Button } from '@ui8kit/core'
@@ -112,7 +112,7 @@ interface ButtonProps extends
 
 ### Badge
 
-Маленькие статус индикаторы.
+Small status indicators.
 
 ```tsx
 import { Badge } from '@ui8kit/core'
@@ -146,7 +146,7 @@ interface BadgeProps extends
 
 ### Card
 
-Карточка с составной структурой.
+Card with compound structure.
 
 ```tsx
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@ui8kit/core'
@@ -164,17 +164,17 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@ui8kit/co
 </Card>
 ```
 
-**Компоненты:**
-- `Card` - основной контейнер
-- `CardHeader` - заголовок карточки
-- `CardTitle` - заголовок
-- `CardDescription` - описание
-- `CardContent` - основное содержимое
-- `CardFooter` - нижняя часть с действиями
+**Components:**
+- `Card` - main container
+- `CardHeader` - card header
+- `CardTitle` - title
+- `CardDescription` - description
+- `CardContent` - main content
+- `CardFooter` - footer with actions
 
 ### Title
 
-Семантические заголовки с типографикой.
+Semantic headings with typography.
 
 ```tsx
 import { Title } from '@ui8kit/core'
@@ -205,7 +205,7 @@ interface TitleProps extends
 
 ### Text
 
-Текстовые элементы с полным контролем типографики.
+Text elements with full typography control.
 
 ```tsx
 import { Text } from '@ui8kit/core'
@@ -236,7 +236,7 @@ interface TextProps extends
 
 ### Image
 
-Улучшенный компонент изображения.
+Enhanced image component.
 
 ```tsx
 import { Image } from '@ui8kit/core'
@@ -260,13 +260,13 @@ interface ImageProps extends
   RoundedProps,
   ShadowProps,
   VariantLayoutProps {
-  // Стандартные пропы img + варианты
+  // Standard img props plus variant features
 }
 ```
 
 ### Icon
 
-Обертка для иконок с размером и цветом.
+Icon wrapper with size and color control.
 
 ```tsx
 import { Icon } from '@ui8kit/core'
@@ -286,11 +286,11 @@ interface IconProps extends
 }
 ```
 
-## 📐 Layout Компоненты
+## 📐 Layout Components
 
 ### Container
 
-Адаптивный контейнер с предустановленными размерами.
+Responsive container with preset sizes.
 
 ```tsx
 import { Container } from '@ui8kit/core'
@@ -302,7 +302,7 @@ import { Container } from '@ui8kit/core'
 </Container>
 ```
 
-**Размеры:**
+**Sizes:**
 - `xs`: 640px
 - `sm`: 768px
 - `md`: 1024px
@@ -321,7 +321,7 @@ interface ContainerProps extends
 
 ### Stack
 
-Вертикальный стек с контролем промежутков.
+Vertical stack with gap control.
 
 ```tsx
 import { Stack } from '@ui8kit/core'
@@ -339,13 +339,13 @@ interface StackProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps,
   Pick<VariantFlexProps, 'gap' | 'align'> {
-  // Наследует spacing и flex пропы
+  // Inherits spacing and flex props       
 }
 ```
 
 ### Group
 
-Горизонтальный стек с выравниванием.
+Horizontal stack with alignment.
 
 ```tsx
 import { Group } from '@ui8kit/core'
@@ -362,13 +362,13 @@ interface GroupProps extends
   React.HTMLAttributes<HTMLDivElement>,
   VariantSpacingProps,
   Pick<VariantFlexProps, 'gap' | 'align' | 'justify' | 'wrap'> {
-  // Наследует spacing и flex пропы
+  // Inherits spacing and flex props
 }
 ```
 
 ### Grid
 
-CSS Grid с адаптивными пресетами.
+CSS Grid with responsive presets.
 
 ```tsx
 import { Grid, GridCol } from '@ui8kit/core'
@@ -380,11 +380,11 @@ import { Grid, GridCol } from '@ui8kit/core'
 </Grid>
 ```
 
-**Пресеты колонок:**
-- `1`: 1 колонка
-- `1-2`: 1 на мобильном, 2 на больших экранах
-- `1-2-3`: 1 → 2 → 3 колонки
-- `1-2-3-4`: 1 → 2 → 3 → 4 колонки
+**Column Presets:**
+- `1`: 1 column
+- `1-2`: 1 on mobile, 2 on large screens
+- `1-2-3`: 1 → 2 → 3 columns
+- `1-2-3-4`: 1 → 2 → 3 → 4 columns
 
 **Пропы:**
 ```tsx
@@ -404,11 +404,11 @@ interface GridColProps extends
 }
 ```
 
-## 🎭 Композитные компоненты
+## 🎭 Composite Components
 
 ### Sheet
 
-Модальный оверлей с анимациями.
+Modal overlay with animations.
 
 ```tsx
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@ui8kit/core'
@@ -426,17 +426,17 @@ import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from '@ui8
 </Sheet>
 ```
 
-**Компоненты:**
-- `Sheet` - корневой компонент
-- `SheetTrigger` - триггер открытия
-- `SheetContent` - содержимое
-- `SheetHeader` - заголовок
-- `SheetTitle` - заголовок
-- `SheetDescription` - описание
+**Components:**
+- `Sheet` - root component
+- `SheetTrigger` - open trigger
+- `SheetContent` - content
+- `SheetHeader` - header
+- `SheetTitle` - title
+- `SheetDescription` - description
 
 ### Accordion
 
-Раскрывающийся контент.
+Expandable content.
 
 ```tsx
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@ui8kit/core'
@@ -465,9 +465,9 @@ interface AccordionProps extends
 }
 ```
 
-## 🎨 Универсальные пропы
+## 🎨 Universal Props
 
-Все компоненты поддерживают эти универсальные пропы:
+All components support these universal props:
 
 ### Spacing
 ```tsx
@@ -490,17 +490,17 @@ w="full" h="auto" minH="screen" position="relative" display="flex"
 rounded="md" shadow="lg" border="default"
 ```
 
-### Flex (для layout компонентов)
+### Flex (for layout components)
 ```tsx
 direction="column" align="center" justify="between" wrap="wrap" gap="md"
 ```
 
 ## 🔧 Data Attributes
 
-Все компоненты имеют семантические `data-class` атрибуты для тестирования и стилизации:
+All components have semantic `data-class` attributes for testing and styling:
 
 ```tsx
-// В DOM появится:
+// In DOM will appear:
 <button data-class="button">...</button>
 <div data-class="card">
   <div data-class="card-header">...</div>

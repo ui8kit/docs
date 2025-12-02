@@ -1,17 +1,17 @@
 # Package Structure
 
-UI8Kit организован в модульную структуру пакетов, где каждый пакет имеет четкую ответственность. Это обеспечивает легкость поддержки, тестирования и расширения.
+UI8Kit is organized into a modular package structure where each package has a clear responsibility. This ensures ease of maintenance, testing, and extension.
 
-## 📦 Общая структура
+## 📦 General Structure
 
 ```
 packages/@ui8kit/
-├── core/                    # Основная библиотека компонентов
+├── core/                    # Main component library
 │   ├── src/
-│   │   ├── components/      # React компоненты
-│   │   │   ├── ui/          # Базовые UI компоненты
-│   │   │   └── *.tsx        # Композитные компоненты
-│   │   ├── variants/        # Система вариантов
+│   │   ├── components/      # React componentы
+│   │   │   ├── ui/          # Basic UI componentы
+│   │   │   └── *.tsx        # Композитные componentы
+│   │   ├── variants/        # Система variantов
 │   │   ├── lib/             # Утилиты и хелперы
 │   │   └── index.ts         # Главная точка входа
 │   ├── package.json
@@ -22,43 +22,43 @@ packages/@ui8kit/
 └── workspace/               # Корневой пакет с общими скриптами
 ```
 
-## 🔍 Детальная структура core пакета
+## 🔍 Detailed Core Package Structure
 
 ### components/
 
 ```
 components/
-├── ui/                      # Базовые UI компоненты
-│   ├── Block.tsx           # Полиморфный семантический контейнер
-│   ├── Box.tsx             # Гибкий примитив с полным набором вариантов
-│   ├── Button.tsx          # Интерактивная кнопка
-│   ├── Badge.tsx           # Статус индикаторы
-│   ├── Card.tsx            # Карточка с составной структурой
-│   ├── Container.tsx       # Адаптивный контейнер
-│   ├── Group.tsx           # Горизонтальный стек
-│   ├── Stack.tsx           # Вертикальный стек
-│   ├── Grid.tsx            # CSS Grid компонент
-│   ├── Title.tsx           # Семантические заголовки
-│   ├── Text.tsx            # Текстовые элементы
-│   ├── Image.tsx           # Улучшенное изображение
-│   └── Icon.tsx            # Обертка иконок
-├── Grid.tsx                # Композитный Grid (использует ui/Grid)
-├── Sheet.tsx               # Модальный оверлей
-├── Accordion.tsx           # Раскрывающийся контент
-└── index.ts                # Экспорт всех компонентов
+├── ui/                      # Basic UI components
+│   ├── Block.tsx           # Polymorphic semantic container
+│   ├── Box.tsx             # Flexible primitive with full variant support
+│   ├── Button.tsx          # Interactive button
+│   ├── Badge.tsx           # Status indicators
+│   ├── Card.tsx            # Card with compound structure
+│   ├── Container.tsx       # Responsive container
+│   ├── Group.tsx           # Horizontal stack
+│   ├── Stack.tsx           # Vertical stack
+│   ├── Grid.tsx            # CSS Grid component
+│   ├── Title.tsx           # Semantic headings
+│   ├── Text.tsx            # Text elements
+│   ├── Image.tsx           # Enhanced image
+│   └── Icon.tsx            # Icon wrapper
+├── Grid.tsx                # Composite Grid (uses ui/Grid)
+├── Sheet.tsx               # Modal overlay
+├── Accordion.tsx           # Expandable content
+└── index.ts                # Exports all components
 ```
 
-#### Классификация компонентов
+#### Component Classification
 
-**ui/** - Базовые компоненты:
-- Применяют варианты к примитивам
-- Имеют минимальный API
-- Фокусируются на одном аспекте UI
+**ui/** - Basic components:
+- Apply variants to primitives
+- Have minimal API
+- Focus on one aspect of UI
 
-**Корень components/** - Композитные компоненты:
-- Комбинируют несколько ui компонентов
-- Имеют сложную логику
-- Предоставляют high-level API
+**Root components/** - Composite components:
+- Combine multiple ui components
+- Have complex logic
+- Provide high-level API
 
 ### variants/
 
@@ -76,23 +76,23 @@ variants/
 ├── badge.ts                # Badge variants
 ├── typography.ts           # Font size, weight, alignment
 ├── image.ts                # Image utilities
-└── index.ts                # Экспорт всех вариантов
+└── index.ts                # Export all variants
 ```
 
 ### lib/
 
 ```
 lib/
-├── utils.ts                # Основные утилиты (cn, etc.)
+├── utils.ts                # Core utilities (cn, etc.)
 └── ...
 ```
 
-## 📋 Файловая структура компонента
+## 📋 Component File Structure
 
-### Пример ui компонента (Button.tsx)
+### Example UI Component (Button.tsx)
 
 ```tsx
-// 1. Импорты
+// 1. Imports
 import type { ReactNode } from "react"
 import { forwardRef } from "react"
 import { cn } from "../../lib/utils"
@@ -109,14 +109,14 @@ import {
   type ShadowProps
 } from "../../variants"
 
-// 2. Интерфейс пропов
+// 2. Props interface
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    // Унаследованные пропы
+    // Inherited props
     Pick<VariantSpacingProps, 'm' | 'mx' | 'my' | 'mr'>,
     RoundedProps,
     ShadowProps,
-    // Собственные пропы
+    // Own props
     ButtonSizeProps,
     ButtonStyleProps {
   children: ReactNode
@@ -125,12 +125,12 @@ export interface ButtonProps
   loading?: boolean
 }
 
-// 3. Вспомогательные компоненты
+// 3. Helper components
 const ButtonSpinner = () => (
   <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
 )
 
-// 4. Основной компонент
+// 4. Main component
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({
     children,
@@ -185,7 +185,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 ```
 
-### Пример композитного компонента (Card.tsx)
+### Example Composite Component (Card.tsx)
 
 ```tsx
 // components/ui/Card.tsx
@@ -197,7 +197,7 @@ import {
   type CardProps
 } from "../../variants"
 
-// Составные части
+// Compound parts
 export const CardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <Block
@@ -223,7 +223,7 @@ export const CardTitle = forwardRef<HTMLParagraphElement, React.HTMLAttributes<H
 )
 CardTitle.displayName = "CardTitle"
 
-// Основной компонент
+// Main component
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, ...props }, ref) => (
     <Block
@@ -241,13 +241,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 )
 Card.displayName = "Card"
 
-// Экспорт составных частей
+// Export compound parts
 export { CardHeader, CardTitle, CardContent, CardFooter, CardDescription }
 ```
 
-## 🔧 Build система
+## 🔧 Build system
 
-### TypeScript конфигурация
+### TypeScript Configuration
 
 ```json
 // tsconfig.json
@@ -298,23 +298,23 @@ export { CardHeader, CardTitle, CardContent, CardFooter, CardDescription }
 }
 ```
 
-## 📊 Принципы организации
+## 📊 Organization Principles
 
-### 1. **Единая ответственность**
-Каждый файл/папка имеет одну четкую цель.
+### 1. **Single Responsibility**
+Each file/folder has one clear purpose.
 
-### 2. **Иерархический экспорт**
+### 2. **Hierarchical Export**
 ```
-index.ts → компоненты → ui компоненты → варианты
+index.ts → components → ui components → variants
 ```
 
-### 3. **Типобезопасность**
-Все экспорты типизированы, включая внутренние утилиты.
+### 3. **Type Safety**
+All exports are typed, including internal utilities.
 
 ### 4. **Tree Shaking**
-Неиспользуемый код автоматически исключается из бандла.
+Unused code is automatically excluded from bundle.
 
-### 5. **Семантическое версионирование**
-- PATCH: баг фиксы
-- MINOR: новые фичи (backward compatible)
+### 5. **Semantic Versioning**
+- PATCH: bug fixes
+- MINOR: new features (backward compatible)
 - MAJOR: breaking changes

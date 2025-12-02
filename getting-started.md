@@ -1,8 +1,8 @@
 # Getting Started with UI8Kit
 
-Это руководство поможет вам быстро начать работу с UI8Kit - современной React UI библиотекой.
+This guide will help you quickly get started with UI8Kit - a modern React UI library.
 
-## 📦 Установка
+## 📦 Installation
 
 ### npm
 ```bash
@@ -19,17 +19,17 @@ yarn add @ui8kit/core
 bun add @ui8kit/core
 ```
 
-## ⚡ Требования
+## ⚡ Requirements
 
 - **React**: `^18.0.0 || ^19.0.0`
-- **TypeScript**: `^5.0.0` (рекомендуется)
+- **TypeScript**: `^5.0.0` (recommended)
 - **Tailwind CSS**: `^3.3.0`
 
-## 🛠️ Настройка
+## 🛠️ Setup
 
-### 1. Настройка Tailwind CSS
+### 1. Configure Tailwind CSS
 
-Добавьте UI8Kit в ваш `tailwind.config.js`:
+Add UI8Kit to your `tailwind.config.js`:
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -40,7 +40,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // UI8Kit использует стандартные Tailwind цвета
+      // UI8Kit uses standard Tailwind colors
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -82,9 +82,9 @@ module.exports = {
 }
 ```
 
-### 2. CSS переменные
+### 2. CSS Variables
 
-Добавьте CSS переменные в ваш `globals.css`:
+Add CSS variables to your `globals.css`:
 
 ```css
 @tailwind base;
@@ -138,9 +138,9 @@ module.exports = {
 }
 ```
 
-## 🚀 Первый компонент
+## 🚀 Your First Component
 
-Импортируйте и используйте компоненты:
+Import and use components:
 
 ```tsx
 import { Button, Block, Container } from '@ui8kit/core'
@@ -160,9 +160,9 @@ function App() {
 export default App
 ```
 
-## 🎨 Темизация (опционально)
+## 🎨 Theming (Optional)
 
-Если вы хотите использовать кастомную тему:
+If you want to use a custom theme:
 
 ```tsx
 import { ThemeProvider } from './providers/theme'
@@ -182,41 +182,41 @@ const customTheme = {
 function App() {
   return (
     <ThemeProvider theme={customTheme}>
-      {/* Ваше приложение */}
+      {/* Your app */}
     </ThemeProvider>
   )
 }
 ```
 
-## 📁 Структура проекта
+## 📁 Project Structure
 
-Рекомендуемая структура:
+Recommended structure:
 
 ```
 src/
 ├── components/
-│   └── ui/           # Ваши кастомные компоненты
+│   └── ui/           # Your custom components
 ├── providers/
-│   └── theme.tsx     # Провайдер темы
+│   └── theme.tsx     # Theme provider
 ├── App.tsx
 └── main.tsx
 ```
 
 ## 🔧 TypeScript
 
-UI8Kit полностью типизирован. Для лучших типов:
+UI8Kit is fully typed. For best types:
 
 ```tsx
 import type { ButtonProps } from '@ui8kit/core'
 
-// Теперь у вас есть полный IntelliSense
+// Now you have full IntelliSense
 function CustomButton(props: ButtonProps) {
   return <Button {...props} />
 }
 ```
 
-## 🎯 Следующие шаги
+## 🎯 Next Steps
 
-- [API Reference](./api-reference/components.md) - Изучите все компоненты
-- [Development Guide](./development-guide/) - Лучшие практики разработки
-- [Examples](../apps/web/) - Посмотрите примеры использования
+- [API Reference](./api-reference/components.md) - Learn all components
+- [Development Guide](./development-guide/) - Best development practices
+- [Examples](../apps/web/) - See usage examples

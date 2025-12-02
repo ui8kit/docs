@@ -1,19 +1,19 @@
 # Build System
 
-UI8Kit использует современную систему сборки, оптимизированную для производительности, tree shaking и developer experience.
+UI8Kit uses a modern build system optimized for performance, tree shaking, and developer experience.
 
-## 🏗️ Архитектура сборки
+## 🏗️ Build Architecture
 
-### Monorepo структура
+### Monorepo Structure
 
 ```
 packages/
 ├── @ui8kit/
-│   ├── core/           # Основная библиотека
-│   ├── docs/           # Документация
-│   └── create-app/     # CLI инструмент
+│   ├── core/           # Main library
+│   ├── docs/           # Documentation
+│   └── create-app/     # CLI tool
 ├── apps/
-│   └── web/            # Пример приложения
+│   └── web/            # Example application
 workspace/
 ├── package.json        # Root dependencies
 ├── turbo.json          # Build orchestration
@@ -43,7 +43,7 @@ workspace/
 }
 ```
 
-## 📦 Core библиотека
+## 📦 Core Library
 
 ### TypeScript + tsc
 
@@ -92,7 +92,7 @@ workspace/
 }
 ```
 
-### Bundle анализ
+### Bundle Analysis
 
 ```bash
 # packages/@ui8kit/core/package.json
@@ -105,7 +105,7 @@ workspace/
 
 ## 🛠️ Development setup
 
-### Vite для приложений
+### Vite for Applications
 
 ```typescript
 // apps/web/vite.config.ts
@@ -141,16 +141,16 @@ export default defineConfig({
 
 ### Hot Module Replacement
 
-Vite предоставляет мгновенную HMR:
+Vite provides instant HMR:
 
 ```tsx
-// Автоматическая перезагрузка при изменениях
+// Automatic reload on changes
 if (import.meta.hot) {
   import.meta.hot.accept()
 }
 ```
 
-## 🎨 CSS и стилизация
+## 🎨 CSS and Styling
 
 ### Tailwind CSS
 
@@ -289,14 +289,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Разделение на chunks
+          // Chunk splitting
           vendor: ['react', 'react-dom'],
           ui: ['@ui8kit/core'],
           utils: ['clsx', 'tailwind-merge']
         }
       }
     },
-    // Минификация
+    // Minification
     minify: 'terser',
     terserOptions: {
       compress: {
@@ -313,7 +313,7 @@ export default defineConfig({
 ### Bundle analyzer
 
 ```bash
-# Анализ размера бандла
+# Bundle size analysis
 npm install -D vite-bundle-analyzer
 npm run build
 npx vite-bundle-analyzer dist
@@ -336,7 +336,7 @@ jobs:
       - run: lhci autorun
 ```
 
-## 🧪 Testing infrastructure
+## 🧪 Testing Infrastructure
 
 ### Jest + Testing Library
 
@@ -379,7 +379,7 @@ Object.defineProperty(window, 'matchMedia', {
 })
 ```
 
-## 🔄 Version management
+## 🔄 Version Management
 
 ### Changesets
 
@@ -401,7 +401,7 @@ Object.defineProperty(window, 'matchMedia', {
 ### Release workflow
 
 ```bash
-# Создание changeset
+# Create changeset
 npx changeset
 
 # Version bump
@@ -438,23 +438,23 @@ getLCP(console.log)
 getTTFB(console.log)
 ```
 
-## 🎯 Optimization strategies
+## 🎯 Optimization Strategies
 
 ### Tree shaking
 
 ```typescript
-// Убедитесь, что экспорты tree-shakeable
+// Ensure exports are tree-shakeable
 export { Button } from './Button'
 export type { ButtonProps } from './Button'
 
-// Не используйте default exports
+// Don't use default exports
 export { default as Button } from './Button' // ❌
 ```
 
 ### Dynamic imports
 
 ```tsx
-// Code splitting для роутов
+// Code splitting for routes
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Settings = lazy(() => import('./pages/Settings'))
 ```
@@ -493,7 +493,7 @@ jobs:
 ### CSP headers
 
 ```typescript
-// Для production сборки
+// For production build
 const csp = {
   'default-src': "'self'",
   'style-src': "'self' 'unsafe-inline'",
@@ -522,4 +522,4 @@ const csp = {
 - [Netlify](https://netlify.com/)
 - [Railway](https://railway.app/)
 
-Современная система сборки UI8Kit обеспечивает быструю разработку, высокую производительность и надежность в production! 🚀
+UI8Kit's modern build system ensures fast development, high performance, and reliability in production! 🚀

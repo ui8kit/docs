@@ -1,158 +1,158 @@
 # Development Guide Overview
 
-Добро пожаловать в руководство разработчика UI8Kit! Это всеобъемлющее руководство поможет вам максимально эффективно использовать библиотеку в ваших проектах.
+Welcome to the UI8Kit developer guide! This comprehensive guide will help you use the library most effectively in your projects.
 
-## 📋 Что вы найдете в этом разделе
+## 📋 What you'll find in this section
 
 ### [Development Guide](development-guide.md)
-Основное руководство с ключевыми концепциями, архитектурой проекта и инструментами разработки.
+Main guide with key concepts, project architecture, and development tools.
 
 ### [Basic Workflow](basic-workflow.md)
-Пошаговое руководство по началу работы - от установки до первого деплоя.
+Step-by-step guide to getting started - from installation to first deployment.
 
 ### [Best Practices](best-practices.md)
-Рекомендации и паттерны для создания поддерживаемого и масштабируемого кода.
+Recommendations and patterns for creating maintainable and scalable code.
 
 ### [Dark Mode](dark-mode.md)
-Полное руководство по реализации поддержки тем с системными предпочтениями.
+Complete guide to implementing theme support with system preferences.
 
-## 🎯 Ключевые темы
+## 🎯 Key Topics
 
-### Архитектурные принципы
-- **Utility-First**: Все стили через пропы компонентов
-- **TypeScript-First**: Полная типизация и автодополнение
-- **Полиморфные компоненты**: Гибкая семантическая разметка
-- **Система вариантов**: Консистентные визуальные примитивы
+### Architectural Principles
+- **Utility-First**: All styles through component props
+- **TypeScript-First**: Full typing and autocompletion
+- **Polymorphic components**: Flexible semantic markup
+- **Variant system**: Consistent visual primitives
 
-### Практические навыки
-- Настройка проекта и темы
-- Создание кастомных компонентов
-- Работа с формами и валидацией
-- Responsive дизайн и адаптивность
-- Тестирование и отладка
-- Оптимизация производительности
+### Practical Skills
+- Project and theme setup
+- Creating custom components
+- Working with forms and validation
+- Responsive design and adaptability
+- Testing and debugging
+- Performance optimization
 
-### Продвинутые возможности
-- Кастомизация тем и дизайн-систем
-- Создание compound компонентов
-- Accessibility и ARIA
-- Bundle анализ и оптимизация
-- CI/CD и автоматизация
+### Advanced Features
+- Theme customization and design systems
+- Creating compound components
+- Accessibility and ARIA
+- Bundle analysis and optimization
+- CI/CD and automation
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
-Если вы новичок в UI8Kit:
+If you're new to UI8Kit:
 
-1. **[Начните здесь](basic-workflow.md)** - пошаговое руководство по настройке
-2. **[Изучите API](../api-reference/)** - справочник компонентов
-3. **[Примеры использования](../apps/web/)** - посмотрите живые примеры
+1. **[Start here](basic-workflow.md)** - step-by-step setup guide
+2. **[Learn the API](../api-reference/)** - component reference
+3. **[Usage examples](../apps/web/)** - see live examples
 
-## 💡 Советы для опытных разработчиков
+## 💡 Tips for experienced developers
 
-### Миграция с других библиотек
-- UI8Kit использует знакомые концепции из shadcn/ui, Mantine и Radix
-- Переход обычно занимает 1-2 дня на типичный проект
-- Основные преимущества: меньший bundle size, лучшая производительность
-
-### Производительность
-- Zero-runtime CSS-in-JS
-- Автоматическое tree shaking
-- Оптимизированные Tailwind классы
-- Стабильные ре-рендеры через memoization
-
-### Типобезопасность
-- Полная TypeScript поддержка
-- Автодополнение во всех IDE
-- Runtime validation через prop types
-- Строгие контракты API
-
-## 🛠️ Инструменты и экосистема
-
-### Официальные инструменты
-- **@ui8kit/core** - основная библиотека
-- **@ui8kit/create-app** - CLI для создания проектов
-- **@ui8kit/docs** - эта документация
-
-### Рекомендуемые инструменты
-- **TypeScript 5.0+** - для типобезопасности
-- **Tailwind CSS 3.3+** - для стилизации
-- **Vite** - для быстрой разработки
-- **ESLint + Prettier** - для качества кода
-
-### Тестовые инструменты
-- **@testing-library/react** - для unit тестов
-- **@testing-library/jest-dom** - для матчеров
-- **@testing-library/user-event** - для симуляции пользовательских действий
-
-## 📊 Метрики и benchmarks
-
-### Bundle size
-- **@ui8kit/core**: ~15KB gzipped
-- **Включает**: все компоненты + система тем
-- **Tree shaking**: неиспользуемые компоненты исключаются автоматически
+### Migration from other libraries
+- UI8Kit uses familiar concepts from shadcn/ui, Mantine, and Radix
+- Migration usually takes 1-2 days for a typical project
+- Key advantages: smaller bundle size, better performance
 
 ### Performance
-- **Zero runtime overhead** - все стили компилируются в CSS
-- **Stable references** - компоненты не ре-рендерятся без необходимости
-- **Optimized class merging** - автоматическое разрешение конфликтов Tailwind
+- Zero-runtime CSS-in-JS
+- Automatic tree shaking
+- Optimized Tailwind classes
+- Stable re-renders through memoization
+
+### Type Safety
+- Full TypeScript support
+- Autocompletion in all IDEs
+- Runtime validation through prop types
+- Strict API contracts
+
+## 🛠️ Tools and Ecosystem
+
+### Official Tools
+- **@ui8kit/core** - main library
+- **@ui8kit/create-app** - CLI for creating projects
+- **@ui8kit/docs** - this documentation
+
+### Recommended Tools
+- **TypeScript 5.0+** - for type safety
+- **Tailwind CSS 3.3+** - for styling
+- **Vite** - for fast development
+- **ESLint + Prettier** - for code quality
+
+### Testing Tools
+- **@testing-library/react** - for unit tests
+- **@testing-library/jest-dom** - for matchers
+- **@testing-library/user-event** - for user interaction simulation
+
+## 📊 Metrics and Benchmarks
+
+### Bundle Size
+- **@ui8kit/core**: ~15KB gzipped
+- **Includes**: all components + theme system
+- **Tree shaking**: unused components automatically excluded
+
+### Performance
+- **Zero runtime overhead** - all styles compiled to CSS
+- **Stable references** - components don't re-render unnecessarily
+- **Optimized class merging** - automatic Tailwind conflict resolution
 
 ### Developer Experience
-- **Full IntelliSense** - автодополнение для всех пропов
-- **Hot reload** - мгновенные обновления в development
-- **Type checking** - ошибки компиляции вместо runtime ошибок
+- **Full IntelliSense** - autocompletion for all props
+- **Hot reload** - instant updates in development
+- **Type checking** - compile-time errors instead of runtime errors
 
-## 🎨 Дизайн философия
+## 🎨 Design Philosophy
 
-### Консистентность
-- Единая система spacing, colors, typography
-- Предсказуемые компонентные API
-- Стандартизированные паттерны взаимодействия
+### Consistency
+- Unified spacing, colors, typography system
+- Predictable component APIs
+- Standardized interaction patterns
 
-### Гибкость
-- Полиморфные компоненты для любой семантики
-- Кастомные варианты без изменения исходного кода
-- CSS переменные для простой темизации
+### Flexibility
+- Polymorphic components for any semantics
+- Custom variants without changing source code
+- CSS variables for easy theming
 
-### Доступность
-- ARIA атрибуты по умолчанию
+### Accessibility
+- ARIA attributes by default
 - Keyboard navigation
-- Screen reader поддержка
-- High contrast цвета
+- Screen reader support
+- High contrast colors
 
-## 🤝 Сообщество и поддержка
+## 🤝 Community and Support
 
-### Где получить помощь
-- **GitHub Issues** - для баг репортов и фич реквестов
-- **GitHub Discussions** - для вопросов и обсуждений
-- **Discord** - для быстрой помощи от сообщества
+### Where to get help
+- **GitHub Issues** - for bug reports and feature requests
+- **GitHub Discussions** - for questions and discussions
+- **Discord** - for quick community help
 
-### Как внести вклад
-- **Fork репозиторий** и создайте PR
-- **Следуйте contributing guide** для стандартов кода
-- **Пишите тесты** для новых фич
-- **Обновляйте документацию** при изменениях API
+### How to contribute
+- **Fork the repository** and create a PR
+- **Follow contributing guide** for code standards
+- **Write tests** for new features
+- **Update documentation** when APIs change
 
 ## 📈 Roadmap
 
-### Текущая версия (0.1.x)
-- ✅ Базовые UI компоненты
-- ✅ Система тем и dark mode
-- ✅ TypeScript поддержка
-- ✅ Документация
+### Current version (0.1.x)
+- ✅ Basic UI components
+- ✅ Theme system and dark mode
+- ✅ TypeScript support
+- ✅ Documentation
 
-### Планируемые возможности
-- 🔄 Form components с валидацией
-- 🔄 Data display компоненты (Table, DataGrid)
-- 🔄 Advanced theming система
-- 🔄 Internationalization поддержка
+### Planned features
+- 🔄 Form components with validation
+- 🔄 Data display components (Table, DataGrid)
+- 🔄 Advanced theming system
+- 🔄 Internationalization support
 
-## 🎯 Заключение
+## 🎯 Conclusion
 
-UI8Kit создан для того, чтобы сделать разработку UI максимально эффективной и приятной. Библиотека сочетает мощь современных инструментов с простотой использования.
+UI8Kit is designed to make UI development as efficient and pleasant as possible. The library combines the power of modern tools with ease of use.
 
-**Начните прямо сейчас:**
-- [Basic Workflow](basic-workflow.md) - первый проект за 10 минут
-- [API Reference](../api-reference/) - изучите все возможности
-- [Examples](../apps/web/) - вдохновитесь примерами
+**Start right now:**
+- [Basic Workflow](basic-workflow.md) - first project in 10 minutes
+- [API Reference](../api-reference/) - learn all capabilities
+- [Examples](../apps/web/) - get inspired by examples
 
-Приятной разработки! 🚀
+Happy coding! 🚀

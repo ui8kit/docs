@@ -1,8 +1,8 @@
 # Core UI API Reference
 
-Справочник по системе вариантов, утилит и низкоуровневым примитивам UI8Kit.
+Reference for variant system, utilities, and low-level primitives of UI8Kit.
 
-## 🎨 Система вариантов
+## 🎨 Система variantов
 
 ### Spacing Variants
 
@@ -32,7 +32,7 @@ spaceX="none" | "xs" | "sm" | "md" | "lg" | "xl"
 spaceY="none" | "xs" | "sm" | "md" | "lg" | "xl"
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Block p="md" mx="auto" spaceY="lg">
   <Text>Item 1</Text>
@@ -69,12 +69,12 @@ placeholder="foreground" | "muted"
 // Caret color
 caret="primary" | "secondary" | "accent" | "foreground" | "current" | "transparent"
 
-// Selection colors (требуют global styles)
+// Selection colors (global styles)
 selectionBg="primary" | "secondary" | "accent"
 selectionText="foreground" | "primary"
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Button bg="primary" c="primary-foreground">
   Primary Button
@@ -110,7 +110,7 @@ overflowY="auto" | "hidden" | "visible" | "scroll"
 z="auto" | "0" | "10" | "20" | "30" | "40" | "50"
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Container w="full" minH="screen" position="relative">
   <Block w="1/2" h="full" overflow="auto">
@@ -140,7 +140,7 @@ borderLeft="none" | "default" | "2" | "4" | "8"
 borderRight="none" | "default" | "2" | "4" | "8"
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Card rounded="xl" shadow="lg" border="default">
   Card content
@@ -172,7 +172,7 @@ grow="0" | "1"
 basis="auto" | "full" | "1/2" | "1/3" | "1/4"
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Group direction="row" align="center" justify="between" gap="md">
   <Button>Left</Button>
@@ -222,7 +222,7 @@ decoration="solid" | "double" | "dotted" | "dashed" | "wavy"
 decorationColor="current" | "foreground" | "primary" | ...
 ```
 
-**Примеры использования:**
+**Usage Examples:**
 ```tsx
 <Title size="4xl" fw="bold" ta="center" c="primary">
   Main Heading
@@ -286,25 +286,25 @@ rows="1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" |
 gap="none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 ```
 
-## 🛠️ Утилиты
+## 🛠️ Utilities
 
 ### cn() - Class Merger
 
 ```tsx
 import { cn } from '@ui8kit/core/lib/utils'
 
-// Объединяет классы и разрешает конфликты
+// Merges classes and resolves conflicts
 const classes = cn(
   "px-2 py-1 bg-red-500",
-  "px-4 bg-blue-500",  // перезапишет px-2
-  "text-center"         // добавит новый класс
+  "px-4 bg-blue-500",  // px-2 
+        "text-center"         // will add new class
 )
-// Результат: "py-1 px-4 bg-blue-500 text-center"
+// Result: "py-1 px-4 bg-blue-500 text-center"
 ```
 
-### Типы вариантов
+### Variant Types
 
-Все варианты экспортируют свои типы:
+All variants export their types:
 
 ```tsx
 import type {
@@ -322,7 +322,7 @@ import type {
 } from '@ui8kit/core'
 ```
 
-## 🎨 Создание кастомных вариантов
+## 🎨 Creating Custom Variants
 
 ```tsx
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -352,7 +352,7 @@ export type CustomProps = VariantProps<typeof customVariants>
 
 ## 🔄 Composition Patterns
 
-### Наследование вариантов
+### Variant Inheritance
 
 ```tsx
 interface MyComponentProps extends
@@ -363,7 +363,7 @@ interface MyComponentProps extends
 }
 ```
 
-### Композиция компонентов
+### Component Composition
 
 ```tsx
 const CustomButton = ({ variant, size, ...props }) => (

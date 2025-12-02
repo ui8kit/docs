@@ -1,83 +1,83 @@
 # Development Guide
 
-Комплексное руководство для разработчиков, работающих с UI8Kit. Здесь вы найдете все необходимое для эффективной разработки.
+Comprehensive guide for developers working with UI8Kit. Here you'll find everything you need for efficient development.
 
-## 📋 Содержание
+## 📋 Contents
 
-- [Basic Workflow](basic-workflow.md) - Пошаговое руководство по началу работы
-- [Best Practices](best-practices.md) - Рекомендации и паттерны
-- [Dark Mode](dark-mode.md) - Реализация поддержки тем
-- [Component Development](component-development.md) - Создание собственных компонентов
-- [Theme Customization](theme-customization.md) - Кастомизация тем
-- [Testing](testing.md) - Тестирование компонентов
-- [Performance](performance.md) - Оптимизация производительности
+- [Basic Workflow](basic-workflow.md) - Step-by-step getting started guide
+- [Best Practices](best-practices.md) - Recommendations and patterns
+- [Dark Mode](dark-mode.md) - Theme support implementation
+- [Component Development](component-development.md) - Creating custom components
+- [Theme Customization](theme-customization.md) - Theme customization
+- [Testing](testing.md) - Component testing
+- [Performance](performance.md) - Performance optimization
 
-## 🎯 Ключевые концепции
+## 🎯 Key Concepts
 
 ### Utility-First Architecture
 
-UI8Kit построен на принципах utility-first дизайна, где каждый визуальный аспект доступен через пропы:
+UI8Kit is built on utility-first design principles, where every visual aspect is accessible through props:
 
 ```tsx
-// Вместо CSS классов
+// Instead of CSS classes
 <div className="p-4 bg-blue-500 text-white rounded-md">
 
-// Используйте пропы
+// Use props
 <Block p="md" bg="primary" c="primary-foreground" rounded="md" />
 ```
 
-### Полиморфные компоненты
+### Polymorphic Components
 
-Все компоненты могут рендериться как любой HTML элемент:
+All components can render as any HTML element:
 
 ```tsx
-// Семантическая разметка
+// Semantic markup
 <Block component="section">
   <Block component="h1">Title</Block>
 </Block>
 
-// Доступность
+// Accessibility
 <Button component="a" href="/dashboard">
   Go to Dashboard
 </Button>
 ```
 
-### Система вариантов (CVA)
+### Variant System (CVA)
 
-Типобезопасные варианты через Class Variance Authority:
+Type-safe variants through Class Variance Authority:
 
 ```tsx
-// Варианты автоматически типизируются
+// Variants are automatically typed
 <Button variant="primary" size="lg" />
 
-// TypeScript знает все возможные значения
+// TypeScript knows all possible values
 type ButtonProps = {
   variant?: "default" | "primary" | "destructive" | ...
   size?: "xs" | "sm" | "default" | "lg" | "xl" | "icon"
 }
 ```
 
-## 🏗️ Архитектура проекта
+## 🏗️ Project Architecture
 
-### Рекомендуемая структура
+### Recommended Structure
 
 ```
 src/
-├── components/          # Переиспользуемые компоненты
-│   ├── ui/             # Базовые UI компоненты
-│   ├── forms/          # Формы и поля ввода
-│   ├── layout/         # Layout компоненты
-│   └── feedback/       # Уведомления, модалы
-├── hooks/              # Кастомные хуки
-├── lib/                # Утилиты и helpers
+├── components/          # Reusable components
+│   ├── ui/             # Basic UI components
+│   ├── forms/          # Forms and input fields
+│   ├── layout/         # Layout components
+│   └── feedback/       # Notifications, modals
+├── hooks/              # Custom hooks
+├── lib/                # Utilities and helpers
 ├── providers/          # Context providers (theme, auth, etc.)
-├── styles/             # Глобальные стили
-├── types/              # TypeScript типы
-├── constants/          # Константы приложения
-└── utils/              # Вспомогательные функции
+├── styles/             # Global styles
+├── types/              # TypeScript types
+├── constants/          # Application constants
+└── utils/              # Helper functions
 ```
 
-### Организация компонентов
+### Component Organization
 
 ```tsx
 // components/index.ts - Barrel exports
@@ -104,9 +104,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 ```
 
-## 🎨 Работа с темами
+## 🎨 Working with Themes
 
-### Базовая настройка
+### Basic Setup
 
 ```tsx
 // providers/theme.tsx
@@ -131,7 +131,7 @@ export function useTheme<T extends ThemeBase = ThemeBase>() {
 }
 ```
 
-### Кастомные темы
+### Custom Themes
 
 ```tsx
 // themes/index.ts
@@ -154,9 +154,9 @@ export const darkTheme = {
 }
 ```
 
-## 🔧 Инструменты разработки
+## 🔧 Development Tools
 
-### TypeScript конфигурация
+### TypeScript Configuration
 
 ```json
 // tsconfig.json
@@ -182,7 +182,7 @@ export const darkTheme = {
 }
 ```
 
-### ESLint конфигурация
+### ESLint Configuration
 
 ```js
 // eslint.config.js
@@ -206,7 +206,7 @@ export default [
 ]
 ```
 
-### Prettier конфигурация
+### Prettier Configuration
 
 ```js
 // prettier.config.js
@@ -219,9 +219,9 @@ export default {
 }
 ```
 
-## 🧪 Тестирование
+## 🧪 Testing
 
-### Настройка тестовой среды
+### Test Environment Setup
 
 ```tsx
 // src/test-utils.tsx
@@ -246,7 +246,7 @@ export * from '@testing-library/react'
 export { customRender as render }
 ```
 
-### Примеры тестов
+### Test Examples
 
 ```tsx
 // components/__tests__/Button.test.tsx
@@ -274,51 +274,51 @@ describe('Button', () => {
 })
 ```
 
-## 🚀 Оптимизация производительности
+## 🚀 Performance Optimization
 
 ### React DevTools
 
-Используйте React DevTools для профилирования:
+Use React DevTools for profiling:
 
-1. Установите расширение браузера
-2. Включите "Highlight updates when components render"
-3. Используйте Profiler для анализа производительности
+1. Install browser extension
+2. Enable "Highlight updates when components render"
+3. Use Profiler for performance analysis
 
-### Bundle анализ
+### Bundle Analysis
 
 ```bash
-# Анализ размера бандла
+# Analyze bundle size
 npm install -D vite-bundle-analyzer
 npm run build
 npx vite-bundle-analyzer dist
 ```
 
-### Оптимизации
+### Optimizations
 
 ```tsx
-// Мемоизация компонентов
+// Component memoization
 const MemoizedComponent = memo(function Component({ data }) {
   return <div>{data}</div>
 })
 
-// Мемоизация вычислений
+// Computation memoization
 const filteredData = useMemo(() =>
   data.filter(item => item.active),
   [data]
 )
 
-// Стабильные коллбеки
+// Stable callbacks
 const handleClick = useCallback(() => {
   setCount(c => c + 1)
 }, [])
 ```
 
-## ♿ Доступность (Accessibility)
+## ♿ Accessibility
 
-### ARIA атрибуты
+### ARIA Attributes
 
 ```tsx
-// Правильное использование ARIA
+// Correct ARIA usage
 <Button
   aria-expanded={isOpen}
   aria-controls="menu"
@@ -327,7 +327,7 @@ const handleClick = useCallback(() => {
   Menu
 </Button>
 
-// Screen reader контент
+// Screen reader content
 <Text className="sr-only">
   Screen reader only text
 </Text>
@@ -336,7 +336,7 @@ const handleClick = useCallback(() => {
 ### Keyboard navigation
 
 ```tsx
-// Правильный focus management
+// Correct focus management
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault()
@@ -348,11 +348,11 @@ const handleKeyDown = (e: KeyboardEvent) => {
 ### Color contrast
 
 ```tsx
-// Используйте семантические цвета
+// Use semantic colors
 <Text c="foreground">High contrast text</Text>
 <Text c="muted">Lower contrast text</Text>
 
-// Не используйте жестко заданные цвета
+// Don't use hardcoded colors
 <Text className="text-gray-600">Bad contrast</Text>
 ```
 
@@ -386,33 +386,33 @@ jobs:
 ### Pre-commit hooks
 
 ```bash
-# Установите husky
+# Install husky
 npm install -D husky
 npx husky install
 
-# Добавьте хуки
+# Add hooks
 echo 'npm run type-check' > .husky/pre-commit
-echo 'npm run lint' > .husky/pre-commit
-echo 'npm run test' > .husky/pre-commit
+echo 'npm run lint' >> .husky/pre-commit
+echo 'npm run test' >> .husky/pre-commit
 ```
 
-## 📚 Ресурсы
+## 📚 Resources
 
-### Официальная документация
+### Official Documentation
 
 - [React Documentation](https://react.dev)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [Testing Library](https://testing-library.com/docs/)
 
-### Инструменты
+### Tools
 
 - [React DevTools](https://react.dev/learn/react-developer-tools)
 - [Vite Bundle Analyzer](https://github.com/btd/vite-bundle-analyzer)
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse)
 - [axe-core](https://github.com/dequelabs/axe-core) - Accessibility testing
 
-### Сообщество
+### Community
 
 - [React Discord](https://discord.gg/react)
 - [TypeScript Community](https://discord.gg/typescript)
@@ -420,43 +420,43 @@ echo 'npm run test' > .husky/pre-commit
 
 ## 🆘 Troubleshooting
 
-### Распространенные проблемы
+### Common Issues
 
-1. **TypeScript ошибки**
-   - Проверьте `tsconfig.json`
-   - Убедитесь в правильности импортов
+1. **TypeScript Errors**
+   - Check `tsconfig.json`
+   - Ensure imports are correct
 
-2. **Стили не применяются**
-   - Проверьте Tailwind конфигурацию
-   - Убедитесь, что content paths корректны
+2. **Styles Not Applied**
+   - Check Tailwind configuration
+   - Ensure content paths are correct
 
-3. **Компоненты не рендерятся**
-   - Проверьте ThemeProvider
-   - Убедитесь в правильности CSS переменных
+3. **Components Not Rendering**
+   - Check ThemeProvider
+   - Ensure CSS variables are correct
 
-4. **Производительность**
-   - Используйте React DevTools Profiler
-   - Проверьте bundle analyzer
+4. **Performance**
+   - Use React DevTools Profiler
+   - Check bundle analyzer
 
-### Debug режим
+### Debug Mode
 
 ```tsx
-// Добавьте debug helpers в development
+// Add debug helpers in development
 if (process.env.NODE_ENV === 'development') {
   console.log('Component props:', props)
   console.log('Theme context:', useTheme())
 }
 ```
 
-## 🎯 Следующие шаги
+## 🎯 Next Steps
 
-Теперь, когда вы ознакомились с основами:
+Now that you're familiar with the basics:
 
-1. **Начните с [Basic Workflow](basic-workflow.md)**
-2. **Изучите [Best Practices](best-practices.md)**
-3. **Настройте [Dark Mode](dark-mode.md)**
-4. **Создайте свои компоненты**
-5. **Напишите тесты**
-6. **Оптимизируйте производительность**
+1. **Start with [Basic Workflow](basic-workflow.md)**
+2. **Learn [Best Practices](best-practices.md)**
+3. **Set up [Dark Mode](dark-mode.md)**
+4. **Create your components**
+5. **Write tests**
+6. **Optimize performance**
 
-Присоединяйтесь к сообществу и делитесь своими компонентами! 🚀
+Join the community and share your components! 🚀

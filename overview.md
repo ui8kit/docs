@@ -1,16 +1,16 @@
 # UI8Kit Overview
 
-**UI8Kit** - это современная React UI библиотека, построенная на принципах utility-first дизайна с семантическими классами. Библиотека сочетает гибкость Tailwind CSS с удобством готовых компонентов.
+**UI8Kit** is a modern React UI library built on utility-first design principles with semantic classes. The library combines the flexibility of Tailwind CSS with the convenience of ready-made components.
 
-## 🎯 Ключевые особенности
+## 🎯 Key Features
 
-- **TypeScript-first**: Полная типизация с автодополнением
-- **Utility-first**: Все визуальные свойства доступны как пропы
-- **Полиморфные компоненты**: Один компонент может рендериться как любой HTML элемент
-- **Система вариантов**: Консистентная система стилей через CVA
-- **Минималистичный API**: Чистые, предсказуемые интерфейсы
+- **TypeScript-first**: Full type safety with autocompletion
+- **Utility-first**: All visual properties available as props
+- **Polymorphic components**: One component can render as any HTML element
+- **Variant system**: Consistent styling system through CVA
+- **Minimalist API**: Clean, predictable interfaces
 
-## 🏗️ Архитектура
+## 🏗️ Architecture
 
 ```
 USER LEVEL               COMPOSITE LEVEL           PRIMITIVE LEVEL
@@ -23,35 +23,35 @@ USER LEVEL               COMPOSITE LEVEL           PRIMITIVE LEVEL
 └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
 
-## 📦 Что входит в библиотеку
+## 📦 What's Included
 
-### Базовые примитивы
-- **Block** - Семантический контейнер с полным контролем стилей
-- **Box** - Гибкий примитив с поддержкой всех вариантов
+### Basic Primitives
+- **Block** - Semantic container with full style control
+- **Box** - Flexible primitive with support for all variants
 
-### Лейаут компоненты
-- **Container** - Адаптивный контейнер с предустановленными размерами
-- **Stack** - Вертикальный стек с контролем промежутков
-- **Group** - Горизонтальный стек с выравниванием
-- **Grid** - CSS Grid с адаптивными пресетами
+### Layout Components
+- **Container** - Responsive container with preset sizes
+- **Stack** - Vertical stack with gap control
+- **Group** - Horizontal stack with alignment
+- **Grid** - CSS Grid with responsive presets
 
-### UI компоненты
-- **Button** - Интерактивная кнопка с вариантами и состояниями
-- **Badge** - Маленькие индикаторы статуса
-- **Title** - Семантические заголовки с типографикой
-- **Text** - Текстовые элементы с полным контролем
-- **Image** - Улучшенный компонент изображения
-- **Icon** - Обертка иконок с размером и цветом
-- **Card** - Карточка с составной структурой
+### UI Components
+- **Button** - Interactive button with variants and states
+- **Badge** - Small status indicators
+- **Title** - Semantic headings with typography
+- **Text** - Text elements with full control
+- **Image** - Enhanced image component
+- **Icon** - Icon wrapper with size and color control
+- **Card** - Card with compound structure
 
-### Композитные компоненты
-- **Sheet** - Модальный оверлей с анимациями
-- **Accordion** - Раскрывающийся контент
+### Composite Components
+- **Sheet** - Modal overlay with animations
+- **Accordion** - Expandable content
 
-## 🎨 Система стилей
+## 🎨 Styling System
 
-### Универсальные пропы
-Все компоненты поддерживают универсальные визуальные пропы:
+### Universal Props
+All components support universal visual props:
 
 ```tsx
 <Block
@@ -65,15 +65,15 @@ USER LEVEL               COMPOSITE LEVEL           PRIMITIVE LEVEL
 />
 ```
 
-### Цветовая система
-Библиотека использует семантическую цветовую систему:
-- `primary` / `secondary` - основные цвета
-- `muted` / `accent` - второстепенные цвета
-- `destructive` - цвета ошибок
-- `foreground` / `background` - базовые цвета текста и фона
+### Color System
+The library uses a semantic color system:
+- `primary` / `secondary` - primary colors
+- `muted` / `accent` - secondary colors
+- `destructive` - error colors
+- `foreground` / `background` - base text and background colors
 
-### Темизация
-Простая система тем с поддержкой dark mode:
+### Theming
+Simple theme system with dark mode support:
 
 ```tsx
 const theme = {
@@ -84,7 +84,7 @@ const theme = {
 }
 ```
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
 ```bash
 npm install @ui8kit/core
@@ -106,9 +106,9 @@ function App() {
 }
 ```
 
-## 📚 Документация
+## 📚 Documentation
 
-- [Getting Started](./getting-started.md) - Установка и настройка
-- [API Reference](./api-reference/) - Справочник компонентов
-- [Architecture](./architecture/) - Архитектура библиотеки
-- [Development Guide](./development-guide/) - Руководство разработчика
+- [Getting Started](./getting-started.md) - Installation and setup
+- [API Reference](./api-reference/) - Component reference
+- [Architecture](./architecture/) - Library architecture
+- [Development Guide](./development-guide/) - Developer guide
